@@ -58,6 +58,9 @@ module JsonRpcObjects
                 if not @result.nil? and not @error.nil?
                     raise Exception::new("Either result or error must be nil.")
                 end
+                if @id.nil?
+                    raise Exception::new("ID is required for 1.0 responses.")
+                end
             end
             
             ##

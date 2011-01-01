@@ -1,6 +1,5 @@
 # encoding: utf-8
 require "yajl/json_gem"
-require "multitype-introspection"
 
 module JsonRpcObjects
     module V10

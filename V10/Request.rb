@@ -1,9 +1,10 @@
 # encoding: utf-8
 require "yajl/json_gem"
+require "multitype-introspection"
 
 module JsonRpcObjects
     module V10
-        class Request < JsonRpcObjects::GenericObject
+        class Request
         
             ##
             # Holds request method name.
@@ -54,8 +55,11 @@ module JsonRpcObjects
             
             def check!
                 self.normalize!
-                if @method.nil?
-                    raise Exception::new("Invalid method specification. Method cannot be nil.")
+                if not @method.kind_of_any? [String, Symbol]
+                    raise Exception::new("Invalid method specification. Method mustb be Symbol or String.")
+                end
+                if not @params.kind_of? Array
+                    raise Exception::new("Params must be Array.")
                 end
             end
             
@@ -65,7 +69,29 @@ module JsonRpcObjects
             
             def to_json
                 self.check!
-                @data.to_json
+                data = {
+                    "method" => @method,
+                    "params" => @params,
+                    "id" => @id
+                }
+                
+                return data.to_json
+            end
+            
+            ##
+            # Executes request on appropriate object.
+            #
+            
+            def execute(object)
+                object.send(@method.to_sym, *@params)
+            end
+            
+            ##
+            # Indicates, it's notification.
+            #
+
+            def is_notification?
+                @id.nil?
             end
             
             

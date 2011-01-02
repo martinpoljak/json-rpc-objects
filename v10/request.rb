@@ -1,6 +1,7 @@
 # encoding: utf-8
 require "yajl/json_gem"
 require "multitype-introspection"
+require "hash-utils"
 
 module JsonRpcObjects
     module V10
@@ -28,7 +29,7 @@ module JsonRpcObjects
             attr_accessor :id
             
             ##
-            # Parses JSON-RPC request string.
+            # Parses JSON-RPC string.
             #
             
             def self.parse(string)
@@ -36,7 +37,7 @@ module JsonRpcObjects
             end
             
             ##
-            # Creates new JSON-RPC request.
+            # Creates new one.
             #
             
             def self.create(method, params = [ ], opts = { })
@@ -55,14 +56,10 @@ module JsonRpcObjects
             
             def check!
                 self.normalize!
-                if not @method.kind_of_any? [String, Symbol]
-                    raise Exception::new("Invalid method specification. Method mustb be Symbol or String.")
-                end
-                if not @params.kind_of? Array
-                    raise Exception::new("Params must be Array.")
-                end
+                __check_method
+                __check_params
             end
-            
+                                        
             ##
             # Converts request back to JSON.
             #
@@ -94,6 +91,16 @@ module JsonRpcObjects
                 @id.nil?
             end
             
+            ##
+            # Converts request data to standard (defined) format.
+            #
+            
+            def normalize!
+                __normalize_method
+                __normalize_params
+            end
+
+            
             
             protected
             
@@ -111,10 +118,7 @@ module JsonRpcObjects
             #
 
             def data=(value)            
-                data = { }
-                value.each_pair do |k, v|
-                    data[k.to_sym] = v
-                end
+                data = value.keys_to_sym
                 
                 @method = data[:method]
                 @params = data[:params]
@@ -122,15 +126,40 @@ module JsonRpcObjects
             end
             
             ##
-            # Converts request data to standard (defined) format.
+            # Checks method data.
             #
             
-            def normalize!
-                # Corrects content
-                if @method.kind_of_any? [String, Symbol]
+            def __check_method
+                if not @method.kind_of_any? [String, Symbol]
+                    raise Exception::new("Invalid method specification. Method must be Symbol or String.")
+                end
+            end
+            
+            ##
+            # Checks params data.
+            #
+            
+            def __check_params
+                if not @params.kind_of? Array
+                    raise Exception::new("Params must be Array.")
+                end
+            end
+            
+            ##
+            # Normalizes method.
+            #
+            
+            def __normalize_method
+                if @method.kind_of? String
                     @method = @method.to_sym
                 end
-                
+            end
+            
+            ##
+            # Normalizes params.
+            #
+            
+            def __normalize_params
                 if @params.nil?
                     @params = [ ]
                 end

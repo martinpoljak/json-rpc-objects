@@ -1,32 +1,31 @@
 # encoding: utf-8
 require "yajl/json_gem"
-require "hash-utils"
 
 module JsonRpcObjects
-    module V10
-        class Response
+    module V11
+        class Error
         
             ##
-            # Holds result data.
+            # Holds error code.
             #
-        
-            @result
-            attr_accessor :result
+            
+            @code
+            attr_accessor :code
+            
+            ##
+            # Holds error message.
+            #
+            
+            @message
+            attr_accessor :message
             
             ##
             # Holds error data.
             #
             
-            @error
-            attr_accessor :error
-            
-            ##
-            # Call ID.
-            #
-            
-            @id
-            attr_accessor :id
-            
+            @data
+            attr_accessor :data
+        
             ##
             # Parses JSON-RPC string.
             #
@@ -34,32 +33,35 @@ module JsonRpcObjects
             def self.parse(string)
                 self::new(JSON.load(string))
             end
-            
+
             ##
             # Creates new one.
             #
             
-            def self.create(result = nil, error = nil, opts = { })
+            def self.create(code, exception_or_message, opts = { })
                 data = {
-                    :result => result,
-                    :error => error
+                    :code => code,
                 }
+                
+                if exception_or_message.kind_of? Exception
+                    data[:message] = exception_or_message.message
+                    data[:error] = exception.backtrace
+                else
+                    data[:message] = exception_or_message
+                end
                 
                 data.merge! opts
                 return self::new(data)
             end
             
             ##
-            # Checks correctness of the request data.
+            # Checks correctness of the data.
             #
             
             def check!
                 self.normalize!
-                if not @result.nil? and not @error.nil?
-                    raise Exception::new("Either result or error must be nil.")
-                end
-                if @id.nil?
-                    raise Exception::new("ID is required for 1.0 responses.")
+                if (@code < 100) or (@code > 999)
+                    raise Exception::new("Code must be between 100 and 999 including them.")
                 end
             end
             
@@ -70,15 +72,20 @@ module JsonRpcObjects
             def to_json
                 self.check!
                 data = {
-                    "result" => @result,
-                    "error" => @error,
-                    "id" => @id
+                    "name" => "JSONRPCError",
+                    "code" => @code,
+                    "message" => @message
                 }
+                
+                if not @error.nil?
+                    data["error"] = @data
+                end
                 
                 return data.to_json
             end
-            
-            
+                
+                
+                
             protected
             
             ##
@@ -93,7 +100,7 @@ module JsonRpcObjects
             ##
             # Assigns request data.
             #
-
+            
             def data=(value)            
                 data = value.keys_to_sym
                 
@@ -107,8 +114,12 @@ module JsonRpcObjects
             #
             
             def normalize!
+                if not @code.kind_of? Integer
+                    @code = @code.to_i
+                end
             end
-            
+
+                  
         end
     end
 end

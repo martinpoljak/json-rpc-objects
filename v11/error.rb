@@ -60,6 +60,7 @@ module JsonRpcObjects
             
             def check!
                 self.normalize!
+                
                 if (@code < 100) or (@code > 999)
                     raise Exception::new("Code must be between 100 and 999 including them.")
                 end
@@ -114,9 +115,8 @@ module JsonRpcObjects
             #
             
             def normalize!
-                if not @code.kind_of? Integer
-                    @code = @code.to_i
-                end
+                @message = @message.to_s
+                @code = @code.to_i
             end
 
                   

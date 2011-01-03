@@ -36,8 +36,8 @@ module JsonRpcObjects
             
             def to_json
                 self.check!
-                data = { 
-                    "method" => @method,
+                data = {  
+                    "method" => @method.to_s,
                     "version" => "1.1"
                 }
                 
@@ -57,7 +57,7 @@ module JsonRpcObjects
             # In 1.1 returns always false.
             #
 
-            def is_notification?
+            def notification?
                 false
             end
             

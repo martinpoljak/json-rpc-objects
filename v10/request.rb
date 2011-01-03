@@ -1,6 +1,5 @@
 # encoding: utf-8
 require "yajl/json_gem"
-require "multitype-introspection"
 require "hash-utils"
 
 module JsonRpcObjects
@@ -67,7 +66,7 @@ module JsonRpcObjects
             def to_json
                 self.check!
                 data = {
-                    "method" => @method,
+                    "method" => @method.to_s,
                     "params" => @params,
                     "id" => @id
                 }
@@ -87,7 +86,7 @@ module JsonRpcObjects
             # Indicates, it's notification.
             #
 
-            def is_notification?
+            def notification?
                 @id.nil?
             end
             
@@ -130,8 +129,8 @@ module JsonRpcObjects
             #
             
             def __check_method
-                if not @method.kind_of_any? [String, Symbol]
-                    raise Exception::new("Invalid method specification. Method must be Symbol or String.")
+                if not @method.kind_of? Symbol
+                    raise Exception::new("Invalid method specification. Method must be Symbol (or, but indirectly String).")
                 end
             end
             

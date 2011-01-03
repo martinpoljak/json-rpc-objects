@@ -1,61 +1,55 @@
 # encoding: utf-8
 require "yajl/json_gem"
-require "version"
 require "addressable/uri"
-require "json-rpc-objects/v11/service-procedure-description"
+require "multitype-introspection"
+require "types"
+require "json-rpc-objects/v11/procedure-parameter-description"
 
 module JsonRpcObjects
     module V11
-        class ServiceDescription
+        class ServiceProcedureDescription
         
             ##
-            # Holds service name.
+            # Holds procedure name.
             #
             
             @name
             attr_accessor :name
             
             ##
-            # Holds service identifier.
-            #
-            
-            @id
-            attr_accessor :id
-            
-            ##
-            # Holds service version.
-            #
-            
-            @version
-            attr_accessor :version
-            
-            ##
-            # Holds service summary.
+            # Holds procedure summary.
             #
             
             @summary
             attr_accessor :summary
             
             ##
-            # Holds service help URL.
+            # Holds procedure help URL.
             #
             
             @help
             attr_accessor :url
             
             ##
-            # Holds service address.
+            # Indicates procedure idempotency.
             #
             
-            @address
-            attr_accessor :address
+            @idempotent
+            attr_accessor :idempotent
             
             ##
-            # Holds procedure descriptions.
+            # Holds procedure params specification.
             #
             
-            @procs
-            attr_accessor :procs
+            @params
+            attr_accessor :params
+            
+            ##
+            # Holds procedure return value specification.
+            #
+            
+            @return
+            attr_accessor :return
         
             ##
             # Parses JSON-RPC string.
@@ -69,12 +63,8 @@ module JsonRpcObjects
             # Creates new one.
             #
             
-            def self.create(name, id, opts = { })
-                data = {
-                    :name => name,
-                    :id => id
-                }
-                
+            def self.create(name, opts = { })
+                data = { :name => name }
                 data.merge! opts
                 return self::new(data)
             end
@@ -85,31 +75,27 @@ module JsonRpcObjects
             
             def check!
                 self.normalize!
-                by
-                if not (@version.nil?) and ((@version.to_a.length < 2) or @version.prerelease?)
-                    raise Exception::new("Version must be at least in <major>.<minor> format and must contain numbers only.")
+
+                if (not @params.nil?) and ((not @params.kind_of? Array) or (not @params.all? { |v| v.kind_of? JsonRpcObjects::V11::ProcedureParameterDescription }))
+                    raise Exception::new("If params is defined, must be an Array of JsonRpcObjects::V11::ProcedureParameterDescription objects.")
                 end
                 
-                if (not @procs.nil?) and ((not @procs.kind_of? Array) or (not @procs.all? { |v| v.kind_of? JsonRpcObjects::V11::ServiceProcedureDescription }))
-                    raise Exception::new("If procs is defined, must be an Array of JsonRpcObjects::V11::ServiceProcedureDescription objects.")
+                if (not @return.nil?) and (not @return.kind_of? JsonRpcObjects::V11::ProcedureParameterDescription)
+                    raise Exception::new("If return is defined, must be set to JsonRpcObjects::V11::ProcedureParameterDescription object.")
+                end
+
+                if (not @idempotent.nil?) and (not @idempotent.type_of? Boolean)
+                    raise Exception::new("If idempotent is defined, must be boolean.")
                 end
             end
             
             ##
-            # Converts request back to JSON.
+            # Converts back to JSON.
             #
             
             def to_json
                 self.check!
-                data = {
-                    "sdversion" => "1.0",
-                    "name" => @name.to_s,
-                    "id" => @id.to_s
-                }
-                
-                if not @version.nil?
-                    data["version"] = @version.to_s
-                end
+                data = { "name" => @name.to_s }
                 
                 if not @summary.nil?
                     data["summary"] = @summary
@@ -119,12 +105,16 @@ module JsonRpcObjects
                     data["help"] = @help.to_s
                 end
                 
-                if not @address.nil?
-                    data["address"] = @address.to_s
+                if not @idempotent.nil?
+                    data["idempotent"] = @idempotent
                 end
                 
-                if not @procs.nil?
-                    data["procs"] = @procs
+                if not @params.nil?
+                    data["params"] = @params
+                end
+
+                if not @return.nil?
+                    data["return"] = @return
                 end
                 
                 return data.to_json
@@ -151,15 +141,18 @@ module JsonRpcObjects
                 data = value.keys_to_sym
                 
                 @name = data[:name]
-                @id = data[:id]
-                @version = data[:version]
                 @summary = data[:summary]
                 @help = data[:help]
-                @address = data[:address]
-                @procs = data[:procs]
+                @idempotent = data[:idempotent]
+                @params = data[:params]
+                @return = data[:return]
                 
-                if @procs.kind_of? Array
-                    @procs = @procs.map { |v| JsonRpcObjects::V11::ServiceProcedureDescription::new(v) }
+                if @params.kind_of? Array
+                    @params = @params.map { |v| JsonRpcObjects::V11::ProcedureParameterDescription::new(v) }
+                end
+                
+                if @return.kind_of? Hash
+                    @return = JsonRpcObjects::V11::ProcedureParameterDescription::new(@return)
                 end
             end
             
@@ -169,11 +162,6 @@ module JsonRpcObjects
             
             def normalize!
                 @name = @name.to_s
-                @id = @id.to_s
-                
-                if (not @version.nil?) and (not @version.kind_of? Version)
-                    @version = @version.to_s.to_version
-                end
                 
                 if not @summary.nil?
                     @summary = @summary.to_s
@@ -181,10 +169,6 @@ module JsonRpcObjects
                 
                 if (not @help.nil?) and (not @help.kind_of? Addressable::URI)
                     @help = Addressable::URI::parse(@help.to_s)
-                end
-                
-                if (not @address.nil?) and (not @address.kind_of? Addressable::URI)
-                    @address = Addressable::URI::parse(@address.to_s)
                 end
             end
 

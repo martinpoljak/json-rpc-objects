@@ -69,6 +69,34 @@ module JsonRpcObjects
                 false
             end
             
+            ##
+            # Handles method missing call for extensions.
+            #
+            
+            def method_missing(name, *args)
+                if name.to_s[-1].chr == ?=
+                    self[name.to_s[0..-2].to_sym] = args.first
+                else
+                    self[name]
+                end
+            end
+            
+            ##
+            # Handles array access as access for extensions too.
+            #
+            
+            def [](name)
+                @extensions[name]
+            end
+            
+            ##
+            # Handles array set to extensions.
+            #
+            
+            def []=(name, value)
+                @extensions[name] = value
+            end
+            
             
             protected
             

@@ -124,7 +124,23 @@ module JsonRpcObjects
                 
                 return data.to_json
             end
+            
+            ##
+            # Receives service procedure description objects.
+            #
+            
+            def <<(value)
+                if not value.kind_of? JsonRpcObjects::V11::ProcedureParameterDescription
+                    raise Exception::new("ProcedureParameterDescription object expected.")
+                end
                 
+                if @procs.nil?
+                    @params = [ ]
+                end
+                
+                @params << value
+            end
+                                
                 
                 
             protected

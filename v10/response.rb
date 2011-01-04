@@ -78,6 +78,14 @@ module JsonRpcObjects
                 return data.to_json
             end
             
+            ## 
+            # Receives result by array fill operator.
+            #
+            
+            def <<(result)
+                @result = result
+            end
+            
             
             protected
             

@@ -1,12 +1,19 @@
 # encoding: utf-8
 require "yajl/json_gem"
-require "json-rpc-objects/v10/request"
 require "multitype-introspection"
 require "hash-utils"
+require "json-rpc-objects/v10/request"
 
 module JsonRpcObjects
     module V11
         class ProcedureCall < JsonRpcObjects::V10::Request
+        
+            ##
+            # Holds extensions.
+            #
+            
+            @extensions
+            attr_accessor :extensions
         
             ##
             # Parses JSON-RPC string.
@@ -49,6 +56,7 @@ module JsonRpcObjects
                     data["id"] = @id
                 end
                 
+                data.merge! @extensions.map_keys { |k| k.to_s }                
                 return data.to_json
             end
 
@@ -61,17 +69,6 @@ module JsonRpcObjects
                 false
             end
             
-            ##
-            # Converts request data to standard (defined) format.
-            #
-            
-            def normalize!
-                __normalize_method
-            end
-            
-            remove_method :__normalize_params
-
-            
             
             protected
             
@@ -79,14 +76,36 @@ module JsonRpcObjects
             # Assigns request data.
             #
 
-            def data=(value)            
-                super(value)
+            def data=(value)
+                data = value.keys_to_sym
+                super(data)
                 
                 # If named arguments used, assigns keys as symbols
                 if @params.kind_of? Hash
                     @params = @params.keys_to_sym
                 end
+                
+                data.delete(:method)
+                data.delete(:params)
+                data.delete(:id)
+                
+                # Extensions
+                @extensions = data
+            end            
+            
+            ##
+            # Converts request data to standard (defined) format.
+            #
+            
+            def normalize!
+                __normalize_method
+                
+                if @extensions.nil?
+                    @extensions = { }
+                end
             end
+            
+            remove_method :__normalize_params
             
             ##
             # Checks params data.
@@ -101,3 +120,4 @@ module JsonRpcObjects
         end
     end
 end
+

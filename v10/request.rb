@@ -130,7 +130,7 @@ module JsonRpcObjects
             
             def __check_method
                 if not @method.kind_of? Symbol
-                    raise Exception::new("Invalid method specification. Method must be Symbol (or, but indirectly String).")
+                    raise Exception::new("Service name must be Symbol or convertable to Symbol.")
                 end
             end
             

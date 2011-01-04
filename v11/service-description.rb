@@ -3,6 +3,7 @@ require "yajl/json_gem"
 require "version"
 require "addressable/uri"
 require "json-rpc-objects/v11/service-procedure-description"
+require "hash-utils"
 
 module JsonRpcObjects
     module V11
@@ -85,7 +86,11 @@ module JsonRpcObjects
             
             def check!
                 self.normalize!
-                by
+                
+                if not @name.kind_of? Symbol
+                    raise Exception::new("Service name must be Symbol or convertable to Symbol.")
+                end
+                
                 if not (@version.nil?) and ((@version.to_a.length < 2) or @version.prerelease?)
                     raise Exception::new("Version must be at least in <major>.<minor> format and must contain numbers only.")
                 end
@@ -101,6 +106,7 @@ module JsonRpcObjects
             
             def to_json
                 self.check!
+                
                 data = {
                     "sdversion" => "1.0",
                     "name" => @name.to_s,
@@ -168,8 +174,13 @@ module JsonRpcObjects
             #
             
             def normalize!
-                @name = @name.to_s
-                @id = @id.to_s
+                if @name.kind_of? String
+                    @name = @name.to_sym
+                end
+
+                if not @id.kind_of? Addressable::URI
+                    @id = Addressable::URI::parse(@id.to_s)
+                end
                 
                 if (not @version.nil?) and (not @version.kind_of? Version)
                     @version = @version.to_s.to_version

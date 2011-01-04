@@ -1,5 +1,6 @@
 # encoding: utf-8
 require "yajl/json_gem"
+require "hash-utils"
 
 module JsonRpcObjects
     module V11
@@ -25,6 +26,13 @@ module JsonRpcObjects
             
             @data
             attr_accessor :data
+            
+            ##
+            # Holds extensions.
+            #
+            
+            @extensions
+            attr_accessor :extensions
         
             ##
             # Parses JSON-RPC string.
@@ -61,7 +69,7 @@ module JsonRpcObjects
             def check!
                 self.normalize!
                 
-                if (@code < 100) or (@code > 999)
+                if not @code.in? 100..999
                     raise Exception::new("Code must be between 100 and 999 including them.")
                 end
             end
@@ -82,6 +90,7 @@ module JsonRpcObjects
                     data["error"] = @data
                 end
                 
+                data.merge! @extensions.map_keys { |k| k.to_s }
                 return data.to_json
             end
                 
@@ -108,6 +117,13 @@ module JsonRpcObjects
                 @result = data[:result]
                 @error = data[:error]
                 @id = data[:id]
+                
+                data.delete(:result)
+                data.delete(:error)
+                data.delete(:id)
+                
+                # Extensions
+                @extensions = data
             end
             
             ##
@@ -117,9 +133,15 @@ module JsonRpcObjects
             def normalize!
                 @message = @message.to_s
                 @code = @code.to_i
+                
+                if @extensions.nil?
+                    @extensions = { }
+                end
             end
 
                   
         end
     end
 end
+
+require "json-rpc-objects/v11/extensions"

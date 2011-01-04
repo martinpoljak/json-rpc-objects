@@ -3,6 +3,7 @@ require "yajl/json_gem"
 require "addressable/uri"
 require "multitype-introspection"
 require "types"
+require "hash-utils"
 require "json-rpc-objects/v11/procedure-parameter-description"
 
 module JsonRpcObjects
@@ -75,6 +76,10 @@ module JsonRpcObjects
             
             def check!
                 self.normalize!
+                
+                if not @name.kind_of? Symbol
+                    raise Exception::new("Procedure name must be Symbol or convertable to Symbol.")
+                end
 
                 if (not @params.nil?) and ((not @params.kind_of? Array) or (not @params.all? { |v| v.kind_of? JsonRpcObjects::V11::ProcedureParameterDescription }))
                     raise Exception::new("If params is defined, must be an Array of JsonRpcObjects::V11::ProcedureParameterDescription objects.")
@@ -161,7 +166,9 @@ module JsonRpcObjects
             #
             
             def normalize!
-                @name = @name.to_s
+                if @name.kind_of? String
+                    @name = @name.to_sym
+                end
                 
                 if not @summary.nil?
                     @summary = @summary.to_s
@@ -172,7 +179,6 @@ module JsonRpcObjects
                 end
             end
 
-                  
         end
     end
 end

@@ -159,10 +159,12 @@ module JsonRpcObjects
                         "arr"
                     when :Object
                         "obj"
-                    when :"JsonRpcObjects::V11::GenericTypes::Any"
-                        "any"
                     when :"JsonRpcObjects::V11::GenericTypes::Nil"
                         "nil"
+                    when :"JsonRpcObjects::V11::GenericTypes::Any"
+                        "any"
+                    else
+                        "any"
                 end
             end
 

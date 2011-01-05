@@ -134,7 +134,7 @@ module JsonRpcObjects
                     raise Exception::new("ProcedureParameterDescription object expected.")
                 end
                 
-                if @procs.nil?
+                if @params.nil?
                     @params = [ ]
                 end
                 

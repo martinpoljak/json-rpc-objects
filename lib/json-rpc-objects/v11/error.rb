@@ -68,7 +68,7 @@ module JsonRpcObjects
             
             def check!
                 self.normalize!
-                
+
                 if not @code.in? 100..999
                     raise Exception::new("Code must be between 100 and 999 including them.")
                 end
@@ -141,13 +141,13 @@ module JsonRpcObjects
             def data=(value)            
                 data = value.keys_to_sym
                 
-                @result = data[:result]
+                @code = data[:code]
+                @message = data[:message]
                 @error = data[:error]
-                @id = data[:id]
                 
-                data.delete(:result)
+                data.delete(:code)
+                data.delete(:message)
                 data.delete(:error)
-                data.delete(:id)
                 
                 # Extensions
                 @extensions = data
@@ -170,5 +170,3 @@ module JsonRpcObjects
         end
     end
 end
-
-require "json-rpc-objects/v11/extensions"

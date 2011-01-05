@@ -44,8 +44,8 @@ module JsonRpcObjects
             def to_json
                 self.check!
                 data = {  
-                    "method" => @method.to_s,
-                    "version" => "1.1"
+                    "version" => "1.1",
+                    "method" => @method.to_s
                 }
                 
                 if (not @params.nil?) and (not @params.empty?)
@@ -132,8 +132,6 @@ module JsonRpcObjects
                     @extensions = { }
                 end
             end
-            
-            remove_method :__normalize_params
             
             ##
             # Checks params data.

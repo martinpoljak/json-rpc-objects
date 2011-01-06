@@ -81,14 +81,6 @@ module JsonRpcObjects
             end
             
             ##
-            # Executes request on appropriate object.
-            #
-            
-            def execute(object)
-                object.send(@method.to_sym, *@params)
-            end
-            
-            ##
             # Indicates, it's notification.
             #
 

@@ -41,7 +41,7 @@ module JsonRpcObjects
             # Converts request back to JSON.
             #
             
-            def to_json
+            def output
                 self.check!
                 data = {  
                     "version" => "1.1",
@@ -57,7 +57,7 @@ module JsonRpcObjects
                 end
                 
                 data.merge! @extensions.map_keys { |k| k.to_s }                
-                return data.to_json
+                return data
             end
 
             ##
@@ -104,9 +104,9 @@ module JsonRpcObjects
             # Assigns request data.
             #
 
-            def data=(value)
-                data = value.keys_to_sym
-                super(data)
+            def data=(value, mode = nil)
+                data = __convert_data(value, mode)
+                super(data, :converted)
                 
                 # If named arguments used, assigns keys as symbols
                 if @params.kind_of? Hash

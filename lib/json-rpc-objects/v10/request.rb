@@ -64,14 +64,20 @@ module JsonRpcObjects
             #
             
             def to_json
+                self.output.to_json
+            end
+            
+            ##
+            # Renders data to output hash.
+            #
+            
+            def output
                 self.check!
                 data = {
                     "method" => @method.to_s,
                     "params" => @params,
                     "id" => @id
-                }
-                
-                return data.to_json
+                }                
             end
             
             ##
@@ -116,8 +122,8 @@ module JsonRpcObjects
             # Assigns request data.
             #
 
-            def data=(value)            
-                data = value.keys_to_sym
+            def data=(value, mode = nil)            
+                data = __convert_data(value, mode)
                 
                 @method = data[:method]
                 @params = data[:params]
@@ -161,6 +167,18 @@ module JsonRpcObjects
             def __normalize_params
                 if @params.nil?
                     @params = [ ]
+                end
+            end
+            
+            ##
+            # Converts data keys from strings to symbols if necessary.
+            #
+            
+            def __convert_data(data, mode = nil)
+                if mode != :converted
+                    data.keys_to_sym
+                else
+                    data
                 end
             end
             

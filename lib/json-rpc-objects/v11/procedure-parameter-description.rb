@@ -1,6 +1,5 @@
 # encoding: utf-8
 require "yajl/json_gem"
-require "types"
 require "multitype-introspection"
 require "hash-utils"
 require "json-rpc-objects/v11/generic-types"
@@ -52,8 +51,8 @@ module JsonRpcObjects
                     raise Exception::new("Parameter name must be Symbol or convertable to Symbol.")
                 end
                 
-                if (not @type.nil?) and (not @type.type_of? GenericTypes::Type)
-                    raise Exception("Type if defined can be only Any, Nil, Boolean, Integer, String, Array or Object.")
+                if (not @type.nil?) and (not @type.kind_of_any? [GenericTypes::Any, GenericTypes::Nil, GenericTypes::Boolean, Integer, String, Array, Object])
+                    raise Exception::new("Type if defined can be only Any, Nil, Boolean, Integer, String, Array or Object.")
                 end
             end
             
@@ -124,8 +123,6 @@ module JsonRpcObjects
             
             def __type_to_object
                 case @type.to_sym
-                    when :bit
-                        ::Boolean
                     when :num
                         ::Integer
                     when :str
@@ -134,6 +131,8 @@ module JsonRpcObjects
                         ::Array
                     when :obj
                         ::Object
+                    when :bit
+                        GenericTypes::Boolean
                     when :nil
                         GenericTypes::Nil
                     when :any
@@ -149,8 +148,6 @@ module JsonRpcObjects
             
             def __object_to_type
                 case @type.name.to_sym
-                    when :Boolean
-                        "bit"
                     when :Integer
                         "num"
                     when :String
@@ -159,6 +156,8 @@ module JsonRpcObjects
                         "arr"
                     when :Object
                         "obj"
+                    when :"JsonRpcObjects::V11::GenericTypes::Boolean"
+                        "bit"
                     when :"JsonRpcObjects::V11::GenericTypes::Nil"
                         "nil"
                     when :"JsonRpcObjects::V11::GenericTypes::Any"

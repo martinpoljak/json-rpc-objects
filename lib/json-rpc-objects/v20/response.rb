@@ -2,7 +2,7 @@
 require "yajl/json_gem"
 require "hash-utils"
 require "multitype-introspection"
-require "json-rpc-objects/v11/procedure-call"
+require "json-rpc-objects/v11/procedure-return"
 require "json-rpc-objects/v20/error"
 
 module JsonRpcObjects

@@ -18,7 +18,7 @@ module JsonRpcObjects
             # Holds JSON-RPC version member identification.
             #
             
-            VERSION_MEMBER = :version
+            VERSION_MEMBER = :jsonrpc
                         
             ##
             # Indicates ID has been set.
@@ -93,10 +93,11 @@ module JsonRpcObjects
 
             def data=(value, mode = nil)
                 data = __convert_data(value, mode)
-                super(data, :converted)
                 
                 # Indicates, ID has been explicitly assigned
                 @_id_set = data.include? :id
+                
+                super(data, :converted)
             end            
             
         end

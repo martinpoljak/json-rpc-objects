@@ -43,19 +43,16 @@ module JsonRpcObjects
             
             def check!
                 self.normalize!
-                if not @result.nil? and not @error.nil?
-                    raise Exception::new("Either result or error must be nil.")
-                end
-                if (not @error.nil?) and (not @error.kind_of? JsonRpcObjects::V11::Error)
-                    raise Exception::new("Error object must be of type JsonRpcObjects::V11::Error.")
-                end
+                
+                __check_coherency
+                __check_error
             end
                                         
             ##
-            # Converts request back to JSON.
+            # Renders data to output hash.
             #
             
-            def to_json
+            def output
                 self.check!
                 data = { "version" => "1.1" }
                 
@@ -72,7 +69,7 @@ module JsonRpcObjects
                 end
             
                 data.merge! @extensions.map_keys { |k| k.to_s }
-                return data.to_json
+                return data
             end
             
             ##
@@ -110,12 +107,12 @@ module JsonRpcObjects
             # Assigns request data.
             #
 
-            def data=(value)  
-                data = value.keys_to_sym
-                super(data)
+            def data=(value, mode = nil)  
+                data = __convert_data(value, mode)
+                super(data, :converted)
                 
                 if @error.kind_of? Hash
-                    @error = JsonRpcObjects::V11::Error::new(@error)
+                    @error = __create_error(@error)
                 end
                 
                 data.delete(:result)
@@ -131,10 +128,26 @@ module JsonRpcObjects
             #
             
             def normalize!
-                super()
-                
                 if @extensions.nil?
                     @extensions = { }
+                end
+            end
+            
+            ##
+            # Creates error object.
+            #
+            
+            def __create_error(data)
+                JsonRpcObjects::V11::Error::new(data)
+            end
+            
+            ##
+            # Checks error settings.
+            #
+            
+            def __check_error
+                if (not @error.nil?) and (not @error.kind_of? JsonRpcObjects::V11::Error)
+                    raise Exception::new("Error object must be of type JsonRpcObjects::V11::Error.")
                 end
             end
             

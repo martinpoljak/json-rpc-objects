@@ -38,7 +38,7 @@ module JsonRpcObjects
             end
                                         
             ##
-            # Converts request back to JSON.
+            # Renders data to output hash.
             #
             
             def output

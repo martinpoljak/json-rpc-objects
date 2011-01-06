@@ -53,7 +53,7 @@ module JsonRpcObjects
                 
                 if exception_or_message.kind_of? Exception
                     data[:message] = exception_or_message.message
-                    data[:error] = exception.backtrace
+                    data[:error] = exception_or_message.backtrace
                 else
                     data[:message] = exception_or_message
                 end
@@ -73,12 +73,20 @@ module JsonRpcObjects
                     raise Exception::new("Code must be between 100 and 999 including them.")
                 end
             end
-            
+
             ##
-            # Converts request back to JSON.
+            # Converts back to JSON.
             #
             
             def to_json
+                self.output.to_json
+            end
+            
+            ##
+            # Renders data to output hash.
+            #
+            
+            def output
                 self.check!
                 data = {
                     "name" => "JSONRPCError",
@@ -91,7 +99,7 @@ module JsonRpcObjects
                 end
                 
                 data.merge! @extensions.map_keys { |k| k.to_s }
-                return data.to_json
+                return data
             end
             
             ##
@@ -143,11 +151,11 @@ module JsonRpcObjects
                 
                 @code = data[:code]
                 @message = data[:message]
-                @error = data[:error]
                 
                 data.delete(:code)
                 data.delete(:message)
-                data.delete(:error)
+                
+                __assign_data(data)
                 
                 # Extensions
                 @extensions = data
@@ -164,6 +172,15 @@ module JsonRpcObjects
                 if @extensions.nil?
                     @extensions = { }
                 end
+            end
+            
+            ##
+            # Assigns error data.
+            #
+            
+            def __assign_data(data)
+                @data = data[:error]
+                data.delete(:error)
             end
 
                   

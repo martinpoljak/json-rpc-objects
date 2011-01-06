@@ -54,20 +54,23 @@ module JsonRpcObjects
             #
             
             def check!
-                self.normalize!
-                if not @result.nil? and not @error.nil?
-                    raise Exception::new("Either result or error must be nil.")
-                end
-                if @id.nil?
-                    raise Exception::new("ID is required for 1.0 responses.")
-                end
+                __check_coherency
+                __check_id
             end
-            
+                        
             ##
             # Converts request back to JSON.
             #
             
             def to_json
+                self.output.to_json
+            end
+            
+            ##
+            # Renders data to output hash.
+            #
+            
+            def output
                 self.check!
                 data = {
                     "result" => @result,
@@ -75,7 +78,7 @@ module JsonRpcObjects
                     "id" => @id
                 }
                 
-                return data.to_json
+                return data
             end
             
             ## 
@@ -102,21 +105,45 @@ module JsonRpcObjects
             # Assigns request data.
             #
 
-            def data=(value)            
-                data = value.keys_to_sym
+            def data=(value, mode = nil)            
+                data = __convert_data(value, mode)
                 
                 @result = data[:result]
                 @error = data[:error]
                 @id = data[:id]
             end
-            
+
             ##
-            # Converts request data to standard (defined) format.
+            # Converts data keys from strings to symbols if necessary.
             #
             
-            def normalize!
+            def __convert_data(data, mode = nil)
+                if mode != :converted
+                    data.keys_to_sym
+                else
+                    data
+                end
             end
             
+            ##
+            # Checks coherency of result and error.
+            #
+            
+            def __check_coherency
+                if not @result.nil? and not @error.nil?
+                    raise Exception::new("Either result or error must be nil.")
+                end
+            end
+            
+            ##
+            # Checks ID.
+            #
+            def __check_id
+                if @id.nil?
+                    raise Exception::new("ID is required for 1.0 responses.")
+                end           
+            end 
+                        
         end
     end
 end

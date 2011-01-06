@@ -3,17 +3,18 @@ require "yajl/json_gem"
 require "hash-utils"
 require "multitype-introspection"
 require "json-rpc-objects/v11/procedure-call"
+require "json-rpc-objects/v20/error"
 
 module JsonRpcObjects
     module V20
-        class Request < JsonRpcObjects::V11::ProcedureCall
-            
+        class Response < JsonRpcObjects::V11::ProcedureReturn
+           
             ##
             # Indicates ID has been set.
             #
             
             @_id_set
-        
+         
             ##
             # Parses JSON-RPC string.
             #
@@ -26,16 +27,15 @@ module JsonRpcObjects
             # Creates new one.
             #
             
-            def self.create(method, params = [ ], opts = { })
+            def self.create(result = nil, error = nil, opts = { })
                 data = {
-                    :method => method,
-                    :params => params
+                    :result => result,
+                    :error => error
                 }
                 
                 data.merge! opts
                 return self::new(data)
             end
-            
             
             ##
             # Checks correctness of the request data.
@@ -65,31 +65,41 @@ module JsonRpcObjects
                 
                 return result
             end
+        
 
-            ##
-            # Indicates, it's notification.
-            #
-
-            def notification?
-                not @_id_set
-            end
-            
-           
-            
             protected
             
             ##
             # Assigns request data.
             #
 
-            def data=(value, mode = nil)
+            def data=(value, mode = nil)  
                 data = __convert_data(value, mode)
                 super(data, :converted)
                 
                 # Indicates, ID has been explicitly assigned
                 @_id_set = data.include? :id
-            end            
+            end
             
+            ##
+            # Creates error object.
+            #
+            
+            def __create_error(data)
+                JsonRpcObjects::V20::Error::new(data)
+            end
+            
+
+            ##
+            # Checks error settings.
+            #
+            
+            def __check_error
+                if (not @error.nil?) and (not @error.kind_of? JsonRpcObjects::V20::Error)
+                    raise Exception::new("Error object must be of type JsonRpcObjects::V20::Error.")
+                end
+            end
+                    
         end
     end
 end

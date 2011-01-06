@@ -108,29 +108,29 @@ module JsonRpcObjects
                 self.check!
                 
                 data = {
-                    "sdversion" => "1.0",
-                    "name" => @name.to_s,
-                    "id" => @id.to_s
+                    :sdversion => :"1.0",
+                    :name => @name.to_s,
+                    :id => @id.to_s
                 }
                 
                 if not @version.nil?
-                    data["version"] = @version.to_s
+                    data[:version] = @version.to_s
                 end
                 
                 if not @summary.nil?
-                    data["summary"] = @summary
+                    data[:summary] = @summary
                 end
                 
                 if not @help.nil?
-                    data["help"] = @help.to_s
+                    data[:help] = @help.to_s
                 end
                 
                 if not @address.nil?
-                    data["address"] = @address.to_s
+                    data[:address] = @address.to_s
                 end
                 
                 if not @procs.nil?
-                    data["procs"] = @procs
+                    data[:procs] = @procs
                 end
                 
                 return data.to_json

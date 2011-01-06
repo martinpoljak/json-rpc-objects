@@ -7,7 +7,19 @@ require "json-rpc-objects/v11/error"
 module JsonRpcObjects
     module V11
         class ProcedureReturn < JsonRpcObjects::V10::Response
-        
+
+            ##
+            # Holds JSON-RPC version specification.
+            #
+            
+            VERSION = :"1.1"
+            
+            ##
+            # Holds JSON-RPC version member identification.
+            #
+            
+            VERSION_MEMBER = :version
+            
             ##
             # Holds extensions.
             #
@@ -54,21 +66,23 @@ module JsonRpcObjects
             
             def output
                 self.check!
-                data = { "version" => "1.1" }
+                
+                data = { }
+                __assign_version(data)
                 
                 if not @result.nil?
-                    data["result"] = @result
+                    data[:result] = @result
                 end
                 
                 if not @error.nil?
-                    data["error"] = @error
+                    data[:error] = @error
                 end
 
                 if not @id.nil?
-                    data["id"] = @id
+                    data[:id] = @id
                 end
             
-                data.merge! @extensions.map_keys { |k| k.to_s }
+                data.merge! @extensions
                 return data
             end
             
@@ -119,6 +133,8 @@ module JsonRpcObjects
                 data.delete(:error)
                 data.delete(:id)
                 
+                __delete_version(data)
+                
                 # Extensions
                 @extensions = data
             end
@@ -149,6 +165,22 @@ module JsonRpcObjects
                 if (not @error.nil?) and (not @error.kind_of? JsonRpcObjects::V11::Error)
                     raise Exception::new("Error object must be of type JsonRpcObjects::V11::Error.")
                 end
+            end
+            
+            ##
+            # Assignes the version specification.
+            #
+            
+            def __assign_version(data)
+                data[self.class::VERSION_MEMBER] = self.class::VERSION
+            end
+            
+            ##
+            # Removes the version specification.
+            #
+            
+            def __delete_version(data)
+                data.delete(self.class::VERSION_MEMBER)
             end
             
         end

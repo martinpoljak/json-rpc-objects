@@ -8,6 +8,18 @@ require "json-rpc-objects/v20/error"
 module JsonRpcObjects
     module V20
         class Response < JsonRpcObjects::V11::ProcedureReturn
+        
+            ##
+            # Holds JSON-RPC version specification.
+            #
+            
+            VERSION = :"2.0"
+            
+            ##
+            # Holds JSON-RPC version member identification.
+            #
+            
+            VERSION_MEMBER = :jsonrpc
            
             ##
             # Indicates ID has been set.
@@ -56,11 +68,8 @@ module JsonRpcObjects
             def output
                 result = super()
                 
-                result.delete("version")
-                result["jsonrpc"] = "2.0"
-                
                 if @_id_set and @id.nil?
-                    result["id"] = nil
+                    result[:id] = nil
                 end
                 
                 return result
@@ -99,7 +108,15 @@ module JsonRpcObjects
                     raise Exception::new("Error object must be of type JsonRpcObjects::V20::Error.")
                 end
             end
-                    
+
+            ##
+            # Assignes the version specification.
+            #
+            
+            def __assign_version(data)
+                data[:jsonrpc] = :"2.0"
+            end
+                                
         end
     end
 end

@@ -89,9 +89,9 @@ module JsonRpcObjects
             def output
                 self.check!
                 data = {
-                    "name" => "JSONRPCError",
-                    "code" => @code,
-                    "message" => @message
+                    :name => :JSONRPCError,
+                    :code => @code,
+                    :message => @message
                 }
                 
                 if not @error.nil?

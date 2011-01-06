@@ -7,7 +7,19 @@ require "json-rpc-objects/v11/procedure-call"
 module JsonRpcObjects
     module V20
         class Request < JsonRpcObjects::V11::ProcedureCall
+
+            ##
+            # Holds JSON-RPC version specification.
+            #
             
+            VERSION = :"2.0"
+            
+            ##
+            # Holds JSON-RPC version member identification.
+            #
+            
+            VERSION_MEMBER = :version
+                        
             ##
             # Indicates ID has been set.
             #
@@ -56,11 +68,8 @@ module JsonRpcObjects
             def output
                 result = super()
                 
-                result.delete("version")
-                result["jsonrpc"] = "2.0"
-                
                 if @_id_set and @id.nil?
-                    result["id"] = nil
+                    result[:id] = nil
                 end
                 
                 return result

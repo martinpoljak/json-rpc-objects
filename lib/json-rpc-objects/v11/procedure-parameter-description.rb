@@ -9,6 +9,34 @@ module JsonRpcObjects
         class ProcedureParameterDescription
         
             ##
+            # Maps type to object (class).
+            #
+            
+            TYPE_TO_OBJECT = Hash::define({
+                :num => Integer,
+                :str => String,
+                :arr => Array,
+                :obj => Object,
+                :bit => GenericTypes::Boolean,
+                :nil => GenericTypes::Nil,
+                :any => GenericTypes::Any
+            }, GenericTypes::Any)
+            
+            ##
+            # Maps object (class) to type.
+            #
+            
+            OBJECT_TO_TYPE = Hash::define({
+                Integer => :num,
+                String => :str,
+                Array => :arr,
+                Object => :obj,
+                GenericTypes::Boolean => :bit,
+                GenericTypes::Nil => :nil,
+                GenericTypes::Any => :any
+            }, :any)
+        
+            ##
             # Holds parameter name.
             #
             
@@ -62,10 +90,10 @@ module JsonRpcObjects
             
             def to_json
                 self.check!
-                data = { "name" => @name.to_s }
+                data = { :name => @name.to_s }
                 
                 if not @type.nil?
-                    data["type"] = __object_to_type
+                    data[:type] = __object_to_type
                 end
                 
                 return data.to_json
@@ -122,24 +150,7 @@ module JsonRpcObjects
             #
             
             def __type_to_object
-                case @type.to_sym
-                    when :num
-                        ::Integer
-                    when :str
-                        ::String
-                    when :arr
-                        ::Array
-                    when :obj
-                        ::Object
-                    when :bit
-                        GenericTypes::Boolean
-                    when :nil
-                        GenericTypes::Nil
-                    when :any
-                        GenericTypes::Any
-                    else
-                        GenericTypes::Any
-                end
+                self.class::TYPE_TO_OBJECT[@type.to_sym]
             end
             
             ## 
@@ -147,24 +158,7 @@ module JsonRpcObjects
             #
             
             def __object_to_type
-                case @type.name.to_sym
-                    when :Integer
-                        "num"
-                    when :String
-                        "str"
-                    when :Array
-                        "arr"
-                    when :Object
-                        "obj"
-                    when :"JsonRpcObjects::V11::GenericTypes::Boolean"
-                        "bit"
-                    when :"JsonRpcObjects::V11::GenericTypes::Nil"
-                        "nil"
-                    when :"JsonRpcObjects::V11::GenericTypes::Any"
-                        "any"
-                    else
-                        "any"
-                end
+                self.class::OBJECT_TO_TYPE[@type]
             end
 
         end

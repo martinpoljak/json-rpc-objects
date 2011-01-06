@@ -7,7 +7,19 @@ require "json-rpc-objects/v10/request"
 module JsonRpcObjects
     module V11
         class ProcedureCall < JsonRpcObjects::V10::Request
-        
+
+            ##
+            # Holds JSON-RPC version specification.
+            #
+            
+            VERSION = :"1.1"
+            
+            ##
+            # Holds JSON-RPC version member identification.
+            #
+            
+            VERSION_MEMBER = :version
+            
             ##
             # Holds extensions.
             #
@@ -44,19 +56,20 @@ module JsonRpcObjects
             def output
                 self.check!
                 data = {  
-                    "version" => "1.1",
-                    "method" => @method.to_s
+                    :method => @method.to_s
                 }
                 
+                __assign_version(data)
+                
                 if (not @params.nil?) and (not @params.empty?)
-                    data["params"] = @params
+                    data[:params] = @params
                 end
                 
                 if not @id.nil?
-                    data["id"] = @id
+                    data[:id] = @id
                 end
                 
-                data.merge! @extensions.map_keys { |k| k.to_s }                
+                data.merge! @extensions                
                 return data
             end
 
@@ -117,6 +130,8 @@ module JsonRpcObjects
                 data.delete(:params)
                 data.delete(:id)
                 
+                __delete_version(data)
+                
                 # Extensions
                 @extensions = data
             end            
@@ -142,7 +157,23 @@ module JsonRpcObjects
                     raise Exception::new("Params must be Array or Hash.")
                 end
             end
+
+            ##
+            # Assignes the version specification.
+            #
             
+            def __assign_version(data)
+                data[self.class::VERSION_MEMBER] = self.class::VERSION
+            end
+            
+            ##
+            # Removes the version specification.
+            #
+            
+            def __delete_version(data)
+                data.delete(self.class::VERSION_MEMBER)
+            end
+                        
         end
     end
 end

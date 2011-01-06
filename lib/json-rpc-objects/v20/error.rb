@@ -54,9 +54,9 @@ module JsonRpcObjects
             def output
                 result = super()
                 
-                if result.include? "error"
-                    result["data"] = result["error"]
-                    result.delete("error")
+                if result.include? :error
+                    result[:data] = result[:error]
+                    result.delete(:error)
                 end
             
                 return result

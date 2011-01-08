@@ -1,6 +1,4 @@
 # encoding: utf-8
-require "yajl/json_gem"
-require "hash-utils"
 require "multitype-introspection"
 require "json-rpc-objects/v11/procedure-call"
 
@@ -29,9 +27,12 @@ module JsonRpcObjects
             ##
             # Parses JSON-RPC string.
             #
+            # @param [String] string with the JSON data
+            # @return [V20::Request] resultant request
+            #
             
             def self.parse(string)
-                self::new(JSON.load(string))
+                JsonRpcObjects::Generic::Object::parse(self, string)
             end
 
             ##

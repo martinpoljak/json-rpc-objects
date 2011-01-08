@@ -1,4 +1,6 @@
 # encoding: utf-8
+require "hash-utils"
+require "yajl/json_gem"
 
 ##
 # Main JSON-RPC Objects module.
@@ -18,7 +20,20 @@ module JsonRpcObjects
         #
         
         class Object
+          
+            ##
+            # Parses JSON-RPC string.
+            #
+            # @param [Class] cls class of the object for which are 
+            #   data parsed
+            # @param [String] string with the JSON data
+            # @return [Generic::Object] of the given class
+            #
             
+            def self.parse(cls, string)
+                cls::new(JSON.load(string)) 
+            end
+                        
             ##
             # Converts back to JSON.
             # @return [String]
@@ -57,7 +72,6 @@ module JsonRpcObjects
             end
             
             
-            
             protected
             
             ##
@@ -93,7 +107,6 @@ module JsonRpcObjects
             def normalize!
             end
 
-            
             
             private
             

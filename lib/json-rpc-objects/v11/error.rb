@@ -34,15 +34,17 @@ module JsonRpcObjects
             
             @extensions
             attr_accessor :extensions
-        
+
             ##
             # Parses JSON-RPC string.
             #
+            # @param [String] string with the JSON data
+            # @return [V11::Error] resultant error
+            #
             
             def self.parse(string)
-                self::new(JSON.load(string))
+                JsonRpcObjects::Generic::Object::parse(self, string)
             end
-
             ##
             # Creates new one.
             #

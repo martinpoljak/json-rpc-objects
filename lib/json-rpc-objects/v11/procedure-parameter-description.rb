@@ -50,13 +50,16 @@ module JsonRpcObjects
             
             @type
             attr_accessor :type
-            
+
             ##
             # Parses JSON-RPC string.
             #
-            
+            # @param [String] string with the JSON data
+            # @return [V11::ProcedureParameterDescription] resultant description
+            #
+                        
             def self.parse(string)
-                self::new(JSON.load(string))
+                JsonRpcObjects::Generic::Object::parse(self, string)
             end
 
             ##
@@ -100,7 +103,6 @@ module JsonRpcObjects
                 
                 return data
             end
-                
                 
                 
             protected

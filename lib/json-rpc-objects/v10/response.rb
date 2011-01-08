@@ -27,13 +27,16 @@ module JsonRpcObjects
             
             @id
             attr_accessor :id
-            
+
             ##
             # Parses JSON-RPC string.
             #
+            # @param [String] string with the JSON data
+            # @return [V10::Response] resultant response
+            #
             
             def self.parse(string)
-                self::new(JSON.load(string))
+                JsonRpcObjects::Generic::Object::parse(self, string)
             end
             
             ##

@@ -1,6 +1,4 @@
 # encoding: utf-8
-require "yajl/json_gem"
-require "hash-utils"
 require "json-rpc-objects/generic"
 
 module JsonRpcObjects
@@ -31,9 +29,12 @@ module JsonRpcObjects
             ##
             # Parses JSON-RPC string.
             #
+            # @param [String] string with the JSON data
+            # @return [V10::Request] resultant request
+            #
             
             def self.parse(string)
-                self::new(JSON.load(string))
+                JsonRpcObjects::Generic::Object::parse(self, string)
             end
             
             ##
@@ -146,18 +147,6 @@ module JsonRpcObjects
             def __normalize_params
                 if @params.nil?
                     @params = [ ]
-                end
-            end
-            
-            ##
-            # Converts data keys from strings to symbols if necessary.
-            #
-            
-            def __convert_data(data, mode = nil)
-                if mode != :converted
-                    data.keys_to_sym
-                else
-                    data
                 end
             end
             

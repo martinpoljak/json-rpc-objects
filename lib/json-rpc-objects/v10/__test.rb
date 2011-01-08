@@ -1,4 +1,6 @@
 # encoding: utf-8
+$:.push("../..")
+
 require "./request"
 req = JsonRpcObjects::V10::Request::create(:alfa, [:beta], :id => 12345)
 puts req.to_json

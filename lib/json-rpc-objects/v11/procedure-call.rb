@@ -75,7 +75,7 @@ module JsonRpcObjects
 
             ##
             # Indicates, it's notification.
-            # In 1.1 returns always false.
+            # @return [Boolean] for JSON-RPC 1.1 returns always false.
             #
 
             def notification?
@@ -88,7 +88,7 @@ module JsonRpcObjects
             
             def method_missing(name, *args)
                 if name.to_s[-1].chr == ?=
-                    self[name.to_s[0..-2].to_sym] = args.first
+                    self[name.to_s[0..-2]] = args.first
                 else
                     self[name]
                 end
@@ -99,15 +99,18 @@ module JsonRpcObjects
             #
             
             def [](name)
-                @extensions[name]
+                @extensions[name.to_sym]
             end
             
             ##
             # Handles array set to extensions.
             #
+            # @param [String] name of extension for return
+            # @return [Object] value of extension member
+            #
             
             def []=(name, value)
-                @extensions[name] = value
+                @extensions[name.to_sym] = value
             end
             
             

@@ -46,9 +46,10 @@ module JsonRpcObjects
                     raise Exception::new("Code is invalid because of reserved space.")
                 end
             end
-            
+
             ##
-            # Converts request back to JSON.
+            # Renders data to output hash.
+            # @return [Hash] with data of error
             #
             
             def output

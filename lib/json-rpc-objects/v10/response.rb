@@ -1,10 +1,11 @@
 # encoding: utf-8
 require "yajl/json_gem"
 require "hash-utils"
+require "json-rpc-objects/generic"
 
 module JsonRpcObjects
     module V10
-        class Response
+        class Response < JsonRpcObjects::Generic::Object
         
             ##
             # Holds result data.
@@ -59,15 +60,8 @@ module JsonRpcObjects
             end
                         
             ##
-            # Converts request back to JSON.
-            #
-            
-            def to_json
-                self.output.to_json
-            end
-            
-            ##
             # Renders data to output hash.
+            # @return [Hash] with data of response
             #
             
             def output
@@ -83,6 +77,7 @@ module JsonRpcObjects
             
             ## 
             # Receives result by array fill operator.
+            # @param [Object] result for the response
             #
             
             def <<(result)
@@ -91,15 +86,6 @@ module JsonRpcObjects
             
             
             protected
-            
-            ##
-            # Constructor.
-            #
-            
-            def initialize(data)
-                self.data = data
-                self.check!
-            end
             
             ##
             # Assigns request data.
@@ -113,18 +99,6 @@ module JsonRpcObjects
                 @id = data[:id]
             end
 
-            ##
-            # Converts data keys from strings to symbols if necessary.
-            #
-            
-            def __convert_data(data, mode = nil)
-                if mode != :converted
-                    data.keys_to_sym
-                else
-                    data
-                end
-            end
-            
             ##
             # Checks coherency of result and error.
             #

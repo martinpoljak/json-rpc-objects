@@ -1,10 +1,11 @@
 # encoding: utf-8
 require "yajl/json_gem"
 require "hash-utils"
+require "json-rpc-objects/generic"
 
 module JsonRpcObjects
     module V11
-        class Error
+        class Error < JsonRpcObjects::Generic::Object
         
             ##
             # Holds error code.
@@ -75,15 +76,8 @@ module JsonRpcObjects
             end
 
             ##
-            # Converts back to JSON.
-            #
-            
-            def to_json
-                self.output.to_json
-            end
-            
-            ##
             # Renders data to output hash.
+            # @return [Hash] with data of error
             #
             
             def output
@@ -105,10 +99,14 @@ module JsonRpcObjects
             ##
             # Handles method missing call for extensions.
             #
+            # @param [Symbol] name of the method, setter if ends with '='
+            # @param [Object] value for set
+            # @return [Object] value set or get
+            #
             
             def method_missing(name, *args)
                 if name.to_s[-1].chr == ?=
-                    self[name.to_s[0..-2].to_sym] = args.first
+                    self[name.to_s[0..-2]] = args.first
                 else
                     self[name]
                 end
@@ -117,38 +115,35 @@ module JsonRpcObjects
             ##
             # Handles array access as access for extensions too.
             #
+            # @param [String] name of extension for return
+            # @return [Object] value of extension member
+            #
             
             def [](name)
-                @extensions[name]
+                @extensions[name.to_sym]
             end
             
             ##
             # Handles array set to extensions.
             #
+            # @param [String] name of extension for set
+            # @param[Object] value of extension for set
+            #
             
             def []=(name, value)
-                @extensions[name] = value
+                @extensions[name.to_sym] = value
             end
             
                 
             protected
             
             ##
-            # Constructor.
+            # Assigns data.
             #
             
-            def initialize(data)
-                self.data = data
-                self.check!
-            end
-            
-            ##
-            # Assigns request data.
-            #
-            
-            def data=(value)            
-                data = value.keys_to_sym
-                
+            def data=(value, mode = nil)            
+                data = __convert_data(value, mode)
+             
                 @code = data[:code]
                 @message = data[:message]
                 

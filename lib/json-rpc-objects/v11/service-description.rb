@@ -3,11 +3,12 @@ require "yajl/json_gem"
 require "version"
 require "addressable/uri"
 require "json-rpc-objects/v11/service-procedure-description"
+require "json-rpc-objects/generic"
 require "hash-utils"
 
 module JsonRpcObjects
     module V11
-        class ServiceDescription
+        class ServiceDescription < JsonRpcObjects::Generic::Object
         
             ##
             # Holds service name.
@@ -101,10 +102,11 @@ module JsonRpcObjects
             end
             
             ##
-            # Converts request back to JSON.
+            # Renders data to output hash.
+            # @return [Hash] with data of description
             #
             
-            def to_json
+            def output
                 self.check!
                 
                 data = {
@@ -133,11 +135,12 @@ module JsonRpcObjects
                     data[:procs] = @procs
                 end
                 
-                return data.to_json
+                return data
             end
             
             ##
             # Receives service procedure description objects.
+            # @param [ServiceProcedureDescription] new service procedure description
             #
             
             def <<(value)
@@ -157,20 +160,11 @@ module JsonRpcObjects
             protected
             
             ##
-            # Constructor.
-            #
-            
-            def initialize(data)
-                self.data = data
-                self.check!
-            end
-            
-            ##
             # Assigns request data.
             #
             
-            def data=(value)            
-                data = value.keys_to_sym
+            def data=(value, mode = nil)            
+                data = __convert_data(value, mode)
                 
                 @name = data[:name]
                 @id = data[:id]

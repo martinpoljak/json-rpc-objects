@@ -63,6 +63,7 @@ module JsonRpcObjects
                                         
             ##
             # Renders data to output hash.
+            # @return [Hash] with data of error
             #
             
             def output
@@ -77,6 +78,7 @@ module JsonRpcObjects
 
             ##
             # Indicates, it's notification.
+            # @return [Boolean] true if it is, otherwise false
             #
 
             def notification?

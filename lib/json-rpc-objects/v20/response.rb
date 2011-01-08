@@ -63,6 +63,7 @@ module JsonRpcObjects
                                         
             ##
             # Renders data to output hash.
+            # @return [Hash] with data of error
             #
             
             def output

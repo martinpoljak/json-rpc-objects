@@ -92,7 +92,7 @@ module JsonRpcObjects
             
             def method_missing(name, *args)
                 if name.to_s[-1].chr == ?=
-                    self[name.to_s[0..-2].to_sym] = args.first
+                    self[name.to_s[0..-2]] = args.first
                 else
                     self[name]
                 end
@@ -101,17 +101,23 @@ module JsonRpcObjects
             ##
             # Handles array access as access for extensions too.
             #
+            # @param [String] name of extension for return
+            # @return [Object] value of extension member
+            #
             
             def [](name)
-                @extensions[name]
+                @extensions[name.to_sym]
             end
             
             ##
             # Handles array set to extensions.
             #
+            # @param [String] name of extension for set
+            # @param[Object] value of extension for set
+            #
             
             def []=(name, value)
-                @extensions[name] = value
+                @extensions[name.to_sym] = value
             end
 
 

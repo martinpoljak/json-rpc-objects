@@ -5,10 +5,11 @@ require "multitype-introspection"
 require "types"
 require "hash-utils"
 require "json-rpc-objects/v11/procedure-parameter-description"
+require "json-rpc-objects/generic"
 
 module JsonRpcObjects
     module V11
-        class ServiceProcedureDescription
+        class ServiceProcedureDescription < JsonRpcObjects::Generic::Object
         
             ##
             # Holds procedure name.
@@ -95,10 +96,11 @@ module JsonRpcObjects
             end
             
             ##
-            # Converts back to JSON.
+            # Renders data to output hash.
+            # @return [Hash] with data of description
             #
             
-            def to_json
+            def output
                 self.check!
                 data = { :name => @name.to_s }
                 
@@ -122,11 +124,14 @@ module JsonRpcObjects
                     data[:return] = @return
                 end
                 
-                return data.to_json
+                return data
             end
             
             ##
             # Receives service procedure description objects.
+            #
+            # @param [ProcedureParameterDescription] value with new 
+            #   service procedure descriptor
             #
             
             def <<(value)
@@ -146,20 +151,11 @@ module JsonRpcObjects
             protected
             
             ##
-            # Constructor.
-            #
-            
-            def initialize(data)
-                self.data = data
-                self.check!
-            end
-            
-            ##
             # Assigns request data.
             #
             
-            def data=(value)            
-                data = value.keys_to_sym
+            def data=(value, mode = nil)            
+                data = __convert_data(value, mode)
                 
                 @name = data[:name]
                 @summary = data[:summary]

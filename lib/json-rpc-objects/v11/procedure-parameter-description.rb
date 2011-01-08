@@ -3,10 +3,11 @@ require "yajl/json_gem"
 require "multitype-introspection"
 require "hash-utils"
 require "json-rpc-objects/v11/generic-types"
+require "json-rpc-objects/generic"
 
 module JsonRpcObjects
     module V11
-        class ProcedureParameterDescription
+        class ProcedureParameterDescription < JsonRpcObjects::Generic::Object
         
             ##
             # Maps type to object (class).
@@ -85,10 +86,11 @@ module JsonRpcObjects
             end
             
             ##
-            # Converts back to JSON.
+            # Renders data to output hash.
+            # @return [Hash] with data of description
             #
             
-            def to_json
+            def output
                 self.check!
                 data = { :name => @name.to_s }
                 
@@ -96,21 +98,12 @@ module JsonRpcObjects
                     data[:type] = __object_to_type
                 end
                 
-                return data.to_json
+                return data
             end
                 
                 
                 
             protected
-            
-            ##
-            # Constructor.
-            #
-            
-            def initialize(data)
-                self.data = data
-                self.check!
-            end
             
             ##
             # Assigns request data.

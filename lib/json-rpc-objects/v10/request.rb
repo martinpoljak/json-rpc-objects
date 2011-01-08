@@ -1,10 +1,11 @@
 # encoding: utf-8
 require "yajl/json_gem"
 require "hash-utils"
+require "json-rpc-objects/generic"
 
 module JsonRpcObjects
     module V10
-        class Request
+        class Request < JsonRpcObjects::Generic::Object
         
             ##
             # Holds request method name.
@@ -58,17 +59,10 @@ module JsonRpcObjects
                 __check_method
                 __check_params
             end
-                                        
-            ##
-            # Converts request back to JSON.
-            #
-            
-            def to_json
-                self.output.to_json
-            end
-            
+                        
             ##
             # Renders data to output hash.
+            # @return [Hash] with data of request
             #
             
             def output
@@ -77,11 +71,12 @@ module JsonRpcObjects
                     :method => @method.to_s,
                     :params => @params,
                     :id => @id
-                }                
+                }
             end
             
             ##
             # Indicates, it's notification.
+            # @return [Boolean] true if it is, otherwise false
             #
 
             def notification?
@@ -90,6 +85,7 @@ module JsonRpcObjects
             
             ##
             # Converts request data to standard (defined) format.
+            # @return [nil]
             #
             
             def normalize!
@@ -100,15 +96,6 @@ module JsonRpcObjects
             
             
             protected
-            
-            ##
-            # Constructor.
-            #
-            
-            def initialize(data)
-                self.data = data
-                self.check!
-            end
             
             ##
             # Assigns request data.

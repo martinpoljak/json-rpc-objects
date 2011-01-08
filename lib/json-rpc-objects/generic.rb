@@ -28,7 +28,14 @@ module JsonRpcObjects
                 self.data = data
                 self.check!
             end
+
+            ##
+            # Checks correctness of the request data.
+            #
             
+            def check!
+            end
+                        
             ##
             # Renders data to output Hash.
             #
@@ -39,6 +46,7 @@ module JsonRpcObjects
             def output
                 __abstract
             end
+            
             
             
             protected

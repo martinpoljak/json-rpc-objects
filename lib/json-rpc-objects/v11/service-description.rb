@@ -73,17 +73,6 @@ module JsonRpcObjects
             attr_accessor :procs
         
             ##
-            # Parses JSON-RPC string.
-            #
-            # @param [String] string with the JSON data
-            # @return [V11::ServiceDescription] resultant description
-            #
-                        
-            def self.parse(string)
-                JsonRpcObjects::Generic::Object::parse(self, string)
-            end
-
-            ##
             # Creates new one.
             #
             # @param [Symbol] name name of the service

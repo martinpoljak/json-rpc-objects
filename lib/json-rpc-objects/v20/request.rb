@@ -39,17 +39,6 @@ module JsonRpcObjects
             @_id_set
         
             ##
-            # Parses JSON-RPC string.
-            #
-            # @param [String] string with the JSON data
-            # @return [V20::Request] resultant request
-            #
-            
-            def self.parse(string)
-                JsonRpcObjects::Generic::Object::parse(self, string)
-            end
-
-            ##
             # Checks correctness of the request data.
             #
             

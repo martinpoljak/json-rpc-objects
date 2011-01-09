@@ -41,17 +41,6 @@ module JsonRpcObjects
             attr_accessor :id
 
             ##
-            # Parses JSON-RPC string.
-            #
-            # @param [String] string with the JSON data
-            # @return [V10::Response] resultant response
-            #
-            
-            def self.parse(string)
-                JsonRpcObjects::Generic::Object::parse(self, string)
-            end
-            
-            ##
             # Creates new one.
             #
             # @param [Object] result of the call for response

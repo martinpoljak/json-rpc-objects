@@ -24,14 +24,12 @@ module JsonRpcObjects
             ##
             # Parses JSON-RPC string.
             #
-            # @param [Class] cls class of the object for which are 
-            #   data parsed
             # @param [String] string with the JSON data
             # @return [Generic::Object] of the given class
             #
             
-            def self.parse(cls, string)
-                cls::new(JSON.load(string)) 
+            def self.parse(string)
+                self::new(JSON.load(string)) 
             end
                         
             ##

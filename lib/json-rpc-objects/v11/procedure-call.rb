@@ -42,17 +42,6 @@ module JsonRpcObjects
             attr_accessor :extensions
         
             ##
-            # Parses JSON-RPC string.
-            #
-            # @param [String] string with the JSON data
-            # @return [V11::ProcedureCall] resultant procedure call
-            #
-            
-            def self.parse(string)
-                JsonRpcObjects::Generic::Object::parse(self, string)
-            end
-
-            ##
             # Renders data to output hash.
             #
             

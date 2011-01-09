@@ -64,23 +64,11 @@ module JsonRpcObjects
             attr_accessor :type
 
             ##
-            # Parses JSON-RPC string.
-            #
-            # @param [String] string with the JSON data
-            # @return [V11::ProcedureParameterDescription] resultant description
-            #
-                        
-            def self.parse(string)
-                JsonRpcObjects::Generic::Object::parse(self, string)
-            end
-
-            ##
             # Creates new one.
             #
             # @param [Symbol] name name of the parameter
             # @return [V11:ProcedureParameterDescription] new description object
             #
-
             
             def self.create(name, opts = { })
                 data = { :name => name }

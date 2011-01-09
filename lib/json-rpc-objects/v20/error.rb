@@ -27,17 +27,6 @@ module JsonRpcObjects
             DATA_MEMBER_NAME = :data
             
             ##
-            # Parses JSON-RPC string.
-            #
-            # @param [String] string with the JSON data
-            # @return [V20::Error] resultant error
-            #
-                        
-            def self.parse(string)
-                JsonRpcObjects::Generic::Object::parse(self, string)
-            end
-
-            ##
             # Checks correctness of the data.
             #
             
@@ -66,7 +55,6 @@ module JsonRpcObjects
             end
             
             
-                
             protected
             
             ##

@@ -67,6 +67,10 @@ module JsonRpcObjects
             ##
             # Creates new one.
             #
+            # @param [Symbol] name name of the procedure
+            # @param [Hash] opts additional options
+            # @return [V11:ServiceProcedureDescription] new description object
+            #
             
             def self.create(name, opts = { })
                 data = { :name => name }

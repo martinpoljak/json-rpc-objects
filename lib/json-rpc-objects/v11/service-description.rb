@@ -73,6 +73,12 @@ module JsonRpcObjects
             ##
             # Creates new one.
             #
+            # @param [Symbol] name name of the service
+            # @param [String] id ID of the service (according 
+            #   to specification it should be valid URI)
+            # @param [Hash] opts additional options
+            # @return [V11:ServiceDescription] new description object
+            #
             
             def self.create(name, id, opts = { })
                 data = {

@@ -21,21 +21,15 @@ module JsonRpcObjects
             ##
             # Creates new one.
             #
+            # @param [Numeric] code od the error
+            # @param [String, Exception] message of the error or 
+            #   exception object
+            # @param [Hash] opts additional options
+            # @return [V20::Error] new error object
+            #
             
-            def self.create(code, exception_or_message, opts = { })
-                data = {
-                    :code => code,
-                }
-                
-                if exception_or_message.kind_of? Exception
-                    data[:message] = exception_or_message.message
-                    data[:data] = exception_or_message.backtrace
-                else
-                    data[:message] = exception_or_message
-                end
-                
-                data.merge! opts
-                return self::new(data)
+            def self.create(code, message, opts = { })
+                JsonRpcObjects::V11::Error::generic_create(self, :data, code, message, opts)
             end
             
             ##

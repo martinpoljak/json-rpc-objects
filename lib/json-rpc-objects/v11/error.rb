@@ -45,20 +45,44 @@ module JsonRpcObjects
             def self.parse(string)
                 JsonRpcObjects::Generic::Object::parse(self, string)
             end
+            
             ##
             # Creates new one.
             #
+            # @param [Numeric] code od the error
+            # @param [String, Exception] message of the error or 
+            #   exception object
+            # @param [Hash] opts additional options
+            # @return [V11::Error] new error object
+            #
+                        
+            def self.create(code, message, opts = { })
+                self::generic_create(self, :error, code, message, opts)
+            end
             
-            def self.create(code, exception_or_message, opts = { })
+            ##
+            # Creates new one by generic way.
+            #
+            # @param [Class] cls class of new object
+            # @param [Symbol] data_member data member name of the 
+            #   property with error data
+            # @param [Numeric] code code of the error
+            # @param [String, Exception] message message of the error or 
+            #   exception object
+            # @param [Hash] opts additional options
+            # @return [V11::Error] new error object
+            #
+            
+            def self.generic_create(cls, data_member, code, message, opts = { })
                 data = {
                     :code => code,
                 }
                 
-                if exception_or_message.kind_of? Exception
-                    data[:message] = exception_or_message.message
-                    data[:error] = exception_or_message.backtrace
+                if message.kind_of? Exception
+                    data[:message] = message.message
+                    data[:error] = message.backtrace
                 else
-                    data[:message] = exception_or_message
+                    data[:message] = message
                 end
                 
                 data.merge! opts

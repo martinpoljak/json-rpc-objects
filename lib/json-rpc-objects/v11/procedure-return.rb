@@ -1,6 +1,4 @@
 # encoding: utf-8
-require "yajl/json_gem"
-require "hash-utils"
 require "json-rpc-objects/v10/response"
 require "json-rpc-objects/v11/error"
 

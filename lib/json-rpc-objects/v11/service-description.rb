@@ -1,10 +1,9 @@
 # encoding: utf-8
-require "yajl/json_gem"
 require "version"
 require "addressable/uri"
 require "json-rpc-objects/v11/service-procedure-description"
 require "json-rpc-objects/generic"
-require "hash-utils"
+require "hash-utils/array"
 
 module JsonRpcObjects
     module V11

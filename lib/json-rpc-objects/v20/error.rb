@@ -1,6 +1,5 @@
 # encoding: utf-8
-require "yajl/json_gem"
-require "hash-utils"
+require "hash-utils/numeric"
 require "json-rpc-objects/v11/error"
 
 module JsonRpcObjects

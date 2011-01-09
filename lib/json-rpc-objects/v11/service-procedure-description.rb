@@ -1,9 +1,8 @@
 # encoding: utf-8
-require "yajl/json_gem"
 require "addressable/uri"
 require "multitype-introspection"
 require "types"
-require "hash-utils"
+require "hash-utils/array"
 require "json-rpc-objects/v11/procedure-parameter-description"
 require "json-rpc-objects/generic"
 

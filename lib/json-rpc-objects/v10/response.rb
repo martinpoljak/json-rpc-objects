@@ -1,6 +1,4 @@
 # encoding: utf-8
-require "yajl/json_gem"
-require "hash-utils"
 require "json-rpc-objects/generic"
 
 module JsonRpcObjects

@@ -1,5 +1,4 @@
 # encoding: utf-8
-require "yajl/json_gem"
 require "hash-utils"
 require "json-rpc-objects/generic"
 
@@ -86,7 +85,7 @@ module JsonRpcObjects
                 end
                 
                 data.merge! opts
-                return self::new(data)
+                return cls::new(data)
             end
             
             ##
@@ -115,10 +114,10 @@ module JsonRpcObjects
                 }
                 
                 if not @error.nil?
-                    data["error"] = @data
+                    data[:error] = @data
                 end
                 
-                data.merge! @extensions.map_keys { |k| k.to_s }
+                data.merge! @extensions
                 return data
             end
             

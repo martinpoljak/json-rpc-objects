@@ -1,7 +1,5 @@
 # encoding: utf-8
-require "yajl/json_gem"
 require "multitype-introspection"
-require "hash-utils"
 require "json-rpc-objects/v11/generic-types"
 require "json-rpc-objects/generic"
 
@@ -115,8 +113,8 @@ module JsonRpcObjects
             # Assigns request data.
             #
             
-            def data=(value)            
-                data = value.keys_to_sym
+            def data=(value, mode = nil)
+                data = __convert_data(value, mode)
                 
                 @name = data[:name]
                 @type = data[:type]

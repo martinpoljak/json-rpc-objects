@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "multitype-introspection"
-require "hash-utils"
+require "hash-utils/hash"
 require "json-rpc-objects/v10/request"
 require "json-rpc-objects/generic"
 

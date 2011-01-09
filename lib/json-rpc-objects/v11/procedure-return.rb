@@ -41,15 +41,14 @@ module JsonRpcObjects
             ##
             # Creates new one.
             #
+            # @param [Object] result of the call for procedure return
+            # @param [Object] error of the call for procedure return
+            # @param [Hash] opts additional options
+            # @return [V11::ProcedureReturn] new procedure return
+            #
             
             def self.create(result = nil, error = nil, opts = { })
-                data = {
-                    :result => result,
-                    :error => error
-                }
-                
-                data.merge! opts
-                return self::new(data)
+                JsonRpcObjects::V10::Response::generic_create(self, result, error, opts)
             end
             
             ##

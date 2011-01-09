@@ -29,7 +29,7 @@ module JsonRpcObjects
                 
                 if exception_or_message.kind_of? Exception
                     data[:message] = exception_or_message.message
-                    data[:error] = exception_or_message.backtrace
+                    data[:data] = exception_or_message.backtrace
                 else
                     data[:message] = exception_or_message
                 end

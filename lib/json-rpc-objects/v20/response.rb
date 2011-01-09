@@ -41,15 +41,14 @@ module JsonRpcObjects
             ##
             # Creates new one.
             #
+            # @param [Object] result of the call for response
+            # @param [Object] error of the call for response
+            # @param [Hash] opts additional options
+            # @return [V20::Response] new response
+            #
             
             def self.create(result = nil, error = nil, opts = { })
-                data = {
-                    :result => result,
-                    :error => error
-                }
-                
-                data.merge! opts
-                return self::new(data)
+                JsonRpcObjects::V10::Response::generic_create(self, result, error, opts)
             end
             
             ##

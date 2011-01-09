@@ -23,6 +23,8 @@ module JsonRpcObjects
             # Class which means "any type of JSON data", so
             # "Boolean, Number, String, Array or Object".
             #
+            # @abstract
+            #
         
             class Any
             end
@@ -31,12 +33,15 @@ module JsonRpcObjects
             # Class which means classical nil. Nil in code means
             # type isn't defined, so this class is necessary.
             #
+            # @abstract
+            #
             
             class Nil
             end
             
             ##
             # Class which means Boolean, so true or false.
+            # @abstract
             #
             
             class Boolean

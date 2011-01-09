@@ -4,8 +4,22 @@ require "hash-utils/hash"
 require "json-rpc-objects/v10/request"
 require "json-rpc-objects/generic"
 
+##
+# Main JSON-RPC Objects module.
+#
+
 module JsonRpcObjects
+
+    ##
+    # Module of JSON-RPC 1.1.
+    #
+
     module V11
+    
+        ##
+        # Procedure call (request) class.
+        #
+        
         class ProcedureCall < JsonRpcObjects::V10::Request
 
             ##
@@ -38,19 +52,6 @@ module JsonRpcObjects
                 JsonRpcObjects::Generic::Object::parse(self, string)
             end
 
-            ##
-            # Creates new one.
-            #
-            # @param [Symbol] method of the request
-            # @param [Array] params array of arguments for the request
-            # @param [Hash] opts additional options
-            # @return [V11::ProcedureCall] new procedure call
-            #
-            
-            def self.create(method, params = [ ], opts = { })
-                JsonRpcObjects::V10::Request::generic_create(self, method, params, opts)
-            end
-                                        
             ##
             # Renders data to output hash.
             #

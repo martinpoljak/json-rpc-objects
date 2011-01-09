@@ -2,9 +2,29 @@
 require "hash-utils"
 require "json-rpc-objects/generic"
 
+##
+# Main JSON-RPC Objects module.
+#
+
 module JsonRpcObjects
+
+    ##
+    # Module of JSON-RPC 1.1.
+    #
+
     module V11
+    
+        ##
+        # Error description object class for ProcedureReturn.
+        #
+        
         class Error < JsonRpcObjects::Generic::Object
+        
+            ##
+            # Indicates data member name.
+            #
+            
+            DATA_MEMBER_NAME = :error
         
             ##
             # Holds error code.
@@ -56,36 +76,19 @@ module JsonRpcObjects
             #
                         
             def self.create(code, message, opts = { })
-                self::generic_create(self, :error, code, message, opts)
-            end
-            
-            ##
-            # Creates new one by generic way.
-            #
-            # @param [Class] cls class of new object
-            # @param [Symbol] data_member data member name of the 
-            #   property with error data
-            # @param [Numeric] code code of the error
-            # @param [String, Exception] message message of the error or 
-            #   exception object
-            # @param [Hash] opts additional options
-            # @return [V11::Error] new error object
-            #
-            
-            def self.generic_create(cls, data_member, code, message, opts = { })
                 data = {
                     :code => code,
                 }
                 
                 if message.kind_of? Exception
                     data[:message] = message.message
-                    data[:error] = message.backtrace
+                    data[self::DATA_MEMBER_NAME] = message.backtrace
                 else
                     data[:message] = message
                 end
                 
                 data.merge! opts
-                return cls::new(data)
+                return self::new(data)
             end
             
             ##
@@ -202,8 +205,7 @@ module JsonRpcObjects
                 @data = data[:error]
                 data.delete(:error)
             end
-
-                  
+            
         end
     end
 end

@@ -4,8 +4,22 @@ require "json-rpc-objects/v10/response"
 require "json-rpc-objects/v11/procedure-return"
 require "json-rpc-objects/v20/error"
 
+##
+# Main JSON-RPC Objects module.
+#
+
 module JsonRpcObjects
+
+    ##
+    # Module of JSON-RPC 2.0.
+    #
+
     module V20
+
+        ##
+        # Response object class.
+        #
+    
         class Response < JsonRpcObjects::V11::ProcedureReturn
         
             ##
@@ -37,19 +51,6 @@ module JsonRpcObjects
                 JsonRpcObjects::Generic::Object::parse(self, string)
             end
 
-            ##
-            # Creates new one.
-            #
-            # @param [Object] result of the call for response
-            # @param [Object] error of the call for response
-            # @param [Hash] opts additional options
-            # @return [V20::Response] new response
-            #
-            
-            def self.create(result = nil, error = nil, opts = { })
-                JsonRpcObjects::V10::Response::generic_create(self, result, error, opts)
-            end
-            
             ##
             # Checks correctness of the request data.
             #

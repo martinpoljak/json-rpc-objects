@@ -3,8 +3,22 @@ require "multitype-introspection"
 require "json-rpc-objects/v11/generic-types"
 require "json-rpc-objects/generic"
 
+##
+# Main JSON-RPC Objects module.
+#
+
 module JsonRpcObjects
+
+    ##
+    # Module of JSON-RPC 1.1.
+    #
+
     module V11
+    
+        ##
+        # Description of one procedure parameter.
+        #
+        
         class ProcedureParameterDescription < JsonRpcObjects::Generic::Object
         
             ##

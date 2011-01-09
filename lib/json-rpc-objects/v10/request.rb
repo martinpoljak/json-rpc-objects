@@ -1,8 +1,22 @@
 # encoding: utf-8
 require "json-rpc-objects/generic"
 
+##
+# Main JSON-RPC Objects module.
+#
+
 module JsonRpcObjects
+
+    ##
+    # Module of JSON-RPC 1.0.
+    #
+    
     module V10
+    
+        ##
+        # Request object class.
+        #
+        
         class Request < JsonRpcObjects::Generic::Object
         
             ##
@@ -47,27 +61,13 @@ module JsonRpcObjects
             #
             
             def self.create(method, params = [ ], opts = { })
-                self::generic_create(self, method, params, opts)
-            end
-            
-            ##
-            # Creates new request by generic way.
-            #
-            # @param [Class] cls class of new object
-            # @param [Symbol] method of the request
-            # @param [Array] params array of arguments for the request
-            # @param [Hash] opts additional options
-            # @return [V10::Request] new request or its child
-            #
-            
-            def self.generic_create(cls, method, params = [ ], opts = { })
                 data = {
                     :method => method,
                     :params => params
                 }
                 
                 data.merge! opts
-                return cls::new(data)
+                return self::new(data)
             end
             
             ##

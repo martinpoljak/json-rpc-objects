@@ -5,8 +5,22 @@ require "json-rpc-objects/v11/service-procedure-description"
 require "json-rpc-objects/generic"
 require "hash-utils/array"
 
+##
+# Main JSON-RPC Objects module.
+#
+
 module JsonRpcObjects
+
+    ##
+    # Module of JSON-RPC 1.1.
+    #
+
     module V11
+    
+        ##
+        # Service description object class.
+        #
+        
         class ServiceDescription < JsonRpcObjects::Generic::Object
         
             ##

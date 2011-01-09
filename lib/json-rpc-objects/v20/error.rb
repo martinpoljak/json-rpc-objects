@@ -2,10 +2,30 @@
 require "hash-utils/numeric"
 require "json-rpc-objects/v11/error"
 
+##
+# Main JSON-RPC Objects module.
+#
+
 module JsonRpcObjects
+
+    ##
+    # Module of JSON-RPC 2.0.
+    #
+
     module V20
-        class Error < JsonRpcObjects::V11::Error
+
+        ##
+        # Error description object class for Response.
+        #
         
+        class Error < JsonRpcObjects::V11::Error
+
+            ##
+            # Indicates data member name.
+            #
+            
+            DATA_MEMBER_NAME = :data
+            
             ##
             # Parses JSON-RPC string.
             #
@@ -17,20 +37,6 @@ module JsonRpcObjects
                 JsonRpcObjects::Generic::Object::parse(self, string)
             end
 
-            ##
-            # Creates new one.
-            #
-            # @param [Numeric] code od the error
-            # @param [String, Exception] message of the error or 
-            #   exception object
-            # @param [Hash] opts additional options
-            # @return [V20::Error] new error object
-            #
-            
-            def self.create(code, message, opts = { })
-                JsonRpcObjects::V11::Error::generic_create(self, :data, code, message, opts)
-            end
-            
             ##
             # Checks correctness of the data.
             #

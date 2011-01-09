@@ -1,10 +1,23 @@
 # encoding: utf-8
 require "multitype-introspection"
-require "json-rpc-objects/v10/request"
 require "json-rpc-objects/v11/procedure-call"
 
+##
+# Main JSON-RPC Objects module.
+#
+
 module JsonRpcObjects
+
+    ##
+    # Module of JSON-RPC 2.0.
+    #
+
     module V20
+    
+        ##
+        # Request object class.
+        #
+        
         class Request < JsonRpcObjects::V11::ProcedureCall
 
             ##
@@ -36,20 +49,6 @@ module JsonRpcObjects
                 JsonRpcObjects::Generic::Object::parse(self, string)
             end
 
-            ##
-            # Creates new one.
-            #
-            # @param [Symbol] method of the request
-            # @param [Array] params array of arguments for the request
-            # @param [Hash] opts additional options
-            # @return [V20::Request] new request
-            #
-            
-            def self.create(method, params = [ ], opts = { })
-                JsonRpcObjects::V10::Request::generic_create(self, method, params, opts)
-            end
-            
-            
             ##
             # Checks correctness of the request data.
             #

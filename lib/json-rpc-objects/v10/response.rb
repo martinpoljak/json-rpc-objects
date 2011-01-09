@@ -1,8 +1,22 @@
 # encoding: utf-8
 require "json-rpc-objects/generic"
 
+##
+# Main JSON-RPC Objects module.
+#
+
 module JsonRpcObjects
+
+    ##
+    # Module of JSON-RPC 1.0.
+    #
+
     module V10
+    
+        ##
+        # Response object class.
+        #
+        
         class Response < JsonRpcObjects::Generic::Object
         
             ##
@@ -47,27 +61,13 @@ module JsonRpcObjects
             #
             
             def self.create(result = nil, error = nil, opts = { })
-                self::generic_create(self, result, error, opts)
-            end
-            
-            ##
-            # Creates new response by generic way.
-            #
-            # @param [Class] cls class of new object
-            # @param [Object] result of the call for response
-            # @param [Object] error of the call for response
-            # @param [Hash] opts additional options
-            # @return [V10::Response] new response or its child
-            #
-            
-            def self.generic_create(cls, result = nil, error = nil, opts = { })
                 data = {
                     :result => result,
                     :error => error
                 }
                 
                 data.merge! opts
-                return cls::new(data)
+                return self::new(data)
             end
             
             ##

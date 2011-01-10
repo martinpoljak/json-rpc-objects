@@ -1,6 +1,5 @@
 # encoding: utf-8
-require "multitype-introspection"
-require "hash-utils/hash"
+require "hash-utils"
 require "json-rpc-objects/v10/request"
 require "json-rpc-objects/generic"
 
@@ -40,12 +39,41 @@ module JsonRpcObjects
             
             @extensions
             attr_accessor :extensions
-        
+            
             ##
-            # Renders data to output hash.
+            # Holds keyword parameters.
             #
             
-            def output
+            @keyword_parameters
+            attr_accessor :keyword_parameters
+            
+            ##
+            # Checks correctness of the request data.
+            #
+            
+            def check!
+                super()
+                
+                if not @keyword_params.kind_of? Hash
+                    raise Exception::new("Keyword params must be Hash.")
+                end
+            end
+            
+            ##
+            # Converts back to JSON.
+            # @return [String]
+            #
+            
+            def to_json(version = :wd)
+                self.output(version).to_json
+            end
+            
+            ##
+            # Renders data to output hash.
+            # @return [Hash] with data of call
+            #
+            
+            def output(version = :wd)
                 self.check!
                 data = {  
                     :method => @method.to_s
@@ -53,10 +81,30 @@ module JsonRpcObjects
                 
                 __assign_version(data)
                 
-                if (not @params.nil?) and (not @params.empty?)
-                    data[:params] = @params
+                # Params
+                if version == :alt
+                    if not @params.nil? and not @params.empty?
+                        data[:params] = @params
+                    end
+                    if not @keyword_params.nil? and not @keyword_params.empty?
+                        data[:kwparams] = @keyword_params
+                    end
+                else
+                    params = { }
+                    
+                    if not @params.nil?
+                        @params.each_index do |i|
+                            params[i.to_s.to_sym] = @params[i]
+                        end
+                    end
+                    if not @keyword_params.nil?
+                        params.merge! @keyword_params
+                    end
+                    
+                    data[:params] = params
                 end
                 
+                # ID
                 if not @id.nil?
                     data[:id] = @id
                 end
@@ -76,6 +124,10 @@ module JsonRpcObjects
             
             ##
             # Handles method missing call for extensions.
+            #
+            # @param [Symbol] name of the method, setter if ends with '='
+            # @param [Object] value for set
+            # @return [Object] value set or get
             #
             
             def method_missing(name, *args)
@@ -117,12 +169,29 @@ module JsonRpcObjects
                 super(data, :converted)
                 
                 # If named arguments used, assigns keys as symbols
+                #   but keeps numeric arguments as integers
+
                 if @params.kind_of? Hash
-                    @params = @params.keys_to_sym
+                    @params = @params.dup
+                    @keyword_params = @params.remove! { |k, v| not k.numeric? }
+                    @params = @params.sort_by { |i| i[0].to_i }.map { |i| i[1] }
+                else
+                    @keyword_params = { }
                 end
+                
+                # For alternative specification merges with 'kwparams'
+                #   property.
+                
+                if data.include? :kwparams
+                   @keyword_params.merge! data[:kwparams]
+                end
+                
+                @keyword_params.map_keys! { |k| k.to_sym }
+                
                 
                 data.delete(:method)
                 data.delete(:params)
+                data.delete(:kwparams)
                 data.delete(:id)
                 
                 __delete_version(data)
@@ -143,16 +212,6 @@ module JsonRpcObjects
                 end
             end
             
-            ##
-            # Checks params data.
-            #
-            
-            def __check_params
-                if not @params.kind_of_any? [Array, Hash]
-                    raise Exception::new("Params must be Array or Hash.")
-                end
-            end
-
             ##
             # Assignes the version specification.
             #

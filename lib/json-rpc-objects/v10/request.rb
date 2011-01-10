@@ -92,17 +92,6 @@ module JsonRpcObjects
                 @id.nil?
             end
             
-            ##
-            # Converts request data to standard (defined) format.
-            # @return [nil]
-            #
-            
-            def normalize!
-                __normalize_method
-                __normalize_params
-            end
-
-            
             
             protected
             
@@ -116,6 +105,15 @@ module JsonRpcObjects
                 @method = data[:method]
                 @params = data[:params]
                 @id = data[:id]
+            end
+            
+            ##
+            # Converts request data to standard (defined) format.
+            #
+            
+            def normalize!
+                __normalize_method
+                __normalize_params
             end
             
             ##

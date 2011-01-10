@@ -52,6 +52,7 @@ module JsonRpcObjects
                                         
             ##
             # Renders data to output hash.
+            # @return [Hash] with data of return
             #
             
             def output
@@ -78,6 +79,10 @@ module JsonRpcObjects
             
             ##
             # Handles method missing call for extensions.
+            #
+            # @param [Symbol] name of the method, setter if ends with '='
+            # @param [Object] value for set
+            # @return [Object] value set or get
             #
             
             def method_missing(name, *args)

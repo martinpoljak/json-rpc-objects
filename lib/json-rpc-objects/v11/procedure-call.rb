@@ -61,6 +61,10 @@ module JsonRpcObjects
             
             ##
             # Converts back to JSON.
+            #
+            # @param [:wd, :alt] version specifies which version of 1.1
+            #   to use -- either Working Draft (http://json-rpc.org/wd/JSON-RPC-1-1-WD-20060807.html)
+            #   or Alternative (http://groups.google.com/group/json-rpc/web/json-rpc-1-1-alt)
             # @return [String]
             #
             
@@ -70,6 +74,10 @@ module JsonRpcObjects
             
             ##
             # Renders data to output hash.
+            #
+            # @param [:wd, :alt] version specifies which version of 1.1
+            #   to use -- either Working Draft (http://json-rpc.org/wd/JSON-RPC-1-1-WD-20060807.html)
+            #   or Alternative (http://groups.google.com/group/json-rpc/web/json-rpc-1-1-alt)
             # @return [Hash] with data of call
             #
             

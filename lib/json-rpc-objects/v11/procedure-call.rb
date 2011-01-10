@@ -54,7 +54,7 @@ module JsonRpcObjects
             def check!
                 super()
                 
-                if not @keyword_params.kind_of? Hash
+                if not @keyword_params.nil? and not @keyword_params.kind_of? Hash
                     raise Exception::new("Keyword params must be Hash.")
                 end
             end
@@ -87,30 +87,11 @@ module JsonRpcObjects
                     :method => @method.to_s
                 }
                 
+                # Version
                 __assign_version(data)
                 
                 # Params
-                if version == :alt
-                    if not @params.nil? and not @params.empty?
-                        data[:params] = @params
-                    end
-                    if not @keyword_params.nil? and not @keyword_params.empty?
-                        data[:kwparams] = @keyword_params
-                    end
-                else
-                    params = { }
-                    
-                    if not @params.nil?
-                        @params.each_index do |i|
-                            params[i.to_s.to_sym] = @params[i]
-                        end
-                    end
-                    if not @keyword_params.nil?
-                        params.merge! @keyword_params
-                    end
-                    
-                    data[:params] = params
-                end
+                __assign_params(data, version)
                 
                 # ID
                 if not @id.nil?
@@ -176,26 +157,8 @@ module JsonRpcObjects
                 data = __convert_data(value, mode)
                 super(data, :converted)
                 
-                # If named arguments used, assigns keys as symbols
-                #   but keeps numeric arguments as integers
-
-                if @params.kind_of? Hash
-                    @params = @params.dup
-                    @keyword_params = @params.remove! { |k, v| not k.numeric? }
-                    @params = @params.sort_by { |i| i[0].to_i }.map { |i| i[1] }
-                else
-                    @keyword_params = { }
-                end
-                
-                # For alternative specification merges with 'kwparams'
-                #   property.
-                
-                if data.include? :kwparams
-                   @keyword_params.merge! data[:kwparams]
-                end
-                
-                @keyword_params.map_keys! { |k| k.to_sym }
-                
+                # Params
+                __get_params(data)
                 
                 data.delete(:method)
                 data.delete(:params)
@@ -226,6 +189,73 @@ module JsonRpcObjects
             
             def __assign_version(data)
                 data[self.class::VERSION_MEMBER] = self.class::VERSION
+            end
+            
+
+            ##
+            # Gets params from input.
+            #
+            
+            def __get_params(data)
+            
+                # If named arguments used, assigns keys as symbols
+                #   but keeps numeric arguments as integers
+
+                if @params.kind_of? Hash
+                    @params = @params.dup
+                    @keyword_params = @params.remove! { |k, v| not k.numeric? }
+                    @params = @params.sort_by { |i| i[0].to_i }.map { |i| i[1] }
+                else
+                    @keyword_params = { }
+                end
+                
+                # For alternative specification merges with 'kwparams'
+                #   property.
+                
+                if data.include? :kwparams
+                   @keyword_params.merge! data[:kwparams]
+                end
+                
+                @keyword_params.map_keys! { |k| k.to_sym }
+                
+            end
+            
+            ##
+            # Assigns the parameters settings.
+            #
+            
+            def __assign_params(data, version = :wd)
+                if version == :alt
+                    if not @params.nil? and not @params.empty?
+                        data[:params] = @params
+                    end
+                    if not @keyword_params.nil? and not @keyword_params.empty?
+                        data[:kwparams] = @keyword_params
+                    end
+                else
+                    params = { }
+                    
+                    if not @params.nil?
+                        @params.each_index do |i|
+                            params[i.to_s.to_sym] = @params[i]
+                        end
+                    end
+                    if not @keyword_params.nil?
+                        params.merge! @keyword_params
+                    end
+                    
+                    data[:params] = params
+                end
+            end
+                        
+            ##
+            # Checks params data.
+            #
+            
+            def __check_params
+                if not @params.nil? and not @params.kind_of? Array
+                    raise Exception::new("Params must be Array.")
+                end
             end
             
             ##

@@ -49,6 +49,19 @@ module JsonRpcObjects
                     raise Exception::new("ID must contain String, Number or nil if included.")
                 end
             end
+            
+            ##
+            # Converts back to JSON.
+            #
+            # @param [:wd, :alt] version specifies which version of 1.1
+            #   to use -- either Working Draft (http://json-rpc.org/wd/JSON-RPC-1-1-WD-20060807.html)
+            #   or Alternative (http://groups.google.com/group/json-rpc/web/json-rpc-1-1-alt)
+            # @return [String]
+            #
+            
+            def to_json
+                self.output.to_json
+            end
                                         
             ##
             # Renders data to output hash.
@@ -56,7 +69,7 @@ module JsonRpcObjects
             #
             
             def output
-                result = super()
+                result = super(:wd)
                 
                 if @_id_set and @id.nil?
                     result[:id] = nil
@@ -89,7 +102,30 @@ module JsonRpcObjects
                 @_id_set = data.include? :id
                 
                 super(data, :converted)
-            end            
+            end          
+            
+            ##
+            # Gets params from input.
+            #
+            
+            def __get_params(data)
+                if @params.kind_of? Hash
+                    @keyword_params = @params.keys_to_sym
+                    @params = nil
+                end
+            end
+
+            ##
+            # Assigns the parameters settings.
+            #
+            
+            def __assign_params(data, version = nil)
+                if not @params.nil? and not @params.empty?
+                    data[:params] = @params
+                elsif not @keyword_params.nil? and not @keyword_params.empty?
+                    data[:params] = @keyword_params
+                end
+            end
             
         end
     end

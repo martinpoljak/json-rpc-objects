@@ -2,9 +2,9 @@
 $:.push("../..")
 
 require "./request"
-req = JsonRpcObjects::V20::Request::create(:alfa, [:beta], :id => 12345, :"$whatever" => false)
+req = JsonRpcObjects::V20::Request::create(:alfa, {:alfa => :beta}, :id => 12345, :"$whatever" => false)
 puts req.to_json
-req = JsonRpcObjects::V20::Request::create(:alfa, [:beta], :id => nil, :"version" => :"1.0")
+req = JsonRpcObjects::V20::Request::create(:alfa, [:beta], :"version" => :"1.0")
 puts req.to_json
 
 require "./error"

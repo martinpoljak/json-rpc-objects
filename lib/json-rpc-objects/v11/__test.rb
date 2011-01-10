@@ -3,7 +3,7 @@ $:.push("../..")
 
 require "./procedure-call"
 req = JsonRpcObjects::V11::ProcedureCall::create(:alfa, {"0" => :beta, "something" => :alfa}, :id => 12345, :"$whatever" => false)
-puts req.to_json(:alt)
+puts req.to_json(:wd)
 
 require "./error"
 err = JsonRpcObjects::V11::Error::create(200, "some problem")

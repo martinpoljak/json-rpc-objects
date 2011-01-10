@@ -1,5 +1,6 @@
 # encoding: utf-8
 require "multitype-introspection"
+require "hash-utils/hash"
 require "json-rpc-objects/v11/alt/procedure-call"
 
 ##

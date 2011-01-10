@@ -1,8 +1,5 @@
 # encoding: utf-8
-require "multitype-introspection"
-require "json-rpc-objects/v11/generic-types"
 require "json-rpc-objects/v11/wd/procedure-parameter-description"
-require "json-rpc-objects/generic"
 
 ##
 # Main JSON-RPC Objects module.

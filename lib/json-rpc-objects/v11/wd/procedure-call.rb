@@ -1,7 +1,6 @@
 # encoding: utf-8
-require "hash-utils"
+require "hash-utils/hash"
 require "json-rpc-objects/v10/request"
-require "json-rpc-objects/generic"
 
 ##
 # Main JSON-RPC Objects module.

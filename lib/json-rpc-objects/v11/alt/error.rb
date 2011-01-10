@@ -1,7 +1,5 @@
 # encoding: utf-8
-require "hash-utils"
 require "json-rpc-objects/v11/wd/error"
-require "json-rpc-objects/generic"
 
 ##
 # Main JSON-RPC Objects module.

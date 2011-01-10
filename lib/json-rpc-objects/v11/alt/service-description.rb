@@ -1,10 +1,6 @@
 # encoding: utf-8
-require "version"
-require "addressable/uri"
 require "json-rpc-objects/v11/alt/service-procedure-description"
 require "json-rpc-objects/v11/wd/service-description"
-require "json-rpc-objects/generic"
-require "hash-utils/array"
 
 ##
 # Main JSON-RPC Objects module.

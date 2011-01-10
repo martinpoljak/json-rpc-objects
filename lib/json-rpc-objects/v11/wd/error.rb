@@ -1,5 +1,5 @@
 # encoding: utf-8
-require "hash-utils"
+require "hash-utils/numeric"
 require "json-rpc-objects/generic"
 
 ##

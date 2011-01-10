@@ -31,6 +31,12 @@ module JsonRpcObjects
             class ServiceProcedureDescription < JsonRpcObjects::Generic::Object
             
                 ##
+                # Indicates the procedure parameter description class.
+                #
+                
+                PARAMETER_DESCRIPTION_CLASS = JsonRpcObjects::V11::WD::ProcedureParameterDescription
+                
+                ##
                 # Holds procedure name.
                 #
                 
@@ -97,12 +103,12 @@ module JsonRpcObjects
                         raise Exception::new("Procedure name must be Symbol or convertable to Symbol.")
                     end
 
-                    if (not @params.nil?) and ((not @params.kind_of? Array) or (not @params.all? { |v| v.kind_of? JsonRpcObjects::V11::WD::ProcedureParameterDescription }))
-                        raise Exception::new("If params is defined, must be an Array of JsonRpcObjects::V11::WD::ProcedureParameterDescription objects.")
+                    if (not @params.nil?) and ((not @params.kind_of? Array) or (not @params.all? { |v| v.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS }))
+                        raise Exception::new("If params is defined, must be an Array of " << self.class::PARAMETER_DESCRIPTION_CLASS.name << " objects.")
                     end
                     
-                    if (not @return.nil?) and (not @return.kind_of? JsonRpcObjects::V11::WD::ProcedureParameterDescription)
-                        raise Exception::new("If return is defined, must be set to JsonRpcObjects::V11::WD::ProcedureParameterDescription object.")
+                    if (not @return.nil?) and (not @return.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS)
+                        raise Exception::new("If return is defined, must be set to " << self.class::PARAMETER_DESCRIPTION_CLASS.name << " object.")
                     end
 
                     if (not @idempotent.nil?) and (not @idempotent.type_of? Boolean)
@@ -150,8 +156,8 @@ module JsonRpcObjects
                 #
                 
                 def <<(value)
-                    if not value.kind_of? JsonRpcObjects::V11::WD::ProcedureParameterDescription
-                        raise Exception::new("ProcedureParameterDescription object expected.")
+                    if not value.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS
+                        raise Exception::new(self.class::PARAMETER_DESCRIPTION_CLASS.name.dup << " object expected.")
                     end
                     
                     if @params.nil?
@@ -161,7 +167,6 @@ module JsonRpcObjects
                     @params << value
                 end
                                     
-                    
                     
                 protected
                 
@@ -180,11 +185,11 @@ module JsonRpcObjects
                     @return = data[:return]
                     
                     if @params.kind_of? Array
-                        @params = @params.map { |v| JsonRpcObjects::V11::WD::ProcedureParameterDescription::new(v) }
+                        @params = @params.map { |v| self.class::PARAMETER_DESCRIPTION_CLASS::new(v) }
                     end
                     
                     if @return.kind_of? Hash
-                        @return = JsonRpcObjects::V11::WD::ProcedureParameterDescription::new(@return)
+                        @return = self.class::PARAMETER_DESCRIPTION_CLASS::new(@return)
                     end
                 end
                 

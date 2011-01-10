@@ -30,6 +30,12 @@ module JsonRpcObjects
             class ServiceDescription < JsonRpcObjects::Generic::Object
             
                 ##
+                # Indicates the service procedure description class.
+                #
+                
+                PROCEDURE_DESCRIPTION_CLASS = JsonRpcObjects::V11::WD::ServiceProcedureDescription
+            
+                ##
                 # Holds service name.
                 #
                 
@@ -113,8 +119,8 @@ module JsonRpcObjects
                         raise Exception::new("Version must be at least in <major>.<minor> format and must contain numbers only.")
                     end
                     
-                    if (not @procs.nil?) and ((not @procs.kind_of? Array) or (not @procs.all? { |v| v.kind_of? JsonRpcObjects::V11::WD::ServiceProcedureDescription }))
-                        raise Exception::new("If procs is defined, must be an Array of JsonRpcObjects::V11::ServiceProcedureDescription objects.")
+                    if (not @procs.nil?) and ((not @procs.kind_of? Array) or (not @procs.all? { |v| v.kind_of? self.class::PROCEDURE_DESCRIPTION_CLASS }))
+                        raise Exception::new("If procs is defined, must be an Array of " << self.class::PROCEDURE_DESCRIPTION_CLASS.name << " objects.")
                     end
                 end
                 
@@ -161,8 +167,8 @@ module JsonRpcObjects
                 #
                 
                 def <<(value)
-                    if not value.kind_of? JsonRpcObjects::V11::WD::ServiceProcedureDescription
-                        raise Exception::new("ServiceProcedureDescription object expected.")
+                    if not value.kind_of? self.class::PROCEDURE_DESCRIPTION_CLASS
+                        raise Exception::new(self.class::PROCEDURE_DESCRIPTION_CLASS.name.dup << " object expected.")
                     end
                     
                     if @procs.nil?
@@ -192,7 +198,7 @@ module JsonRpcObjects
                     @procs = data[:procs]
                     
                     if @procs.kind_of? Array
-                        @procs = @procs.map { |v| JsonRpcObjects::V11::WD::ServiceProcedureDescription::new(v) }
+                        @procs = @procs.map { |v| self.class::PROCEDURE_DESCRIPTION_CLASS::new(v) }
                     end
                 end
                 
@@ -225,7 +231,6 @@ module JsonRpcObjects
                         @address = Addressable::URI::parse(@address.to_s)
                     end
                 end
-
                       
             end
         end

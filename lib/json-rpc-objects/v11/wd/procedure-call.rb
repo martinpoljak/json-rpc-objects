@@ -152,7 +152,6 @@ module JsonRpcObjects
                     
                     data.delete(:method)
                     data.delete(:params)
-                    data.delete(:kwparams)
                     data.delete(:id)
                     
                     __delete_version(data)
@@ -181,7 +180,7 @@ module JsonRpcObjects
                 
                     # If named arguments used, assigns keys as symbols
                     #   but keeps numeric arguments as integers
-
+                    
                     if @params.kind_of? Hash
                         @params = @params.dup
                         @keyword_params = @params.remove! { |k, v| not k.numeric? }

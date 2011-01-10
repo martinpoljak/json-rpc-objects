@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "multitype-introspection"
-require "json-rpc-objects/v11/procedure-call"
+require "json-rpc-objects/v11/alt/procedure-call"
 
 ##
 # Main JSON-RPC Objects module.
@@ -18,7 +18,7 @@ module JsonRpcObjects
         # Request object class.
         #
         
-        class Request < JsonRpcObjects::V11::ProcedureCall
+        class Request < JsonRpcObjects::V11::Alt::ProcedureCall
 
             ##
             # Holds JSON-RPC version specification.
@@ -51,25 +51,12 @@ module JsonRpcObjects
             end
             
             ##
-            # Converts back to JSON.
-            #
-            # @param [:wd, :alt] version specifies which version of 1.1
-            #   to use -- either Working Draft (http://json-rpc.org/wd/JSON-RPC-1-1-WD-20060807.html)
-            #   or Alternative (http://groups.google.com/group/json-rpc/web/json-rpc-1-1-alt)
-            # @return [String]
-            #
-            
-            def to_json
-                self.output.to_json
-            end
-                                        
-            ##
             # Renders data to output hash.
             # @return [Hash] with data of error
             #
             
             def output
-                result = super(:wd)
+                result = super()
                 
                 if @_id_set and @id.nil?
                     result[:id] = nil

@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "hash-utils/numeric"
-require "json-rpc-objects/v11/error"
+require "json-rpc-objects/v11/alt/error"
 
 ##
 # Main JSON-RPC Objects module.
@@ -18,7 +18,7 @@ module JsonRpcObjects
         # Error description object class for Response.
         #
         
-        class Error < JsonRpcObjects::V11::Error
+        class Error < JsonRpcObjects::V11::Alt::Error
 
             ##
             # Indicates data member name.

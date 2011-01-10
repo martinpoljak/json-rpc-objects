@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "multitype-introspection"
 require "json-rpc-objects/v10/response"
-require "json-rpc-objects/v11/procedure-return"
+require "json-rpc-objects/v11/alt/procedure-return"
 require "json-rpc-objects/v20/error"
 
 ##
@@ -20,7 +20,7 @@ module JsonRpcObjects
         # Response object class.
         #
     
-        class Response < JsonRpcObjects::V11::ProcedureReturn
+        class Response < JsonRpcObjects::V11::Alt::ProcedureReturn
         
             ##
             # Holds JSON-RPC version specification.

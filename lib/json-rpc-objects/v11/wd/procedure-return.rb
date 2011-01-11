@@ -39,6 +39,12 @@ module JsonRpcObjects
                 VERSION_MEMBER = :version
                 
                 ##
+                # Identified the error object class.
+                #
+                
+                ERROR_CLASS = JsonRpcObjects::V11::WD::Error
+                
+                ##
                 # Holds extensions.
                 #
                 
@@ -161,7 +167,7 @@ module JsonRpcObjects
                 #
                 
                 def __create_error(data)
-                    JsonRpcObjects::V11::WD::Error::new(data)
+                    self.class::ERROR_CLASS::new(data)
                 end
                 
                 ##
@@ -169,8 +175,12 @@ module JsonRpcObjects
                 #
                 
                 def __check_error
-                    if (not @error.nil?) and (not @error.kind_of? JsonRpcObjects::V11::WD::Error)
-                        raise Exception::new("Error object must be of type JsonRpcObjects::V11::WD::Error.")
+                    if not @error.nil?
+                        if not @error.kind_of? self.class::ERROR_CLASS
+                            raise Exception::new("Error object must be of type " << self.class::ERROR_CLASS.name << ".")
+                        end
+                        
+                        @error.check!
                     end
                 end
                 

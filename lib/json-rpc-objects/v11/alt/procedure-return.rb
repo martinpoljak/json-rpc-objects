@@ -25,27 +25,13 @@ module JsonRpcObjects
             #
             
             class ProcedureReturn < JsonRpcObjects::V11::WD::ProcedureReturn
-
-                protected
-                
+            
                 ##
-                # Creates error object.
+                # Identified the error object class.
                 #
                 
-                def __create_error(data)
-                    JsonRpcObjects::V11::Alt::Error::new(data)
-                end
+                ERROR_CLASS = JsonRpcObjects::V11::Alt::Error
                 
-                ##
-                # Checks error settings.
-                #
-                
-                def __check_error
-                    if (not @error.nil?) and (not @error.kind_of? JsonRpcObjects::V11::Alt::Error)
-                        raise Exception::new("Error object must be of type JsonRpcObjects::V11::Alt::Error.")
-                    end
-                end
-                                
             end
         end
     end

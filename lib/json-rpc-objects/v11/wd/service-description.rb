@@ -119,8 +119,14 @@ module JsonRpcObjects
                         raise Exception::new("Version must be at least in <major>.<minor> format and must contain numbers only.")
                     end
                     
-                    if (not @procs.nil?) and ((not @procs.kind_of? Array) or (not @procs.all? { |v| v.kind_of? self.class::PROCEDURE_DESCRIPTION_CLASS }))
-                        raise Exception::new("If procs is defined, must be an Array of " << self.class::PROCEDURE_DESCRIPTION_CLASS.name << " objects.")
+                    if (not @procs.nil?) 
+                        if (not @procs.kind_of? Array) or (not @procs.all? { |v| v.kind_of? self.class::PROCEDURE_DESCRIPTION_CLASS })
+                            raise Exception::new("If procs is defined, must be an Array of " << self.class::PROCEDURE_DESCRIPTION_CLASS.name << " objects.")
+                        end
+                        
+                        if @procs.kind_of? Array
+                            @procs.each { |proc| proc.check! }
+                        end
                     end
                 end
                 

@@ -103,12 +103,22 @@ module JsonRpcObjects
                         raise Exception::new("Procedure name must be Symbol or convertable to Symbol.")
                     end
 
-                    if (not @params.nil?) and ((not @params.kind_of? Array) or (not @params.all? { |v| v.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS }))
-                        raise Exception::new("If params is defined, must be an Array of " << self.class::PARAMETER_DESCRIPTION_CLASS.name << " objects.")
+                    if not @params.nil? 
+                        if (not @params.kind_of? Array) or (not @params.all? { |v| v.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS })
+                            raise Exception::new("If params is defined, must be an Array of " << self.class::PARAMETER_DESCRIPTION_CLASS.name << " objects.")
+                        end
+                        
+                        if @params.kind_of? Array
+                            @params.each { |param| param.check! }
+                        end
                     end
                     
-                    if (not @return.nil?) and (not @return.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS)
-                        raise Exception::new("If return is defined, must be set to " << self.class::PARAMETER_DESCRIPTION_CLASS.name << " object.")
+                    if not @return.nil?
+                        if not @return.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS
+                            raise Exception::new("If return is defined, must be set to " << self.class::PARAMETER_DESCRIPTION_CLASS.name << " object.")
+                        end
+                        
+                        @return.check!
                     end
 
                     if (not @idempotent.nil?) and (not @idempotent.type_of? Boolean)

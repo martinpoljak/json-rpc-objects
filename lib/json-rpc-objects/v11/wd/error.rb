@@ -1,6 +1,7 @@
 # encoding: utf-8
 require "hash-utils/numeric"
 require "json-rpc-objects/generic"
+require "json-rpc-objects/v11/wd/extensions"
 
 ##
 # Main JSON-RPC Objects module.
@@ -9,13 +10,14 @@ require "json-rpc-objects/generic"
 module JsonRpcObjects
 
     ##
-    # Module of JSON-RPC 1.1.
+    # General module of JSON-RPC 1.1.
     #
 
     module V11
         
         ##
         # Module of Working Draft.
+        # @see http://json-rpc.org/wd/JSON-RPC-1-1-WD-20060807.html
         #
         
         module WD
@@ -25,6 +27,8 @@ module JsonRpcObjects
             #
             
             class Error < JsonRpcObjects::Generic::Object
+            
+                include Extensions
             
                 ##
                 # Indicates data member name.
@@ -52,13 +56,6 @@ module JsonRpcObjects
                 
                 @data
                 attr_accessor :data
-                
-                ##
-                # Holds extensions.
-                #
-                
-                @extensions
-                attr_accessor :extensions
 
                 ##
                 # Creates new one.
@@ -118,45 +115,7 @@ module JsonRpcObjects
                     data.merge! @extensions
                     return data
                 end
-                
-                ##
-                # Handles method missing call for extensions.
-                #
-                # @param [Symbol] name of the method, setter if ends with '='
-                # @param [Object] value for set
-                # @return [Object] value set or get
-                #
-                
-                def method_missing(name, *args)
-                    if name.to_s[-1].chr == ?=
-                        self[name.to_s[0..-2]] = args.first
-                    else
-                        self[name]
-                    end
-                end
-                
-                ##
-                # Handles array access as access for extensions too.
-                #
-                # @param [String] name of extension for return
-                # @return [Object] value of extension member
-                #
-                
-                def [](name)
-                    @extensions[name.to_sym]
-                end
-                
-                ##
-                # Handles array set to extensions.
-                #
-                # @param [String] name of extension for set
-                # @param[Object] value of extension for set
-                #
-                
-                def []=(name, value)
-                    @extensions[name.to_sym] = value
-                end
-                
+                                
                     
                 protected
                 

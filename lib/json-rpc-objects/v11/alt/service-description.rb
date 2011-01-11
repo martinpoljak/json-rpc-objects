@@ -9,13 +9,14 @@ require "json-rpc-objects/v11/wd/service-description"
 module JsonRpcObjects
 
     ##
-    # Module of JSON-RPC 1.1.
+    # General module of JSON-RPC 1.1.
     #
 
     module V11
 
         ##
-        # Module of Alternative.
+        # Module of JSON-RPC 1.1 Alternative.
+        # @see http://groups.google.com/group/json-rpc/web/json-rpc-1-1-alt
         #
         
         module Alt

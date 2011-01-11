@@ -10,13 +10,14 @@ require "json-rpc-objects/generic"
 module JsonRpcObjects
 
     ##
-    # Module of JSON-RPC 1.1.
+    # General module of JSON-RPC 1.1.
     #
 
     module V11
         
         ##
         # Module of Working Draft.
+        # @see http://json-rpc.org/wd/JSON-RPC-1-1-WD-20060807.html
         #
         
         module WD

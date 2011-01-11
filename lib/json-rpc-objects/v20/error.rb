@@ -10,6 +10,7 @@ module JsonRpcObjects
 
     ##
     # Module of JSON-RPC 2.0.
+    # @see http://groups.google.com/group/json-rpc/web/json-rpc-2-0
     #
 
     module V20

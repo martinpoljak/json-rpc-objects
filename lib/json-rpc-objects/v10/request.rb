@@ -9,6 +9,7 @@ module JsonRpcObjects
 
     ##
     # Module of JSON-RPC 1.0.
+    # @see http://json-rpc.org/wiki/specification
     #
     
     module V10

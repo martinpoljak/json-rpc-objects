@@ -7,7 +7,7 @@
 module JsonRpcObjects
 
     ##
-    # Module of JSON-RPC 1.1.
+    # General module of JSON-RPC 1.1.
     #
 
     module V11

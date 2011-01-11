@@ -8,3 +8,5 @@ puts req.to_json
 require "./response"
 res = JsonRpcObjects::V10::Response::create(true, nil, :id => 12345)
 puts res.to_json
+
+puts req.class::version::alfa_beta::create(:ala, nil, :id => :alfa).to_json

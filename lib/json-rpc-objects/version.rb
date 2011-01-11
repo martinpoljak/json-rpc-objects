@@ -13,10 +13,16 @@ module JsonRpcObjects
     class Version
     
         ##
-        # Holds case switcher.
+        # Holds class name generator for internal use.
         #
         
-        CASE_SWITCHER = /_\w/
+        CLASS_NAME_GENERATOR = /_\w/
+        
+        ##
+        # Holds file name generator for internal use.
+        #
+        
+        FILE_NAME_GENERATOR = /\w[A-Z]/
     
         ##
         # Holds version module.
@@ -55,10 +61,24 @@ module JsonRpcObjects
         #
         
         def method_missing(name)
-            name = "_" << name.to_s
-            name.gsub!(self.class::CASE_SWITCHER) { |s| s[1].chr.upcase }
+            name = name.to_s 
+        
+            # Class name
+            class_name = "_" << name
+            class_name.gsub!(self.class::CLASS_NAME_GENERATOR) { |s| s[1].chr.upcase }
+
+            # Module name
+            module_name = @module.name.dup << "::" << class_name
             
-            Kernel::eval(@module.name.dup << "::" << name)
+            # File path
+            file_path = "x" << module_name
+            file_path.gsub!(self.class::FILE_NAME_GENERATOR) { |s| s[0].chr << "-" <<  s[1].chr.downcase }
+            file_path.replace(file_path[2..-1])
+            file_path.gsub!("::", "/")
+            file_path.downcase!
+            
+            require file_path
+            Kernel::eval(module_name)
         end
         
         

@@ -1,6 +1,7 @@
 # encoding: utf-8
 require "hash-utils"
 require "yajl/json_gem"
+require "json-rpc-objects/version"
 
 ##
 # Main JSON-RPC Objects module.
@@ -20,6 +21,15 @@ module JsonRpcObjects
         #
         
         class Object
+        
+            ##
+            # Returns the version object.
+            # @return [JsonRpcObjects::Version]  appropriate version object
+            #
+            
+            def self.version
+                JsonRpcObjects::Version::get(self::VERSION)
+            end
           
             ##
             # Parses JSON-RPC string.

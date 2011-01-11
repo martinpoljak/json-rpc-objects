@@ -19,7 +19,13 @@ module JsonRpcObjects
         #
         
         class Response < JsonRpcObjects::Generic::Object
-        
+
+            ##
+            # Holds link to its version module.
+            #
+            
+            VERSION = JsonRpcObjects::V10
+                
             ##
             # Holds result data.
             #

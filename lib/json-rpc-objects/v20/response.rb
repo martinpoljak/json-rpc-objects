@@ -23,10 +23,16 @@ module JsonRpcObjects
         class Response < JsonRpcObjects::V11::Alt::ProcedureReturn
         
             ##
+            # Holds link to its version module.
+            #
+            
+            VERSION = JsonRpcObjects::V20
+            
+            ##
             # Holds JSON-RPC version specification.
             #
             
-            VERSION = :"2.0"
+            VERSION_NUMBER = :"2.0"
             
             ##
             # Holds JSON-RPC version member identification.

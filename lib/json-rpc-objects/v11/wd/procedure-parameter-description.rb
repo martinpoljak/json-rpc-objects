@@ -29,6 +29,12 @@ module JsonRpcObjects
             class ProcedureParameterDescription < JsonRpcObjects::Generic::Object
             
                 ##
+                # Holds link to its version module.
+                #
+                
+                VERSION = JsonRpcObjects::V11::WD
+                
+                ##
                 # Maps type to object (class).
                 #
                 

@@ -26,6 +26,13 @@ module JsonRpcObjects
             #
             
             class ProcedureCall < JsonRpcObjects::V11::WD::ProcedureCall
+            
+                ##
+                # Holds link to its version module.
+                #
+                
+                VERSION = JsonRpcObjects::V11::Alt
+                
                 
                 protected
                 

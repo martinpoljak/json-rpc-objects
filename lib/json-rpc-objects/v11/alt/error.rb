@@ -25,6 +25,12 @@ module JsonRpcObjects
             #
             
             class Error < JsonRpcObjects::V11::WD::Error
+            
+                ##
+                # Holds link to its version module.
+                #
+                
+                VERSION = JsonRpcObjects::V11::Alt
                 
                 ##
                 # Checks correctness of the data.

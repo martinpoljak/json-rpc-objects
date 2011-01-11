@@ -31,10 +31,16 @@ module JsonRpcObjects
                 include Extensions
 
                 ##
+                # Holds link to its version module.
+                #
+                
+                VERSION = JsonRpcObjects::V11::WD
+                
+                ##
                 # Holds JSON-RPC version specification.
                 #
                 
-                VERSION = :"1.1"
+                VERSION_NUMBER = :"1.1"
                 
                 ##
                 # Holds JSON-RPC version member identification.
@@ -148,7 +154,7 @@ module JsonRpcObjects
                 #
                 
                 def __assign_version(data)
-                    data[self.class::VERSION_MEMBER] = self.class::VERSION
+                    data[self.class::VERSION_MEMBER] = self.class::VERSION_NUMBER
                 end
                 
                 ##

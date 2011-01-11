@@ -20,6 +20,12 @@ module JsonRpcObjects
         #
         
         class Error < JsonRpcObjects::V11::Alt::Error
+        
+            ##
+            # Holds link to its version module.
+            #
+            
+            VERSION = JsonRpcObjects::V20
 
             ##
             # Indicates data member name.

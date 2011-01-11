@@ -21,6 +21,12 @@ module JsonRpcObjects
         class Request < JsonRpcObjects::Generic::Object
         
             ##
+            # Holds link to its version module.
+            #
+            
+            VERSION = JsonRpcObjects::V10
+        
+            ##
             # Holds request method name.
             #
         

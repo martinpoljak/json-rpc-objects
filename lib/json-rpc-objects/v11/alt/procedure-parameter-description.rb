@@ -25,6 +25,13 @@ module JsonRpcObjects
             #
             
             class ProcedureParameterDescription < JsonRpcObjects::V11::WD::ProcedureParameterDescription
+            
+                ##
+                # Holds link to its version module.
+                #
+                
+                VERSION = JsonRpcObjects::V11::Alt
+                
             end
             
         end

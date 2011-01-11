@@ -29,7 +29,13 @@ module JsonRpcObjects
             class Error < JsonRpcObjects::Generic::Object
             
                 include Extensions
-            
+
+                ##
+                # Holds link to its version module.
+                #
+                
+                VERSION = JsonRpcObjects::V11::WD
+                            
                 ##
                 # Indicates data member name.
                 #

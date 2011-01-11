@@ -28,6 +28,12 @@ module JsonRpcObjects
             class ProcedureReturn < JsonRpcObjects::V11::WD::ProcedureReturn
             
                 ##
+                # Holds link to its version module.
+                #
+                
+                VERSION = JsonRpcObjects::V11::Alt
+                
+                ##
                 # Identified the error object class.
                 #
                 

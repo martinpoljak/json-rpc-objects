@@ -28,6 +28,12 @@ module JsonRpcObjects
             class ServiceDescription < JsonRpcObjects::V11::WD::ServiceDescription
             
                 ##
+                # Holds link to its version module.
+                #
+                
+                VERSION = JsonRpcObjects::V11::Alt
+                
+                ##
                 # Indicates the procedure parameter description class.
                 #
                 

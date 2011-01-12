@@ -1,5 +1,6 @@
 # encoding: utf-8
 require "json-rpc-objects/generic"
+require "json-rpc-objects/v10/error"
 
 ##
 # Main JSON-RPC Objects module.
@@ -25,7 +26,13 @@ module JsonRpcObjects
             #
             
             VERSION = JsonRpcObjects::V10
-                
+
+            ##
+            # Identifies the error object class.
+            #
+            
+            ERROR_CLASS = JsonRpcObjects::V10::Error
+            
             ##
             # Holds result data.
             #
@@ -71,8 +78,11 @@ module JsonRpcObjects
             #
             
             def check!
+                self.normalize!
+                
                 __check_coherency
                 __check_id
+                __check_error
             end
                         
             ##
@@ -113,6 +123,16 @@ module JsonRpcObjects
                 @result = data[:result]
                 @error = data[:error]
                 @id = data[:id]
+                
+                __create_error
+            end
+            
+            ##
+            # Converts request data to standard (defined) format.
+            #
+                
+            def normalize!
+                __normalize_error
             end
 
             ##
@@ -133,6 +153,36 @@ module JsonRpcObjects
                     raise Exception::new("ID is required for 1.0 responses.")
                 end           
             end 
+            
+            ##
+            # Creates error object.
+            #
+            
+            def __create_error
+                if not @error.nil? and not @error.kind_of? self.class::ERROR_CLASS
+                    @error = self.class::ERROR_CLASS::new(@error)
+                end
+            end
+            
+            ##
+            # Checks error settings.
+            #
+            
+            def __check_error
+                if not @error.nil?
+                    if not @error.kind_of? self.class::ERROR_CLASS
+                        raise Exception::new("Error object must be of type " << self.class::ERROR_CLASS.name << ".")
+                    end
+                    
+                    @error.check!
+                end
+            end
+            
+            ##
+            # Normalizes error.
+            #
+            
+            alias :__normalize_error :__create_error
                         
         end
     end

@@ -23,6 +23,17 @@ module JsonRpcObjects
         class Object
         
             ##
+            # Creates new one.
+            #
+            # @param [Array] args some arguments
+            # @return [JsonRpc::Generic::Object] new object
+            #
+            
+            def self.create(*args)
+                __abstract
+            end
+        
+            ##
             # Returns the version object.
             # @return [JsonRpcObjects::Version]  appropriate version object
             #
@@ -69,9 +80,9 @@ module JsonRpcObjects
             end
                         
             ##
-            # Renders data to output Hash.
+            # Renders data to output form.
             #
-            # @return [Hash] with data of object
+            # @return [Object] with data of object
             # @abstract
             #
 
@@ -84,7 +95,6 @@ module JsonRpcObjects
             
             ##
             # Assigns request data.
-            # @abstract
             #
 
             def data=(value, mode = nil)
@@ -93,10 +103,6 @@ module JsonRpcObjects
             
             ##
             # Converts data keys from strings to symbols if necessary.
-            
-            # @param [Hash] data for conversion
-            # @param [Symbol, nil] mode of the conversion, can 
-            #   be :converted
             #
             
             def __convert_data(data, mode = nil)
@@ -109,7 +115,6 @@ module JsonRpcObjects
             
             ##
             # Converts request data to standard (defined) format.
-            # @return [nil]
             #
             
             def normalize!
@@ -123,6 +128,14 @@ module JsonRpcObjects
             #
             
             def __abstract
+                self.class::__abstract
+            end
+            
+            ##
+            # Raises method is abstract exception.
+            #
+            
+            def self.__abstract
                 raise Exception::new("Method is abstract.")
             end
 

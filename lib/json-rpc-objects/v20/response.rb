@@ -29,6 +29,12 @@ module JsonRpcObjects
             VERSION = JsonRpcObjects::V20
             
             ##
+            # Identifies the error object class.
+            #
+            
+            ERROR_CLASS = JsonRpcObjects::V20::Error
+            
+            ##
             # Holds JSON-RPC version specification.
             #
             
@@ -88,25 +94,6 @@ module JsonRpcObjects
                 @_id_set = data.include? :id
             end
             
-            ##
-            # Creates error object.
-            #
-            
-            def __create_error(data)
-                JsonRpcObjects::V20::Error::new(data)
-            end
-            
-
-            ##
-            # Checks error settings.
-            #
-            
-            def __check_error
-                if (not @error.nil?) and (not @error.kind_of? JsonRpcObjects::V20::Error)
-                    raise Exception::new("Error object must be of type JsonRpcObjects::V20::Error.")
-                end
-            end
-
             ##
             # Assignes the version specification.
             #

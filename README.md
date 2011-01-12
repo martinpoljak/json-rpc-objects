@@ -7,6 +7,7 @@ versions of the protocol and support for abiliimty to communicate by the
 same version of the protocol which other side uses by a transparent way.
 
 It means it implements following versions:
+
 * 1.0 (*original specification*)
 * 1.1 WD (*working draft*)
 * 1.1 Alt (*alternative proposal*)
@@ -53,7 +54,7 @@ Or incoming data processing request:
     JsonRpcObjects::Request::parse(string)
     
 …which will simply return request class of appropriate type according 
-to version.
+to its version.
 
 Contributing
 ------------

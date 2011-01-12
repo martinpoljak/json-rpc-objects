@@ -9,4 +9,8 @@ require "./response"
 res = JsonRpcObjects::V10::Response::create(true, nil, :id => 12345)
 puts res.to_json
 
-puts req.class::version::alfa_beta::create(:ala, nil, :id => :alfa).to_json
+
+require "../request"
+puts JsonRpcObjects::Request::parse(req.to_json).inspect
+require "../response"
+puts JsonRpcObjects::Response::parse(res.to_json).inspect

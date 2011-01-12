@@ -38,6 +38,7 @@ module JsonRpcObjects
 
         ##
         # Returns version object for appropriate version module.
+        #
         # @param [Module] mod appropriate version module
         # @return [Version] version object
         #
@@ -78,7 +79,7 @@ module JsonRpcObjects
             file_path.downcase!
             
             require file_path
-            Kernel::eval(module_name)
+            return Kernel::eval(module_name)
         end
         
         

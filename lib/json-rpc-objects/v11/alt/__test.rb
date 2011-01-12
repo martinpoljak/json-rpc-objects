@@ -29,3 +29,9 @@ sparam2 = JsonRpcObjects::V11::Alt::ProcedureParameterDescription::create(:param
 sproc << sparam1
 sproc << sparam2
 puts sdesc.to_json
+
+
+require "../../request"
+puts JsonRpcObjects::Request::parse(req.to_json).inspect
+require "../../response"
+puts JsonRpcObjects::Response::parse(res.to_json, :alt).inspect

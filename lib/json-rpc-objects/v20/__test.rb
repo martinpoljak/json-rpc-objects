@@ -16,3 +16,7 @@ puts res.to_json
 res = JsonRpcObjects::V20::Response::create(true, nil, :id => 12345)
 puts res.to_json
 
+require "../request"
+puts JsonRpcObjects::Request::parse(req.to_json).inspect
+require "../response"
+puts JsonRpcObjects::Response::parse(res.to_json).inspect

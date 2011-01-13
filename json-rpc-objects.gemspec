@@ -16,8 +16,14 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
+    ".document",
+    "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.md",
+    "Rakefile",
+    "VERSION",
+    "json-rpc-objects.gemspec",
     "lib/json-rpc-objects/error.rb",
     "lib/json-rpc-objects/generic.rb",
     "lib/json-rpc-objects/request.rb",
@@ -61,7 +67,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Implementation of JSON-RPC objects with respect to specifications compliance and API backward compatibility. Implements all versions of the protocol and support for ability to communicate by the same version of the protocol which other side uses by a transparent way.}
+  s.summary = %q{Implementation of JSON-RPC objects with respect to specifications compliance and API backward compatibility. Implements all versions of the protocol and support for ability to communicate by the same protocol version which other side uses by a transparent way.}
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

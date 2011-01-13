@@ -75,12 +75,14 @@ module JsonRpcObjects
                 
                 def output
                     self.check!
-                    data = {  
-                        :method => @method.to_s
-                    }
                     
+                    data = { }
+
                     # Version
                     __assign_version(data)
+                    
+                    # Method
+                    data[:method] = @method.to_s
                     
                     # Params
                     __assign_params(data)
@@ -93,16 +95,7 @@ module JsonRpcObjects
                     data.merge! @extensions                
                     return data
                 end
-
-                ##
-                # Indicates, it's notification.
-                # @return [Boolean] for JSON-RPC 1.1 returns always false.
-                #
-
-                def notification?
-                    false
-                end
-
+                
                 
                 protected
                 
@@ -194,7 +187,7 @@ module JsonRpcObjects
                 #
                 
                 def __assign_version(data)
-                    data[self.class::VERSION_MEMBER] = self.class::VERSION
+                    data[self.class::VERSION_MEMBER] = self.class::VERSION_NUMBER
                 end
                 
                 ##

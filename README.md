@@ -66,7 +66,7 @@ simple way:
 
     request = JsonRpcObjects::Request::parse(string)
     ...
-    response = request.class::version.response(<some data>)
+    response = request.class::version.response::create(<some data>)
     
 This code analyzes protocol version of the request and create response
 of the same protocol version. I utilizes call handler, so you can call

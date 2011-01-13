@@ -18,7 +18,7 @@ module JsonRpcObjects
         # @see http://groups.google.com/group/json-rpc/web/json-rpc-1-1-alt
         #
         
-        module WD
+        module Alt
                 
             ##
             # Fake procedure return (response) class.

@@ -22,7 +22,7 @@ module JsonRpcObjects
         # Holds file name generator for internal use.
         #
         
-        FILE_NAME_GENERATOR = /\w[A-Z]/
+        FILE_NAME_GENERATOR = /[a-z0-9][A-Z]/
     
         ##
         # Holds version module.
@@ -73,7 +73,7 @@ module JsonRpcObjects
             
             # File path
             file_path = "x" << module_name
-            file_path.gsub!(self.class::FILE_NAME_GENERATOR) { |s| s[0].chr << "-" <<  s[1].chr.downcase }
+            file_path.gsub!(self.class::FILE_NAME_GENERATOR) { |s| s[0].chr << "-" <<  s[1].chr }
             file_path.replace(file_path[2..-1])
             file_path.gsub!("::", "/")
             file_path.downcase!

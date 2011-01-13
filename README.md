@@ -109,10 +109,10 @@ Copyright
 Copyright &copy; 2011 [Martin Kozák][7]. See `LICENSE.txt` for
 further details.
 
-[1]: http://www.ruby-doc.org/core/classes/Array.html
-[2]: http://www.ruby-doc.org/core/classes/Hash.html
-[3]: http://www.ruby-doc.org/core/classes/Array.html#M000278
-[4]: http://www.ruby-doc.org/core/classes/Array.html#M000279
-[5]: http://www.ruby-doc.org/core/classes/Array.html#M000279
+[1]: http://en.wikipedia.org/wiki/JSON-RPC
+[2]: http://json-rpc.org/wiki/specification
+[3]: http://json-rpc.org/wd/JSON-RPC-1-1-WD-20060807.html
+[4]: http://groups.google.com/group/json-rpc/web/json-rpc-1-1-alt
+[5]: http://groups.google.com/group/json-rpc/web/json-rpc-2-0
 [6]: http://github.com/martinkozak/json-rpc-objects/issues
 [7]: http://www.martinkozak.net/

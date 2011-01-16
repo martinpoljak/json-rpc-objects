@@ -114,7 +114,7 @@ module JsonRpcObjects
                         :message => @message
                     }
                     
-                    if not @error.nil?
+                    if not @data.nil?
                         data[:error] = @data
                     end
                     

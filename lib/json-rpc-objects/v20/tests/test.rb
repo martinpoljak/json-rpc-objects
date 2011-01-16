@@ -8,7 +8,7 @@ req = JsonRpcObjects::V20::Request::create(:alfa, [:beta], :"version" => :"1.0")
 puts req.to_json
 
 require "../error"
-err = JsonRpcObjects::V20::Error::create(200, "some problem")
+err = JsonRpcObjects::V20::Error::create(200, "some problem", :data => "Additional data.")
 
 require "../response"
 res = JsonRpcObjects::V20::Response::create(nil, err, :id => 12345)

@@ -71,8 +71,12 @@ module JsonRpcObjects
             def __assign_data(data)
                 @data = data[:data]
                 data.delete(:data)
-            end            
-                  
+                
+                if @data.nil?
+                    super(data)
+                end
+            end
+
         end
     end
 end

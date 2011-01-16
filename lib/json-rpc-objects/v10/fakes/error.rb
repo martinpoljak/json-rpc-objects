@@ -34,9 +34,14 @@ module JsonRpcObjects
             #
             
             def self.create(code, message = nil, opts = { })
-                if message.nil?
+                if message.nil? and opts.empty?
                     data = code
-                else
+                elsif not opts.empty?
+                    data = {
+                        :message => message,
+                        :data => opts
+                    }
+                elsif
                     data = message
                 end
                 

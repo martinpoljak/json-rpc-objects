@@ -33,7 +33,13 @@ module JsonRpcObjects
             # @return [JsonRpcObjects::V10::Error] new object
             #
             
-            def self.create(data)
+            def self.create(code, message = nil, opts = { })
+                if message.nil?
+                    data = code
+                else
+                    data = message
+                end
+                
                 self::new(data)
             end
         

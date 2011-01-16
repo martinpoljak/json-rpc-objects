@@ -1,5 +1,5 @@
 # encoding: utf-8
-require "json-rpc-objects/v20/response"
+require "json-rpc-objects/v20/error"
 
 ##
 # Main JSON-RPC Objects module.
@@ -17,11 +17,11 @@ module JsonRpcObjects
         # Returns request of the latest standard.
         # 
         # @param [Array] args for target constructor
-        # @return [JsonRpcObjects::V11::Alt::Error]  error object
+        # @return [JsonRpcObjects::V20::Error]  error object
         #
         
         def self.create(*args)
-            JsonRpcObjects::V11::Alt::Error::create(*args)
+            JsonRpcObjects::V20::Error::create(*args)
         end
                 
     end

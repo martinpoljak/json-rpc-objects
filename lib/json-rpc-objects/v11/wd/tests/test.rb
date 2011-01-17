@@ -15,7 +15,7 @@ res = JsonRpcObjects::V11::WD::ProcedureReturn::create(true, nil, :id => 12345)
 puts res.to_json
 
 require "../service-description"
-sdesc = JsonRpcObjects::V11::WD::ServiceDescription::create(:alfa, 100)
+sdesc = JsonRpcObjects::V11::WD::ServiceDescription::create(:alfa, 100, :version => "1.2.34")
 puts sdesc.to_json
 
 require "../service-procedure-description"

@@ -1,5 +1,4 @@
 # encoding: utf-8
-require "version"
 require "addressable/uri"
 require "json-rpc-objects/v11/wd/service-procedure-description"
 require "json-rpc-objects/generic"
@@ -41,6 +40,12 @@ module JsonRpcObjects
                 #
                 
                 PROCEDURE_DESCRIPTION_CLASS = JsonRpcObjects::V11::WD::ServiceProcedureDescription
+                
+                ##
+                # Holds version number matcher.
+                #
+                
+                VERSION_MATCHER = /^\d+\.\d+/
             
                 ##
                 # Holds service name.
@@ -121,8 +126,8 @@ module JsonRpcObjects
                     if not @name.kind_of? Symbol
                         raise Exception::new("Service name must be Symbol or convertable to Symbol.")
                     end
-                    
-                    if not (@version.nil?) and ((@version.to_a.length < 2) or @version.prerelease?)
+
+                    if not (@version.nil?) and not @version.match(self.class::VERSION_MATCHER)
                         raise Exception::new("Version must be at least in <major>.<minor> format and must contain numbers only.")
                     end
                     
@@ -152,7 +157,7 @@ module JsonRpcObjects
                     }
                     
                     if not @version.nil?
-                        data[:version] = @version.to_s
+                        data[:version] = @version
                     end
                     
                     if not @summary.nil?
@@ -226,10 +231,6 @@ module JsonRpcObjects
 
                     if not @id.kind_of? Addressable::URI
                         @id = Addressable::URI::parse(@id.to_s)
-                    end
-                    
-                    if (not @version.nil?) and (not @version.kind_of? Version)
-                        @version = @version.to_s.to_version
                     end
                     
                     if not @summary.nil?

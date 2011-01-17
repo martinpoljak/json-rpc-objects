@@ -4,7 +4,6 @@ source "http://rubygems.org"
    gem "multitype-introspection", ">= 0.1.0"
    gem "hash-utils", ">= 0.3.0"
    gem "types", ">= 0.1.0"
-   gem "version", ">= 0.9.2"
    gem "addressable", ">= 2.2.2"
    gem "yajl-ruby", ">= 0.7.8"
 

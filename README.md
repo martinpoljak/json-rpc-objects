@@ -16,15 +16,16 @@ It means, it implements following JSON-RPC versions:
 
 ### Protocol Versions Compatibility
 
-All protocols are implemented from points of view of features which must
-complain to. Some of these aren't encouraged, but it's on will of the 
-user. 2.0 and 1.1 Alt implements some minor additions compared to 
-specification such as object extensions as defined in 1.1 WD, but 
-mainly because of API compatibility and functionallity reasons.
+All protocols are implemented from point of view of features which must
+complain to. Some of these features aren't encouraged to use, but it's 
+on will of the user. 2.0 and 1.1 Alt implement some minor additions 
+in comparing to specification such as object extensions as defined in 
+1.1 WD, but mainly because of API compatibility and functionallity 
+reasons.
 
-All classes inherit from previous version so API is homogenous. 
-Application which can deal with 1.0 can deal with 2.0 too without any 
-funcionallity or logic lost. 
+All classes inherit from previous protocol version classes so API is 
+homogenous. Application which can deal with 1.0 can deal with 2.0 too 
+without any funcionallity or logic lost. 
 
 ### Usage
 
@@ -39,7 +40,7 @@ members),
 All names of both class names and optional arguments are exactly the 
 same as defined in specification.
 
-It can be used by two ways. You know either concrete version of the 
+Library can be used by two ways. You know either concrete version of the 
 protocol which you want to use in your application (typically client) 
 or you process some incoming request which can use whatever of 
 the versions (typically server).
@@ -81,9 +82,9 @@ achieved by simple way:
 This code analyzes protocol version of the request and creates response
 of the same protocol version. It utilizes call handler, so you can call
 for example `request.class::version.service_procedure_description::create(<arguments>)`
-for obtaining 1.1 service procedure description object. But be warn 
-again, neither 1.0 nor 2.0 implements these objects, so it can simply 
-cause `LoadError` in that case therefore it really isn't recommended.
+for obtaining 1.1 service procedure description object. But be warn, 
+neither 1.0 nor 2.0 implements these objects, so it can simply cause 
+`LoadError` in that case, therefore it really isn't recommended.
 
 Be limited by `Error`, `Request` and `Response` classes here or check
 the protocol version using `#VERSION` class constant. Also note, 

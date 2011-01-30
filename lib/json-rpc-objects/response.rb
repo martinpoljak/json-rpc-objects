@@ -8,10 +8,20 @@ require "json-rpc-objects/v20/response"
 module JsonRpcObjects
 
     ##
-    # Request module for version detection and universal API.
+    # Emulates access to 2.0 response class.
+    #
+    # @see JsonRpcObjects::V20::Response
+    # @since 0.2.0
+    # 
+
+    Response = JsonRpcObjects::V20::Response
+
+    ##
+    # Response class for version detection and universal API.
+    # @since 0.2.0
     #
     
-    module Response
+    class Response
 
         ##
         # Parses JSON-RPC string for response and uses differential 
@@ -57,17 +67,6 @@ module JsonRpcObjects
             return cls::new(data)
         end
             
-        ##
-        # Returns request of the latest standard.
-        # 
-        # @param [Array] args for target constructor
-        # @return [JsonRpcObjects::V20::Response]  response object
-        #
-        
-        def self.create(*args)
-            JsonRpcObjects::V20::Response::create(*args)
-        end
-                
     end
     
 end

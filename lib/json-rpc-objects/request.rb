@@ -9,10 +9,20 @@ require "yajl/json_gem"
 module JsonRpcObjects
 
     ##
-    # Request module for version detection and universal API.
+    # Emulates access to 2.0 request class.
+    #
+    # @see JsonRpcObjects::V20::Request
+    # @since 0.2.0
+    # 
+
+    Request = JsonRpcObjects::V20::Request
+
+    ##
+    # Request class for version detection and universal API.
+    # @since 0.2.0
     #
     
-    module Request
+    class Request
     
         ##
         # Parses JSON-RPC string for request and uses differential 
@@ -57,18 +67,6 @@ module JsonRpcObjects
             # Returns
             require file
             return cls::new(data)
-        end
-        
-    
-        ##
-        # Returns request of the latest standard.
-        # 
-        # @param [Array] args for target constructor
-        # @return [JsonRpcObjects::V20::Request]  request object
-        #
-        
-        def self.create(*args)
-            JsonRpcObjects::V20::Request::create(*args)
         end
                 
     end

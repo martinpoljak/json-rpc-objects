@@ -8,22 +8,12 @@ require "json-rpc-objects/v20/error"
 module JsonRpcObjects
 
     ##
-    # Error module for universal API.
+    # Emulates access to 2.0 error class.
     #
-    
-    module Error
-            
-        ##
-        # Returns request of the latest standard.
-        # 
-        # @param [Array] args for target constructor
-        # @return [JsonRpcObjects::V20::Error]  error object
-        #
-        
-        def self.create(*args)
-            JsonRpcObjects::V20::Error::create(*args)
-        end
-                
-    end
-    
+    # @see JsonRpcObjects::V20::Error
+    # @since 0.2.0
+    # 
+
+    Error = JsonRpcObjects::V20::Error
+
 end

@@ -110,6 +110,17 @@ module JsonRpcObjects
                 @result = result
             end
             
+            ##
+            # Indicates, response is error.
+            #
+            # @return [Boolean] +true+ if it's, +false+ otherwise
+            # @since 0.2.1
+            #
+            
+            def error?
+                not @error.nil?
+            end
+            
             
             protected
             

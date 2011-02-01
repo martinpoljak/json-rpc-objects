@@ -20,7 +20,7 @@ module JsonRpcObjects
         # @abstract
         #
         
-        class Request < JsonRpcObject::Generic::Object
+        class Request < Object
         end
         
     end

@@ -1,6 +1,7 @@
 # encoding: utf-8
 require "hash-utils/numeric"
 require "json-rpc-objects/generic"
+require "json-rpc-objects/v10/error"
 require "json-rpc-objects/v11/wd/extensions"
 
 ##
@@ -26,7 +27,7 @@ module JsonRpcObjects
             # Error description object class for ProcedureReturn.
             #
             
-            class Error < JsonRpcObjects::Generic::Object
+            class Error < JsonRpcObjects::V10::Error
             
                 include Extensions
 

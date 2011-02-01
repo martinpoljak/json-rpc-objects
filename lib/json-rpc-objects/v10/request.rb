@@ -1,5 +1,5 @@
 # encoding: utf-8
-require "json-rpc-objects/generic"
+require "json-rpc-objects/generic/request"
 
 ##
 # Main JSON-RPC Objects module.
@@ -18,7 +18,7 @@ module JsonRpcObjects
         # Request object class.
         #
         
-        class Request < JsonRpcObjects::Generic::Object
+        class Request < JsonRpcObjects::Generic::Request
         
             ##
             # Holds link to its version module.

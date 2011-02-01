@@ -1,5 +1,5 @@
 # encoding: utf-8
-require "json-rpc-objects/generic"
+require "json-rpc-objects/generic/response"
 require "json-rpc-objects/v10/error"
 
 ##
@@ -19,7 +19,7 @@ module JsonRpcObjects
         # Response object class.
         #
         
-        class Response < JsonRpcObjects::Generic::Object
+        class Response < JsonRpcObjects::Generic::Response
 
             ##
             # Holds link to its version module.

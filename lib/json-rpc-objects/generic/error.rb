@@ -20,7 +20,7 @@ module JsonRpcObjects
         # @abstract
         #
         
-        class Error < JsonRpcObject::Generic::Object
+        class Error < Object
         end
         
     end

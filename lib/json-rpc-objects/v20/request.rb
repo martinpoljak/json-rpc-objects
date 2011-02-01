@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "multitype-introspection"
 require "hash-utils/hash"
-require "json-rpc-objects/v11/alt/procedure-call"
+require "json-rpc-objects/v11/alt/request"
 
 ##
 # Main JSON-RPC Objects module.
@@ -20,7 +20,7 @@ module JsonRpcObjects
         # Request object class.
         #
         
-        class Request < JsonRpcObjects::V11::Alt::ProcedureCall
+        class Request < JsonRpcObjects::V11::Alt::Request
 
             ##
             # Holds link to its version module.

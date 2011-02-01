@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "json-rpc-objects/v11/alt/error"
-require "json-rpc-objects/v11/wd/procedure-return"
+require "json-rpc-objects/v11/wd/response"
 
 ##
 # Main JSON-RPC Objects module.
@@ -25,7 +25,7 @@ module JsonRpcObjects
             # Procedure return (response) class.
             #
             
-            class ProcedureReturn < JsonRpcObjects::V11::WD::ProcedureReturn
+            class ProcedureReturn < JsonRpcObjects::V11::WD::Response
             
                 ##
                 # Holds link to its version module.

@@ -114,7 +114,7 @@ module JsonRpcObjects
             # Indicates, response is error.
             #
             # @return [Boolean] +true+ if it's, +false+ otherwise
-            # @since 0.2.1
+            # @since 0.3.0
             #
             
             def error?

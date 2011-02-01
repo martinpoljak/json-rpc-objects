@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "hash-utils/hash"
-require "json-rpc-objects/v11/wd/procedure-call"
+require "json-rpc-objects/v11/wd/request"
 
 ##
 # Main JSON-RPC Objects module.
@@ -25,7 +25,7 @@ module JsonRpcObjects
             # Procedure call (request) class.
             #
             
-            class ProcedureCall < JsonRpcObjects::V11::WD::ProcedureCall
+            class ProcedureCall < JsonRpcObjects::V11::WD::Request
             
                 ##
                 # Holds link to its version module.

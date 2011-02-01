@@ -1,10 +1,10 @@
 
 0.3.0
-X #error? response method
+* #error? response method
 * non-fake request, response and error classes (including ProcedureCall
   and ProcedureReturn classes of sure) have generic marking Request,
   Response and Error parent classes
-X fake 1.1 request, response and error classes are parent classes of the
+* fake 1.1 request, response and error classes are parent classes of the
   appropriate 2.0 classes
 * correct error inheritance from 1.1 to 1.0
 

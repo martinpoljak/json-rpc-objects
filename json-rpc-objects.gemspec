@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{json-rpc-objects}
-  s.version = "0.2.0"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Kozák"]
-  s.date = %q{2011-01-30}
+  s.date = %q{2011-02-01}
   s.email = %q{martinkozak@martinkozak.net}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    "CHANGES.txt",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -26,10 +27,13 @@ Gem::Specification.new do |s|
     "json-rpc-objects.gemspec",
     "lib/json-rpc-objects/error.rb",
     "lib/json-rpc-objects/generic.rb",
+    "lib/json-rpc-objects/generic/error.rb",
+    "lib/json-rpc-objects/generic/object.rb",
+    "lib/json-rpc-objects/generic/request.rb",
+    "lib/json-rpc-objects/generic/response.rb",
     "lib/json-rpc-objects/request.rb",
     "lib/json-rpc-objects/response.rb",
     "lib/json-rpc-objects/v10/error.rb",
-    "lib/json-rpc-objects/v10/fakes/error.rb",
     "lib/json-rpc-objects/v10/request.rb",
     "lib/json-rpc-objects/v10/response.rb",
     "lib/json-rpc-objects/v10/tests/test.rb",

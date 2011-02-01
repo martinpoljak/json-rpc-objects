@@ -87,11 +87,7 @@ neither 1.0 nor 2.0 implements these objects, so it can simply cause
 `LoadError` in that case, therefore it really isn't recommended.
 
 Be limited by `Error`, `Request` and `Response` classes here or check
-the protocol version using `#VERSION` class constant. Also note, 
-`Request` and `Response` are fake classes for 1.1, and `Error` for 1.0, 
-so correspondent 2.0 classes aren't ancestors of these, but of 
-`ProcedureCall` and `ProcedureReturn`. This may be subject of change in 
-future releases.
+the protocol version using `#VERSION` class constant.
 
 Contributing
 ------------

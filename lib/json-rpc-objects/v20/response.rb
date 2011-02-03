@@ -59,8 +59,8 @@ module JsonRpcObjects
             def check!
                 super()
                 
-                if not @id.kind_of_any? [String, Integer, NilClass]
-                    raise Exception::new("ID must contain String, Number or nil if included.")
+                if not @id.kind_of_any? [Symbol, String, Integer, NilClass]
+                    raise Exception::new("ID must contain Symbol, String, Number or nil if included.")
                 end
             end
                                         

@@ -1,6 +1,6 @@
 
-0.3.1
-* requests can receive ID as Symbol
+0.3.1 (2011-02-03)
+* 2.0 Request and Response can receive ID as Symbol
 
 0.3.0 (2011-02-01)
 * #error? response method

@@ -49,52 +49,59 @@ module JsonRpcObjects
             
                 ##
                 # Holds service name.
+                # @return [Symbol]
                 #
                 
-                @name
                 attr_accessor :name
+                @name
                 
                 ##
                 # Holds service identifier.
+                # @return [Addressable::URI]
                 #
                 
-                @id
                 attr_accessor :id
+                @id
                 
                 ##
                 # Holds service version.
+                # @return [String]
                 #
                 
-                @version
                 attr_accessor :version
+                @version
                 
                 ##
                 # Holds service summary.
+                # @return [String]
                 #
                 
-                @summary
                 attr_accessor :summary
+                @summary
                 
                 ##
                 # Holds service help URL.
+                # @return [Addressable::URI]
                 #
                 
-                @help
                 attr_accessor :url
+                @help
                 
                 ##
                 # Holds service address.
+                # @return [Addressable::URI]
                 #
                 
-                @address
                 attr_accessor :address
+                @address
                 
                 ##
                 # Holds procedure descriptions.
+                # @return [Array]
                 #
                 
-                @procs
                 attr_accessor :procs
+                @procs
             
                 ##
                 # Creates new one.

@@ -45,24 +45,27 @@ module JsonRpcObjects
             
                 ##
                 # Holds error code.
+                # @return [Integer]
                 #
                 
-                @code
                 attr_accessor :code
+                @code
                 
                 ##
                 # Holds error message.
+                # @return [String]
                 #
                 
-                @message
                 attr_accessor :message
+                @message
                 
                 ##
                 # Holds error data.
+                # @return [Object]
                 #
                 
-                @data
                 attr_accessor :data
+                @data
 
                 ##
                 # Creates new one.

@@ -45,45 +45,51 @@ module JsonRpcObjects
                 
                 ##
                 # Holds procedure name.
+                # @return [Symbol]
                 #
                 
-                @name
                 attr_accessor :name
+                @name
                 
                 ##
                 # Holds procedure summary.
+                # @return [String]
                 #
                 
-                @summary
                 attr_accessor :summary
+                @summary
                 
                 ##
                 # Holds procedure help URL.
+                # @return [Addressable::URI]
                 #
                 
-                @help
                 attr_accessor :url
+                @help
                 
                 ##
                 # Indicates procedure idempotency.
+                # @return [Boolean]
                 #
                 
-                @idempotent
                 attr_accessor :idempotent
+                @idempotent
                 
                 ##
                 # Holds procedure params specification.
+                # @return [Array]
                 #
                 
-                @params
                 attr_accessor :params
+                @params
                 
                 ##
                 # Holds procedure return value specification.
+                # @return [Class]
                 #
                 
-                @return
                 attr_accessor :return
+                @return
 
                 ##
                 # Creates new one.

@@ -35,24 +35,27 @@ module JsonRpcObjects
             
             ##
             # Holds result data.
+            # @return [Object]
             #
         
-            @result
             attr_accessor :result
+            @result
             
             ##
             # Holds error data.
+            # @return [JsonRpcObjects::V10::Error]
             #
             
-            @error
             attr_accessor :error
+            @error
             
             ##
             # Call ID.
+            # @return [String]
             #
             
-            @id
             attr_accessor :id
+            @id
 
             ##
             # Creates new one.

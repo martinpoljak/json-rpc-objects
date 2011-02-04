@@ -22,10 +22,11 @@ module JsonRpcObjects
 
             ##
             # Holds request method name.
+            # @return [Object]
             #
-        
-            @data
+
             attr_accessor :data
+            @data
             
             ##
             # Holds link to its version module.

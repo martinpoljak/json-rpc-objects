@@ -1,4 +1,7 @@
 
+0.3.2 (2011-02-04)
+* instance attributes documentation
+
 0.3.1 (2011-02-03)
 * 2.0 Request and Response can receive ID as Symbol
 

@@ -50,10 +50,11 @@ module JsonRpcObjects
                 
                 ##
                 # Holds keyword parameters.
+                # @return [Hash]
                 #
                 
-                @keyword_parameters
                 attr_accessor :keyword_parameters
+                @keyword_parameters
                 
                 ##
                 # Checks correctness of the request data.

@@ -27,10 +27,11 @@ module JsonRpcObjects
                    
                 ##
                 # Holds extensions.
+                # @return [Hash]
                 #
                 
-                @extensions
                 attr_accessor :extensions
+                @extensions
                 
                 ##
                 # Handles method missing call for extensions.

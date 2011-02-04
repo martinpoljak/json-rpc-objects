@@ -28,24 +28,27 @@ module JsonRpcObjects
         
             ##
             # Holds request method name.
+            # @return [Symbol]
             #
         
-            @method
             attr_accessor :method
+            @method
             
             ##
             # Holds params for requested method.
+            # @return [Array]
             #
             
-            @params
             attr_accessor :params
+            @params
             
             ##
-            # Call ID.
+            # Call (client) ID.
+            # @return [Object]
             #
             
-            @id
             attr_accessor :id
+            @id
             
             ##
             # Creates new one.

@@ -64,17 +64,19 @@ module JsonRpcObjects
             
                 ##
                 # Holds parameter name.
+                # @return [Symbol]
                 #
                 
-                @name
                 attr_accessor :name
+                @name
                 
                 ##
                 # Holds parameter type.
+                # @return [Class]
                 #
                 
-                @type
                 attr_accessor :type
+                @type
 
                 ##
                 # Creates new one.

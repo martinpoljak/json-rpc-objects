@@ -49,14 +49,14 @@ module JsonRpcObjects
                 raise Exception::new("Data in JSON string aren't object.")
             end
             
-            data.keys_to_sym!
+            #data.keys_to_sym!
             
             # Detects
-            if data.include? :jsonrpc
+            if data.include? "jsonrpc"
                 file = "json-rpc-objects/v20/response"
                 cls = V20::Response
-            elsif data.include? :version
-                if (default_v11 == :wd) or ((data.include? :error) and (data[:error].kind_of? Hash) and (data[:error].include? "name"))
+            elsif data.include? "version"
+                if (default_v11 == :wd) or ((data.include? "error") and (data["error"].kind_of? Hash) and (data["error"].include? "name"))
                     file = "json-rpc-objects/v11/wd/procedure-return"
                     cls = V11::WD::ProcedureReturn
                 else

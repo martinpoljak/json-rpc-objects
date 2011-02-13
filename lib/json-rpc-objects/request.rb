@@ -23,7 +23,13 @@ module JsonRpcObjects
     #
     
     class Request
-    
+
+        ##
+        # Holds loaded files indicator.
+        #
+        
+        @@files = { }
+
         ##
         # Parses JSON-RPC string for request and uses differential 
         # heuristic for detecting the right class.
@@ -65,7 +71,11 @@ module JsonRpcObjects
             end
             
             # Returns
-            require file
+            if not @@files.has_key? file
+                require file
+                @@files[file] = true
+            end
+            
             return cls::new(data)
         end
                 

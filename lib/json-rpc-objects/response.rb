@@ -22,6 +22,12 @@ module JsonRpcObjects
     #
     
     class Response
+    
+        ##
+        # Holds loaded files indicator.
+        #
+        
+        @@files = { }
 
         ##
         # Parses JSON-RPC string for response and uses differential 
@@ -63,7 +69,11 @@ module JsonRpcObjects
             end
             
             # Returns
-            require file
+            if not @@files.has_key? file
+                require file
+                @@files[file] = true
+            end
+            
             return cls::new(data)
         end
             

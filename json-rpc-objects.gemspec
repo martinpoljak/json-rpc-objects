@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{json-rpc-objects}
-  s.version = "0.3.2"
+  s.version = "0.3.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Kozák"]
-  s.date = %q{2011-02-04}
+  s.date = %q{2011-02-13}
   s.email = %q{martinkozak@martinkozak.net}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -70,7 +70,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/martinkozak/json-rpc-objects}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.0}
+  s.rubygems_version = %q{1.5.2}
   s.summary = %q{Implementation of JSON-RPC objects with respect to specifications compliance and API backward compatibility. Implements all versions of the protocol and support for ability to communicate by the same protocol version which other side uses by a transparent way.}
 
   if s.respond_to? :specification_version then

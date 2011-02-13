@@ -35,6 +35,12 @@ module JsonRpcObjects
         #
         
         @@cache = { }
+        
+        ##
+        # Holds loaded files indicator.
+        #
+        
+        @@files = { }
 
         ##
         # Returns version object for appropriate version module.
@@ -78,7 +84,11 @@ module JsonRpcObjects
             file_path.gsub!("::", "/")
             file_path.downcase!
             
-            require file_path
+            if not @@files.has_key? file_path
+                require file_path
+                @@files[file_path] = true
+            end
+            
             return Kernel::eval(module_name)
         end
         

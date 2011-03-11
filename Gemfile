@@ -5,7 +5,7 @@ source "http://rubygems.org"
    gem "hash-utils", ">= 0.3.0"
    gem "types", ">= 0.1.0"
    gem "addressable", ">= 2.2.2"
-   gem "yajl-ruby", ">= 0.7.8"
+   gem "multi_json_compat", ">= 0.1.0"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

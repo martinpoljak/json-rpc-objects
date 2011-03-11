@@ -1,4 +1,8 @@
 
+0.3.4 (2011-03-11)
+* dependency from yajl-ruby to multi_json_compat for compatibility with
+  all other JSON libraries
+
 0.3.3 (2011-02-13)
 * rather big performance lag in generic parsers
 

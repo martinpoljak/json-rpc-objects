@@ -3,6 +3,7 @@ require "addressable/uri"
 require "json-rpc-objects/v11/wd/service-procedure-description"
 require "json-rpc-objects/generic"
 require "hash-utils/array"
+require "hash-utils/object"
 
 ##
 # Main JSON-RPC Objects module.
@@ -130,7 +131,7 @@ module JsonRpcObjects
                 def check!
                     self.normalize!
                     
-                    if not @name.kind_of? Symbol
+                    if not @name.symbol?
                         raise Exception::new("Service name must be Symbol or convertable to Symbol.")
                     end
 
@@ -139,11 +140,11 @@ module JsonRpcObjects
                     end
                     
                     if (not @procs.nil?) 
-                        if (not @procs.kind_of? Array) or (not @procs.all? { |v| v.kind_of? self.class::PROCEDURE_DESCRIPTION_CLASS })
+                        if (not @procs.array?) or (not @procs.all? { |v| v.kind_of? self.class::PROCEDURE_DESCRIPTION_CLASS })
                             raise Exception::new("If procs is defined, must be an Array of " << self.class::PROCEDURE_DESCRIPTION_CLASS.name << " objects.")
                         end
                         
-                        if @procs.kind_of? Array
+                        if @procs.array?
                             @procs.each { |proc| proc.check! }
                         end
                     end
@@ -222,7 +223,7 @@ module JsonRpcObjects
                     @address = data[:address]
                     @procs = data[:procs]
                     
-                    if @procs.kind_of? Array
+                    if @procs.array?
                         @procs = @procs.map { |v| self.class::PROCEDURE_DESCRIPTION_CLASS::new(v) }
                     end
                 end
@@ -232,7 +233,7 @@ module JsonRpcObjects
                 #
                 
                 def normalize!
-                    if @name.kind_of? String
+                    if @name.string?
                         @name = @name.to_sym
                     end
 

@@ -1,5 +1,8 @@
 # encoding: utf-8
+require "hash-utils/array"
 require "hash-utils/hash"
+require "hash-utils/object"
+require "hash-utils/string"
 require "json-rpc-objects/v10/request"
 require "json-rpc-objects/v11/wd/extensions"
 
@@ -63,7 +66,7 @@ module JsonRpcObjects
                 def check!
                     super()
                     
-                    if not @keyword_params.nil? and not @keyword_params.kind_of? Hash
+                    if not @keyword_params.nil? and not @keyword_params.hash?
                         raise Exception::new("Keyword params must be Hash.")
                     end
                 end
@@ -142,15 +145,15 @@ module JsonRpcObjects
                     # If named arguments used, assigns keys as symbols
                     #   but keeps numeric arguments as integers
                     
-                    if @params.kind_of? Hash
+                    if @params.hash?
                         @params = @params.dup
                         @keyword_params = @params.remove! { |k, v| not k.numeric? }
-                        @params = @params.sort_by { |i| i[0].to_i }.map { |i| i[1] }
+                        @params = @params.sort_by { |i| i.first.to_i }.map { |i| i.second }
                     else
                         @keyword_params = { }
                     end
                     
-                    @keyword_params.map_keys! { |k| k.to_sym }
+                    @keyword_params.keys_to_sym!
                     
                 end
                 
@@ -178,7 +181,7 @@ module JsonRpcObjects
                 #
                 
                 def __check_params
-                    if not @params.nil? and not @params.kind_of? Array
+                    if not @params.nil? and not @params.array?
                         raise Exception::new("Params must be Array.")
                     end
                 end

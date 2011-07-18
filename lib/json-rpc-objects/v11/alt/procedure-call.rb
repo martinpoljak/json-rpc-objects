@@ -58,7 +58,7 @@ module JsonRpcObjects
                     #   property.
                     if data.include? :kwparams
                        @keyword_params = data[:kwparams]
-                       @keyword_params.map_keys! { |k| k.to_sym }
+                       @keyword_params.keys_to_sym!
                     end
                 end
                 

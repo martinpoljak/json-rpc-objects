@@ -1,6 +1,7 @@
 # encoding: utf-8
-require "hash-utils"
-require "multi_json_compat"
+require "hash-utils/hash"
+require "multi_json"
+require "abstract"
 require "json-rpc-objects/version"
 
 ##
@@ -30,7 +31,7 @@ module JsonRpcObjects
             #
             
             def self.create(*args)
-                __abstract
+                not_implemented
             end
         
             ##
@@ -50,7 +51,7 @@ module JsonRpcObjects
             #
             
             def self.parse(string)
-                self::new(JSON.load(string)) 
+                self::new(MultiJson.decode(string)) 
             end
                         
             ##
@@ -59,7 +60,7 @@ module JsonRpcObjects
             #
             
             def to_json
-                self.output.to_json
+                MultiJson.encode(self.output)
             end
                      
             ##
@@ -77,6 +78,7 @@ module JsonRpcObjects
             #
             
             def check!
+                true
             end
                         
             ##
@@ -87,7 +89,7 @@ module JsonRpcObjects
             #
 
             def output
-                __abstract
+                not_implemented
             end
             
             
@@ -98,7 +100,7 @@ module JsonRpcObjects
             #
 
             def data=(value, mode = nil)
-                __abstract
+                not_implemented
             end
             
             ##
@@ -118,25 +120,6 @@ module JsonRpcObjects
             #
             
             def normalize!
-            end
-
-            
-            private
-            
-            ##
-            # Raises method is abstract exception.
-            #
-            
-            def __abstract
-                self.class::__abstract
-            end
-            
-            ##
-            # Raises method is abstract exception.
-            #
-            
-            def self.__abstract
-                raise Exception::new("Method is abstract.")
             end
 
         end

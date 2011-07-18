@@ -1,5 +1,4 @@
 # encoding: utf-8
-require "multitype-introspection"
 require "json-rpc-objects/v11/alt/response"
 require "json-rpc-objects/v20/error"
 

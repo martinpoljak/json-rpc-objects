@@ -1,5 +1,6 @@
 # encoding: utf-8
 require "json-rpc-objects/generic/request"
+require "hash-utils/object"
 
 ##
 # Main JSON-RPC Objects module.
@@ -131,7 +132,7 @@ module JsonRpcObjects
             #
             
             def __check_method
-                if not @method.kind_of? Symbol
+                if not @method.symbol?
                     raise Exception::new("Service name must be Symbol or convertable to Symbol.")
                 end
             end
@@ -141,7 +142,7 @@ module JsonRpcObjects
             #
             
             def __check_params
-                if not @params.kind_of? Array
+                if not @params.array?
                     raise Exception::new("Params must be Array.")
                 end
             end
@@ -151,7 +152,7 @@ module JsonRpcObjects
             #
             
             def __normalize_method
-                if @method.kind_of? String
+                if @method.string?
                     @method = @method.to_sym
                 end
             end

@@ -1,6 +1,7 @@
 # encoding: utf-8
 require "json-rpc-objects/v20/request"
-require "yajl/json_gem"
+require "hash-utils/object"
+require "multi_json"
 
 ##
 # Main JSON-RPC Objects module.
@@ -45,9 +46,9 @@ module JsonRpcObjects
         #
         
         def self.parse(string, default_v11 = :wd)
-            data = JSON.load(string)
+            data = MultiJson.decode(string)
             
-            if not data.kind_of? Hash
+            if not data.hash?
                 raise Exception::new("Data in JSON string aren't object.")
             end
             
@@ -71,7 +72,7 @@ module JsonRpcObjects
             end
             
             # Returns
-            if not @@files.has_key? file
+            if not file.in? @@files
                 require file
                 @@files[file] = true
             end

@@ -1,5 +1,4 @@
 # encoding: utf-8
-require "multitype-introspection"
 require "hash-utils/hash"
 require "json-rpc-objects/v11/alt/request"
 
@@ -104,7 +103,7 @@ module JsonRpcObjects
             #
             
             def __get_params(data)
-                if @params.kind_of? Hash
+                if @params.hash?
                     @keyword_params = @params.keys_to_sym
                     @params = nil
                 end

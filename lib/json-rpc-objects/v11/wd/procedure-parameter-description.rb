@@ -1,7 +1,7 @@
 # encoding: utf-8
-require "multitype-introspection"
 require "json-rpc-objects/v11/generic-types"
 require "json-rpc-objects/generic"
+require "hash-utils/object"
 
 ##
 # Main JSON-RPC Objects module.
@@ -98,7 +98,7 @@ module JsonRpcObjects
                 def check!
                     self.normalize!
                     
-                    if not @name.kind_of? Symbol
+                    if not @name.symbol?
                         raise Exception::new("Parameter name must be Symbol or convertable to Symbol.")
                     end
                     
@@ -142,7 +142,7 @@ module JsonRpcObjects
                 #
                 
                 def normalize!
-                    if @name.kind_of? String
+                    if @name.string?
                         @name = @name.to_sym
                     end
 

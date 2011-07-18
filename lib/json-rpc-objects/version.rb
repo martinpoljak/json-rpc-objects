@@ -1,4 +1,5 @@
 # encoding: utf-8
+require "hash-utils/object"
 
 ##
 # Main JSON-RPC Objects module.
@@ -50,7 +51,7 @@ module JsonRpcObjects
         #
         
         def self.get(mod)
-            if not @@cache.include? mod
+            if not mod.in? @@cache
                 @@cache[mod] = self::new(mod)
             end
             

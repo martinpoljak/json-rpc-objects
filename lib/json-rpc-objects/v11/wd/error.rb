@@ -1,4 +1,6 @@
 # encoding: utf-8
+# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+
 require "hash-utils/numeric"
 require "json-rpc-objects/generic"
 require "json-rpc-objects/v10/error"

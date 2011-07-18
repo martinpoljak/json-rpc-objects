@@ -1,4 +1,6 @@
 # encoding: utf-8
+# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+
 require "hash-utils/array"
 require "hash-utils/object"
 require "json-rpc-objects/v11/alt/procedure-parameter-description"

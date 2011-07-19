@@ -147,26 +147,26 @@ module JsonRpcObjects
                 
                 def output
                     self.check!
-                    data = { :name => @name.to_s }
+                    data = { "name" => @name.to_s }
                     
                     if not @summary.nil?
-                        data[:summary] = @summary
+                        data["summary"] = @summary
                     end
                     
                     if not @help.nil?
-                        data[:help] = @help.to_s
+                        data["help"] = @help.to_s
                     end
                     
                     if not @idempotent.nil?
-                        data[:idempotent] = @idempotent
+                        data["idempotent"] = @idempotent
                     end
                     
                     if not @params.nil?
-                        data[:params] = @params
+                        data["params"] = @params.map { |i| i.output }
                     end
 
                     if not @return.nil?
-                        data[:return] = @return
+                        data["return"] = @return.output
                     end
                     
                     return data

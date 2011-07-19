@@ -49,7 +49,7 @@ module JsonRpcObjects
                 
                 def output
                     result = super()
-                    result.delete(:name)
+                    result.delete("name")
                     
                     return result
                 end

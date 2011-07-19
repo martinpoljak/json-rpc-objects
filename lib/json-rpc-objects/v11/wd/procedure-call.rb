@@ -99,7 +99,7 @@ module JsonRpcObjects
                     end
                     
                     data.merge! @extensions                
-                    return data
+                    return data.map_keys! { |k| k.to_s }
                 end
                 
                 
@@ -168,14 +168,14 @@ module JsonRpcObjects
                     
                     if not @params.nil?
                         @params.each_index do |i|
-                            params[i.to_s.to_sym] = @params[i]
+                            params[i.to_s] = @params[i]
                         end
                     end
                     if not @keyword_params.nil?
                         params.merge! @keyword_params
                     end
                 
-                    data[:params] = params
+                    data[:params] = params.map_keys! { |k| k.to_s }
                 end
                             
                 ##

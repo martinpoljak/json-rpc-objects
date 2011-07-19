@@ -116,10 +116,10 @@ module JsonRpcObjects
                 
                 def output
                     self.check!
-                    data = { :name => @name.to_s }
+                    data = { "name" => @name.to_s }
                     
                     if not @type.nil?
-                        data[:type] = __object_to_type
+                        data["type"] = __object_to_type.to_s
                     end
                     
                     return data

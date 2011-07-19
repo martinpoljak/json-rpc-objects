@@ -5,6 +5,7 @@ require "json-rpc-objects/v10/response"
 require "json-rpc-objects/v11/wd/error"
 require "json-rpc-objects/v11/wd/extensions"
 require "hash-utils/object"
+require "hash-utils/hash"
 
 ##
 # Main JSON-RPC Objects module.
@@ -80,18 +81,18 @@ module JsonRpcObjects
                     __assign_version(data)
                     
                     if not @result.nil?
-                        data[:result] = @result
+                        data["result"] = @result
                     end
                     
                     if not @error.nil?
-                        data[:error] = @error
+                        data["error"] = @error.output
                     end
 
                     if not @id.nil?
-                        data[:id] = @id
+                        data["id"] = @id
                     end
                 
-                    data.merge! @extensions
+                    data.merge! @extensions.map_keys { |k| k.to_s }
                     return data
                 end
 

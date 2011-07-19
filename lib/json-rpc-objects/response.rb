@@ -1,4 +1,6 @@
 # encoding: utf-8
+# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+
 require "json-rpc-objects/v20/response"
 require "hash-utils/object"
 require "multi_json"

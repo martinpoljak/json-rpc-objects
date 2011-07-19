@@ -28,7 +28,7 @@ homogenous. Application which can deal with 1.0 can deal with 2.0 too
 without any funcionallity or logic lost. 
 
 ### Usage
-
+  
 All object classes have three creating class methods:
 
 * `#create(<some arguments>, opts = { })` &ndash; which creates new 

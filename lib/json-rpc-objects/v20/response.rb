@@ -39,13 +39,13 @@ module JsonRpcObjects
             # Holds JSON-RPC version specification.
             #
             
-            VERSION_NUMBER = :"2.0"
+            VERSION_NUMBER = "2.0"
             
             ##
             # Holds JSON-RPC version member identification.
             #
             
-            VERSION_MEMBER = :jsonrpc
+            VERSION_MEMBER = "jsonrpc"
            
             ##
             # Indicates ID has been set.
@@ -100,7 +100,7 @@ module JsonRpcObjects
             #
             
             def __assign_version(data)
-                data[:jsonrpc] = :"2.0"
+                data["jsonrpc"] = "2.0"
             end
                                 
         end

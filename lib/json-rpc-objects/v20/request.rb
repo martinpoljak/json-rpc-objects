@@ -33,13 +33,13 @@ module JsonRpcObjects
             # Holds JSON-RPC version specification.
             #
             
-            VERSION_NUMBER = :"2.0"
+            VERSION_NUMBER = "2.0"
             
             ##
             # Holds JSON-RPC version member identification.
             #
             
-            VERSION_MEMBER = :jsonrpc
+            VERSION_MEMBER = "jsonrpc"
                         
             ##
             # Indicates ID has been set.
@@ -70,7 +70,7 @@ module JsonRpcObjects
                 if @_id_set and @id.nil?
                     result["id"] = nil
                 end
-                
+
                 return result
             end
 
@@ -119,7 +119,7 @@ module JsonRpcObjects
                 if not @params.nil? and not @params.empty?
                     data[:params] = @params
                 elsif not @keyword_params.nil? and not @keyword_params.empty?
-                    data[:params] = @keyword_params
+                    data[:params] = @keyword_params.map_keys { |k| k.to_s } 
                 end
             end
             

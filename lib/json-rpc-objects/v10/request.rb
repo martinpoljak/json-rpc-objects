@@ -90,9 +90,9 @@ module JsonRpcObjects
             def output
                 self.check!
                 data = {
-                    :method => @method.to_s,
-                    :params => @params,
-                    :id => @id
+                    "method" => @method.to_s,
+                    "params" => @params,
+                    "id" => @id
                 }
             end
             

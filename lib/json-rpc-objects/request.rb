@@ -45,6 +45,8 @@ module JsonRpcObjects
         # @param [String] string JSON string for parse
         # @param [:wd, :alt] default_v11 type of the eventually returned 
         #   1.1 object
+        # @param [JsonRpcObjects::Serializer] serializer instance of 
+        #   serializer class
         #
         
         def self.parse(string, default_v11 = :wd, serializer = JsonRpcObjects::default_serializer)

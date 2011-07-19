@@ -17,8 +17,7 @@ require "../response"
 res = JsonRpcObjects::V10::Response::create(nil, "some problem", :id => 12345)
 puts res.serialize
 
-
 require "../../request"
-puts JsonRpcObjects::Request::parse(req.to_json).inspect
+puts JsonRpcObjects::Request::parse(req.serialize).inspect
 require "../../response"
-puts JsonRpcObjects::Response::parse(res.to_json).inspect
+puts JsonRpcObjects::Response::parse(res.serialize).inspect

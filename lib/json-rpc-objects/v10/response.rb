@@ -97,10 +97,17 @@ module JsonRpcObjects
             
             def output
                 self.check!
+                
+                if @error.nil?
+                    error = nil
+                else
+                    error = @error.output
+                end
+                
                 data = {
-                    :result => @result,
-                    :error => @error,
-                    :id => @id
+                    "result" => @result,
+                    "error" => error,
+                    "id" => @id
                 }
                 
                 return data

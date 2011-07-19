@@ -58,7 +58,8 @@ module JsonRpcObjects
             # Parses serialized string.
             #
             # @param [Object] object with the serialized data
-            # @param [JsonRpcObjects::Serializer] serializer instance of serializer class
+            # @param [JsonRpcObjects::Serializer] serializer instance 
+            #   of serializer class
             # @return [Generic::Object] of the given class
             #
             
@@ -94,7 +95,8 @@ module JsonRpcObjects
             # Constructor.
             #
             # @param [Hash] data for initializing the object
-            # @param [JsonRpcObjects::Serializer] serializer instance of serializer class
+            # @param [JsonRpcObjects::Serializer] serializer instance 
+            #   of serializer class
             #
             
             def initialize(data, serializer = JsonRpcObjects::default_serializer)
@@ -155,3 +157,4 @@ module JsonRpcObjects
         end
     end
 end
+

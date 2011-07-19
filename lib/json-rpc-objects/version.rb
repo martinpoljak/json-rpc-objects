@@ -1,5 +1,6 @@
 # encoding: utf-8
 require "hash-utils/object"
+require "hash-utils/module"
 
 ##
 # Main JSON-RPC Objects module.
@@ -76,7 +77,7 @@ module JsonRpcObjects
             class_name.gsub!(self.class::CLASS_NAME_GENERATOR) { |s| s[1].chr.upcase }
 
             # Module name
-            module_name = @module.name.dup << "::" << class_name
+            module_name = @module.name + "::" + class_name
             
             # File path
             file_path = "x" << module_name
@@ -90,7 +91,7 @@ module JsonRpcObjects
                 @@files[file_path] = true
             end
             
-            return Kernel::eval(module_name)
+            return Module.get_module(module_name)
         end
         
         

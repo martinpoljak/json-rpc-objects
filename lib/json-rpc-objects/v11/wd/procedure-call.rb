@@ -45,13 +45,13 @@ module JsonRpcObjects
                 # Holds JSON-RPC version specification.
                 #
                 
-                VERSION_NUMBER = :"1.1"
+                VERSION_NUMBER = "1.1"
                 
                 ##
                 # Holds JSON-RPC version member identification.
                 #
                 
-                VERSION_MEMBER = :version
+                VERSION_MEMBER = "version"
                 
                 ##
                 # Holds keyword parameters.
@@ -201,7 +201,7 @@ module JsonRpcObjects
                 #
                 
                 def __delete_version(data)
-                    data.delete(self.class::VERSION_MEMBER)
+                    data.delete(self.class::VERSION_MEMBER.to_sym)
                 end
                 
             end

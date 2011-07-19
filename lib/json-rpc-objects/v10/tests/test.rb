@@ -2,8 +2,8 @@
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
 $:.push("../../..")
-require "json-rpc-objects/serializer/bson"
-JsonRpcObjects::default_serializer(JsonRpcObjects::Serializer::BSON)
+require "json-rpc-objects/serializer/yaml"
+JsonRpcObjects::default_serializer(JsonRpcObjects::Serializer::YAML)
 
 require "../request"
 req = JsonRpcObjects::V10::Request::create(:alfa, [:beta], :id => 12345)

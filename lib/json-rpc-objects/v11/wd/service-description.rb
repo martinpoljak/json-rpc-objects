@@ -161,7 +161,7 @@ module JsonRpcObjects
                     self.check!
                     
                     data = {
-                        "sdversion" => :"1.0",
+                        "sdversion" => "1.0",
                         "name" => @name.to_s,
                         "id" => @id.to_s
                     }

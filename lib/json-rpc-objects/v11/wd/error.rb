@@ -116,7 +116,7 @@ module JsonRpcObjects
                 def output
                     self.check!
                     data = {
-                        "name" => :JSONRPCError,
+                        "name" => "JSONRPCError",
                         "code" => @code,
                         "message" => @message
                     }

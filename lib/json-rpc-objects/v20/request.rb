@@ -68,7 +68,7 @@ module JsonRpcObjects
                 result = super()
                 
                 if @_id_set and @id.nil?
-                    result[:id] = nil
+                    result["id"] = nil
                 end
                 
                 return result

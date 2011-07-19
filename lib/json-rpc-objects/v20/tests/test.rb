@@ -3,8 +3,8 @@
 
 $:.push("../../..")
 
-require "json-rpc-objects/serializer/yaml"
-JsonRpcObjects::default_serializer(JsonRpcObjects::Serializer::YAML)
+require "json-rpc-objects/serializer/marshal"
+JsonRpcObjects::default_serializer(JsonRpcObjects::Serializer::Marshal)
 
 
 require "../request"

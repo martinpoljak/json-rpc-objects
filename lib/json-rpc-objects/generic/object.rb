@@ -2,8 +2,8 @@
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
 require "hash-utils/hash"
-require "multi_json"
 require "abstract"
+require "json-rpc-objects/serializer"
 require "json-rpc-objects/version"
 
 ##
@@ -26,10 +26,19 @@ module JsonRpcObjects
         class Object
         
             ##
+            # Holds assigned serializer.
+            # @since 0.4.0
+            #
+            
+            attr_accessor :serializer
+            @serializer
+        
+            ##
             # Creates new one.
             #
             # @param [Array] args some arguments
-            # @return [JsonRpc::Generic::Object] new object
+            # @return [JsonRpcObjects::Generic::Object] new object
+            # @abstract
             #
             
             def self.create(*args)
@@ -46,31 +55,50 @@ module JsonRpcObjects
             end
           
             ##
-            # Parses JSON-RPC string.
+            # Parses serialized string.
             #
-            # @param [String] string with the JSON data
+            # @param [Object] object with the serialized data
+            # @param [JsonRpcObjects::Serializer] serializer instance of serializer class
             # @return [Generic::Object] of the given class
             #
             
-            def self.parse(string)
-                self::new(MultiJson.decode(string)) 
+            def self.parse(string, serializer = JsonRpcObjects::default_serializer)
+                self::new(serializer.deserialize(string), serializer) 
             end
-                        
+            
             ##
-            # Converts back to JSON.
+            # Converts object to JSON. It's deprecated and ineffective now.
+            # Use the {#serialize} method.
+            #
+            # @see #serialize
             # @return [String]
+            # @deprecated Since 0.4.0, replaced by +#serialize+.
             #
             
             def to_json
-                MultiJson.encode(self.output)
+                JsonRpcObjects::Serializer::JSON::new.serialize(self.output)
+            end
+            
+            ##
+            # Serializes the object by the serializer.
+            #
+            # @return [Object]
+            # @since 0.4.0
+            #
+            
+            def serialize
+                @serializer.serialize(self.output)
             end
                      
             ##
             # Constructor.
+            #
             # @param [Hash] data for initializing the object
+            # @param [JsonRpcObjects::Serializer] serializer instance of serializer class
             #
             
-            def initialize(data)
+            def initialize(data, serializer = JsonRpcObjects::default_serializer)
+                @serializer = serializer
                 self.data = data
                 self.check!
             end

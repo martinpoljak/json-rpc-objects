@@ -2,8 +2,8 @@
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
 require "json-rpc-objects/v20/request"
+require "json-rpc-objects/serializer"
 require "hash-utils/object"
-require "multi_json"
 
 ##
 # Main JSON-RPC Objects module.
@@ -47,8 +47,8 @@ module JsonRpcObjects
         #   1.1 object
         #
         
-        def self.parse(string, default_v11 = :wd)
-            data = MultiJson.decode(string)
+        def self.parse(string, default_v11 = :wd, serializer = JsonRpcObjects::default_serializer)
+            data = serializer.deserialize(string)
             
             if not data.hash?
                 raise Exception::new("Data in JSON string aren't object.")

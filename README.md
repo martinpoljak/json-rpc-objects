@@ -1,11 +1,11 @@
 JSON-RPC Objects
 ================
 
-**JSON-RPC Objects** are implementation of by [JSON-RPC][1] defined 
-objects with respect to specifications compliance and API backward 
-compatibility. It implements all versions of the protocol and support 
-for ability to communicate by the same protocol version which the 
-other side uses by a transparent way.
+**JSON-RPC Objects** is complete implementation of by [JSON-RPC][1] 
+defined objects with respect to specifications compliance and API 
+backward compatibility. It implements all versions of the protocol and 
+support for ability to communicate by the same protocol version which 
+the other side uses by a transparent way.
 
 It means, it implements following JSON-RPC versions:
 

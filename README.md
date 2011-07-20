@@ -89,6 +89,35 @@ neither 1.0 nor 2.0 implements these objects, so it can simply cause
 Be limited by `Error`, `Request` and `Response` classes here or check
 the protocol version using `#VERSION` class constant.
 
+### Serializers
+
+Multiple serializers support is implemented, so you aren't limited to
+JSON[8] only, but you can use also built-in serializers to YAML[9] or
+[Ruby marshaling][10] format. Also support for [BSON][11] serializing 
+format is available standalone through [`json-rpc-objects-bson`][12] gem.
+
+You can set the default serializer for whole library session (both class
+and instance of the class are supported):
+
+    require "json-rpc-objects/serializer/marshal"
+    
+    JsonRpcObjects::default_serializer(JsonRpcObjects::Serializer::Marshal)
+    
+    # it's setting default serializer for all new instances, without
+    # arguments it returns the default serializer
+    
+Or by individual object assigning (only instances are supported):
+
+    require "json-rpc-objects/serializer/marshal"
+    
+    serializer = JsonRpcObjects::Serializer::Marshal::new
+    JsonRpcObjects::V10::Request::parse(data, serializer)
+    
+…and the same for constructor. The `#serializer` property is also 
+accessible, both readable and writable on all objects. By the same way, 
+serializer is received by the generic parsers `JsonRpcObjects::Request` 
+and so too. 
+
 Contributing
 ------------
 
@@ -113,3 +142,7 @@ further details.
 [5]: http://groups.google.com/group/json-rpc/web/json-rpc-2-0
 [6]: http://github.com/martinkozak/json-rpc-objects/issues
 [7]: http://www.martinkozak.net/
+
+[9]: http://www.yaml.org/
+[10]: http://ruby-doc.org/core/classes/Marshal.html
+[11]: http://bsonspec.org/

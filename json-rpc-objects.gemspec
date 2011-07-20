@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{json-rpc-objects}
-  s.version = "0.3.4"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Martin Kozák}]
-  s.date = %q{2011-07-18}
+  s.date = %q{2011-07-20}
   s.email = %q{martinkozak@martinkozak.net}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -33,6 +33,10 @@ Gem::Specification.new do |s|
     "lib/json-rpc-objects/generic/response.rb",
     "lib/json-rpc-objects/request.rb",
     "lib/json-rpc-objects/response.rb",
+    "lib/json-rpc-objects/serializer.rb",
+    "lib/json-rpc-objects/serializer/json.rb",
+    "lib/json-rpc-objects/serializer/marshal.rb",
+    "lib/json-rpc-objects/serializer/yaml.rb",
     "lib/json-rpc-objects/v10/error.rb",
     "lib/json-rpc-objects/v10/request.rb",
     "lib/json-rpc-objects/v10/response.rb",

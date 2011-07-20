@@ -1,6 +1,11 @@
 
+0.4.0 (2011-07-20)
+* multiple serializers support
+* minor optimization of the version routine
+* documentation corrections
+
 0.3.4 (2011-07-18)
-* dependency from yajl-ruby to multi_json for compatibility with all 
+* dependency from 'yajl-ruby' to 'multi_json' for compatibility with all 
   other major JSON libraries or unsupported platforms
 * minor optimizations and corrections
 * upgrade to modern 'hash-utils' version

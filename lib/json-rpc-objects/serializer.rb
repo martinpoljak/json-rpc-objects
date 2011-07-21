@@ -26,7 +26,7 @@ module JsonRpcObjects
     def self.default_serializer(mod = nil)
         if mod.kind_of? Class
             mod = mod::new
-        elsif mod.nil? and @@serializer.nil?
+        elsif @@serializer.nil? and mod.nil?
             @@serializer = JsonRpcObjects::Serializer::JSON::new
         end
         

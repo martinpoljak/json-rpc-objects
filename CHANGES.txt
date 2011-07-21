@@ -1,4 +1,7 @@
 
+0.4.1 (2011-07-21)
+* minor bug in general serializer module
+
 0.4.0 (2011-07-20)
 * multiple serializers support
 * minor optimization of the version routine

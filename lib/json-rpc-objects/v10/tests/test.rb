@@ -2,8 +2,8 @@
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
 $:.push("../../..")
-require "json-rpc-objects/serializer/marshal"
-JsonRpcObjects::default_serializer(JsonRpcObjects::Serializer::Marshal)
+#require "json-rpc-objects/serializer/marshal"
+#JsonRpcObjects::default_serializer(JsonRpcObjects::Serializer::Marshal)
 
 require "../request"
 req = JsonRpcObjects::V10::Request::create(:alfa, [:beta], :id => 12345)

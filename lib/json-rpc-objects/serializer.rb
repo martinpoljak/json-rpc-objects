@@ -14,8 +14,8 @@ module JsonRpcObjects
     # Holds the serializer.
     #
 
-    @@serializer = JsonRpcObjects::Serializer::JSON::new
-
+    @@serializer = nil
+    
     ##
     # Sets the object serializer.
     # 
@@ -26,6 +26,8 @@ module JsonRpcObjects
     def self.default_serializer(mod = nil)
         if mod.kind_of? Class
             mod = mod::new
+        elsif mod.nil? and @@serializer.nil?
+            @@serializer = JsonRpcObjects::Serializer::JSON::new
         end
         
         @@serializer = mod if not mod.nil?
@@ -101,6 +103,5 @@ module JsonRpcObjects
         end
         
     end
-        
 end
 

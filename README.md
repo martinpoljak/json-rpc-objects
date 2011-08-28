@@ -96,12 +96,13 @@ JSON[8] only, but you can use also built-in serializer to
 [Ruby marshaling][10] format or serializers to [YAML][9], [BSON][11] 
 and others. At this time, the following serializer gems are available:
 
-* [json-rpc-objects-json][20] -- JSON using the [multi_json][12] for
+* [json-rpc-objects-json][20] – JSON using the [multi_json][12] gem for
 widespread compatibility,
-* [json-rpc-objects-yaml][21] -- [YAML][9] using standard library [Ruby Syck][13],
-* [json-rpc-objects-bson][22] -- [BSON][11] format of MongoDB,
-* [json-rpc-objects-msgpack][23] -- fast [MessagePack][14] format,
-* [json-rpc-objects-psych][24] -- [YAML][9] using fast and 
+* [json-rpc-objects-yaml][21] – [YAML][9] using the standard library 
+[Ruby Syck][13],
+* [json-rpc-objects-bson][22] – [BSON][11] format of MongoDB,
+* [json-rpc-objects-msgpack][23] – fast [MessagePack][14] format,
+* [json-rpc-objects-psych][24] – [YAML][9] using fast and 
 modern [libyaml][15] library.
 
 You can set the default serializer for whole library session (both class

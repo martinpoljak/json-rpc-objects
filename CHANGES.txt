@@ -1,4 +1,7 @@
 
+0.4.2 (2011-08-28)
+* JSON and YAML serializers to standalone gems
+
 0.4.1 (2011-07-21)
 * minor bug in general serializer module
 

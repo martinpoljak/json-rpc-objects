@@ -4,11 +4,13 @@ GEM
     abstract (1.0.0)
     addressable (2.2.6)
     git (1.2.5)
-    hash-utils (0.18.0)
+    hash-utils (0.18.1)
     jeweler (1.6.4)
       bundler (~> 1.0)
       git (>= 1.2.5)
       rake
+    json-rpc-objects-json (0.1.1)
+      multi_json
     multi_json (1.0.3)
     rake (0.9.2)
 
@@ -21,4 +23,4 @@ DEPENDENCIES
   bundler (>= 1.0.0)
   hash-utils (>= 0.18.0)
   jeweler (>= 1.5.2)
-  multi_json
+  json-rpc-objects-json (>= 0.1.1)

@@ -92,9 +92,17 @@ the protocol version using `#VERSION` class constant.
 ### Serializers
 
 Multiple serializers support is implemented, so you aren't limited to
-JSON[8] only, but you can use also built-in serializers to YAML[9] or
-[Ruby marshaling][10] format. Also support for [BSON][11] serializing 
-format is available standalone through [`json-rpc-objects-bson`][12] gem.
+JSON[8] only, but you can use also built-in serializer to 
+[Ruby marshaling][10] format or serializers to [YAML][9], [BSON][11] 
+and others. At this time, the following serializer gems are available:
+
+* [json-rpc-objects-json][20] -- JSON using the [multi_json][12] for
+widespread compatibility,
+* [json-rpc-objects-yaml][21] -- [YAML][9] using standard library [Ruby Syck][13],
+* [json-rpc-objects-bson][22] -- [BSON][11] format of MongoDB,
+* [json-rpc-objects-msgpack][23] -- fast [MessagePack][14] format,
+* [json-rpc-objects-psych][24] -- [YAML][9] using fast and 
+modern [libyaml][15] library.
 
 You can set the default serializer for whole library session (both class
 and instance of the class are supported):
@@ -146,3 +154,13 @@ further details.
 [9]: http://www.yaml.org/
 [10]: http://ruby-doc.org/core/classes/Marshal.html
 [11]: http://bsonspec.org/
+[12]: http://github.com/intridea/multi_json
+[13]: http://www.ruby-doc.org/stdlib/libdoc/syck/rdoc/index.html
+[14]: http://msgpack.org/
+[15]: http://pyyaml.org/wiki/LibYAML
+
+[20]: https://github.com/martinkozak/json-rpc-objects-json
+[21]: https://github.com/martinkozak/json-rpc-objects-yaml
+[22]: https://github.com/martinkozak/json-rpc-objects-bson
+[23]: https://github.com/martinkozak/json-rpc-objects-msgpack
+[24]: https://github.com/martinkozak/json-rpc-objects-psych

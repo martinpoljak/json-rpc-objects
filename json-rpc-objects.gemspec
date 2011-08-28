@@ -4,13 +4,13 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{json-rpc-objects}
-  s.version = "0.4.1"
+  s.name = "json-rpc-objects"
+  s.version = "0.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Martin Kozák}]
-  s.date = %q{2011-07-21}
-  s.email = %q{martinkozak@martinkozak.net}
+  s.authors = ["Martin Koz\u{e1}k"]
+  s.date = "2011-08-28"
+  s.email = "martinkozak@martinkozak.net"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -34,9 +34,7 @@ Gem::Specification.new do |s|
     "lib/json-rpc-objects/request.rb",
     "lib/json-rpc-objects/response.rb",
     "lib/json-rpc-objects/serializer.rb",
-    "lib/json-rpc-objects/serializer/json.rb",
     "lib/json-rpc-objects/serializer/marshal.rb",
-    "lib/json-rpc-objects/serializer/yaml.rb",
     "lib/json-rpc-objects/v10/error.rb",
     "lib/json-rpc-objects/v10/request.rb",
     "lib/json-rpc-objects/v10/response.rb",
@@ -71,11 +69,11 @@ Gem::Specification.new do |s|
     "lib/json-rpc-objects/v20/tests/test.rb",
     "lib/json-rpc-objects/version.rb"
   ]
-  s.homepage = %q{http://github.com/martinkozak/json-rpc-objects}
-  s.licenses = [%q{MIT}]
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.5}
-  s.summary = %q{Implementation of JSON-RPC objects with respect to specifications compliance and API backward compatibility. Implements all versions of the protocol and support for ability to communicate by the same protocol version which other side uses by a transparent way.}
+  s.homepage = "http://github.com/martinkozak/json-rpc-objects"
+  s.licenses = ["MIT"]
+  s.require_paths = ["lib"]
+  s.rubygems_version = "1.8.10"
+  s.summary = "Implementation of JSON-RPC objects with respect to specifications compliance and API backward compatibility. Implements all versions of the protocol and support for ability to communicate by the same protocol version which other side uses by a transparent way."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -84,14 +82,14 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<hash-utils>, [">= 0.18.0"])
       s.add_runtime_dependency(%q<addressable>, [">= 2.2.2"])
       s.add_runtime_dependency(%q<abstract>, [">= 1.0.0"])
-      s.add_runtime_dependency(%q<multi_json>, [">= 0"])
+      s.add_runtime_dependency(%q<json-rpc-objects-json>, [">= 0.1.1"])
       s.add_development_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_development_dependency(%q<jeweler>, [">= 1.5.2"])
     else
       s.add_dependency(%q<hash-utils>, [">= 0.18.0"])
       s.add_dependency(%q<addressable>, [">= 2.2.2"])
       s.add_dependency(%q<abstract>, [">= 1.0.0"])
-      s.add_dependency(%q<multi_json>, [">= 0"])
+      s.add_dependency(%q<json-rpc-objects-json>, [">= 0.1.1"])
       s.add_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_dependency(%q<jeweler>, [">= 1.5.2"])
     end
@@ -99,7 +97,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<hash-utils>, [">= 0.18.0"])
     s.add_dependency(%q<addressable>, [">= 2.2.2"])
     s.add_dependency(%q<abstract>, [">= 1.0.0"])
-    s.add_dependency(%q<multi_json>, [">= 0"])
+    s.add_dependency(%q<json-rpc-objects-json>, [">= 0.1.1"])
     s.add_dependency(%q<bundler>, [">= 1.0.0"])
     s.add_dependency(%q<jeweler>, [">= 1.5.2"])
   end

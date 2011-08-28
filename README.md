@@ -101,9 +101,9 @@ widespread compatibility,
 * [json-rpc-objects-yaml][21] – [YAML][9] using the standard library 
 [Ruby Syck][13],
 * [json-rpc-objects-bson][22] – [BSON][11] format of MongoDB,
-* [json-rpc-objects-msgpack][23] – fast [MessagePack][14] format,
-* [json-rpc-objects-psych][24] – [YAML][9] using fast and 
-modern [libyaml][15] library.
+* [json-rpc-objects-msgpack][23] – very fast [MessagePack][14] format,
+* [json-rpc-objects-psych][24] – [YAML][9] using more modern 
+[libyaml][15] library.
 
 You can set the default serializer for whole library session (both class
 and instance of the class are supported):

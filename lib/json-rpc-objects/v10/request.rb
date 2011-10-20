@@ -134,7 +134,7 @@ module JsonRpcObjects
             #
             
             def __check_method
-                if not @method.symbol?
+                if not (@method.symbol? or @method.string?) 
                     raise Exception::new("Service name must be Symbol or convertable to Symbol.")
                 end
             end

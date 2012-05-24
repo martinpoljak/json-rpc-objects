@@ -1,4 +1,8 @@
 
+0.4.3
+* method name should allow strings to be given, not symbols only
+* none serializer which doesn't serialize at all
+
 0.4.2 (2011-08-28)
 * JSON and YAML serializers to standalone gems
 

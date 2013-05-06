@@ -1,5 +1,6 @@
 
-0.4.3
+0.4.3 (2013-05-06)
+* none (passthru) serializer
 * method name should allow strings to be given, not symbols only
 * none serializer which doesn't serialize at all
 

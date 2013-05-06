@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "json-rpc-objects"
-  s.version = "0.4.2"
+  s.version = "0.4.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Koz\u{e1}k"]
-  s.date = "2011-08-28"
+  s.date = "2013-05-06"
   s.email = "martinkozak@martinkozak.net"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
     "lib/json-rpc-objects/response.rb",
     "lib/json-rpc-objects/serializer.rb",
     "lib/json-rpc-objects/serializer/marshal.rb",
+    "lib/json-rpc-objects/serializer/none.rb",
     "lib/json-rpc-objects/v10/error.rb",
     "lib/json-rpc-objects/v10/request.rb",
     "lib/json-rpc-objects/v10/response.rb",
@@ -72,7 +73,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/martinkozak/json-rpc-objects"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.10"
+  s.rubygems_version = "1.8.23"
   s.summary = "Implementation of JSON-RPC objects with respect to specifications compliance and API backward compatibility. Implements all versions of the protocol and support for ability to communicate by the same protocol version which other side uses by a transparent way."
 
   if s.respond_to? :specification_version then

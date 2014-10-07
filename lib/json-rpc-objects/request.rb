@@ -3,7 +3,6 @@
 
 require "json-rpc-objects/v20/request"
 require "json-rpc-objects/serializer"
-require "hash-utils/object"
 
 ##
 # Main JSON-RPC Objects module.
@@ -52,7 +51,7 @@ module JsonRpcObjects
         def self.parse(string, default_v11 = :wd, serializer = JsonRpcObjects::default_serializer)
             data = serializer.deserialize(string)
             
-            if not data.hash?
+            if not data.kind_of?(Hash)
                 raise Exception::new("Data in JSON string aren't object.")
             end
             
@@ -76,7 +75,7 @@ module JsonRpcObjects
             end
             
             # Returns
-            if not file.in? @@files
+            if not @@files.include?(file)
                 require file
                 @@files[file] = true
             end

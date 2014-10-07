@@ -1,8 +1,8 @@
 # encoding: utf-8
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
-require "hash-utils/hash"
 require "json-rpc-objects/v11/alt/request"
+require "json-rpc-objects/hash"
 
 ##
 # Main JSON-RPC Objects module.
@@ -54,7 +54,7 @@ module JsonRpcObjects
             def check!
                 super()
                 
-                if not @id.kind_of_any? [Symbol, String, Integer, NilClass]
+                if not [Symbol, String, Integer, NilClass].any?{ |cl| @id.kind_of?(cl) }
                     raise Exception::new("ID must contain Symbol, String, Number or nil if included.")
                 end
             end
@@ -105,7 +105,7 @@ module JsonRpcObjects
             #
             
             def __get_params(data)
-                if @params.hash?
+                if @params.kind_of?(Hash)
                     @keyword_params = @params.keys_to_sym
                     @params = nil
                 end

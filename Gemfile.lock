@@ -3,9 +3,8 @@ GEM
   specs:
     abstract (1.0.0)
     addressable (2.3.4)
+    diff-lcs (1.2.5)
     git (1.2.5)
-    hash-utils (2.1.1)
-      ruby-version (>= 0.4.0)
     jeweler (1.8.4)
       bundler (~> 1.0)
       git (>= 1.2.5)
@@ -18,7 +17,21 @@ GEM
     rake (10.0.4)
     rdoc (4.0.1)
       json (~> 1.4)
-    ruby-version (0.4.3)
+    rspec (3.1.0)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+    rspec-core (3.1.5)
+      rspec-support (~> 3.1.0)
+    rspec-expectations (3.1.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.1.0)
+    rspec-its (1.0.1)
+      rspec-core (>= 2.99.0.beta1)
+      rspec-expectations (>= 2.99.0.beta1)
+    rspec-mocks (3.1.2)
+      rspec-support (~> 3.1.0)
+    rspec-support (3.1.1)
 
 PLATFORMS
   ruby
@@ -27,6 +40,7 @@ DEPENDENCIES
   abstract (>= 1.0.0)
   addressable (>= 2.2.2)
   bundler (>= 1.0.0)
-  hash-utils (>= 0.18.0)
   jeweler (>= 1.5.2)
   json-rpc-objects-json (>= 0.1.1)
+  rspec
+  rspec-its

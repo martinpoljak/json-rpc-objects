@@ -1,7 +1,6 @@
 # encoding: utf-8
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
-require "hash-utils/numeric"
 require "json-rpc-objects/v11/alt/error"
 
 ##
@@ -42,7 +41,9 @@ module JsonRpcObjects
             def check!
                 self.normalize!
 
-                if (@code.in? -32768..-32000) and not ((@code == -32700) or (@code.in? -32603..-32600) or (@code.in? -32099..-32000))
+                if ((-32768..-32000).include?(@code)) and not ((@code == -32700) or
+                     ((-32603..-32600).include?(@code)) or ((-32099..-32000).include?(code)))
+
                     raise Exception::new("Code is invalid because of reserved space.")
                 end
             end

@@ -1,10 +1,10 @@
 # encoding: utf-8
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
-require "hash-utils/hash"
 require "abstract"
 require "json-rpc-objects/serializer"
 require "json-rpc-objects/version"
+require "json-rpc-objects/hash"
 
 ##
 # Main JSON-RPC Objects module.

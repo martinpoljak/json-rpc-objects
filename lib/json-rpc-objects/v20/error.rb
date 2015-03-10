@@ -40,12 +40,13 @@ module JsonRpcObjects
 
             def check!
                 self.normalize!
+                # our RPC client returns ApplicationErrors and we want to handle them
+                # this shouldn't be Exception.new but defined error class
+                # if ((-32768..-32000).include?(@code)) and not ((@code == -32700) or
+                #      ((-32603..-32600).include?(@code)) or ((-32099..-32000).include?(code)))
 
-                if ((-32768..-32000).include?(@code)) and not ((@code == -32700) or
-                     ((-32603..-32600).include?(@code)) or ((-32099..-32000).include?(code)))
-
-                    raise Exception::new("Code is invalid because of reserved space.")
-                end
+                #     raise Exception::new("Code is invalid because of reserved space.")
+                # end
             end
 
             ##

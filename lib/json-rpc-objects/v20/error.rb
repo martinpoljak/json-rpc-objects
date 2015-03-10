@@ -19,25 +19,25 @@ module JsonRpcObjects
         ##
         # Error description object class for Response.
         #
-        
+
         class Error < JsonRpcObjects::V11::Alt::Error
-        
+
             ##
             # Holds link to its version module.
             #
-            
+
             VERSION = JsonRpcObjects::V20
 
             ##
             # Indicates data member name.
             #
-            
+
             DATA_MEMBER_NAME = :data
-            
+
             ##
             # Checks correctness of the data.
             #
-            
+
             def check!
                 self.normalize!
 
@@ -52,29 +52,29 @@ module JsonRpcObjects
             # Renders data to output hash.
             # @return [Hash] with data of error
             #
-            
+
             def output
                 result = super()
-                
+
                 if result.include? "error"
                     result["data"] = result["error"]
                     result.delete("error")
                 end
-            
+
                 return result
             end
-            
-            
+
+
             protected
-            
+
             ##
             # Assigns error data.
             #
-            
+
             def __assign_data(data)
                 @data = data[:data]
                 data.delete(:data)
-                
+
                 if @data.nil?
                     super(data)
                 end

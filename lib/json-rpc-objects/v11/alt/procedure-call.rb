@@ -1,8 +1,8 @@
 # encoding: utf-8
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
-require "hash-utils/hash"
 require "json-rpc-objects/v11/wd/request"
+require "json-rpc-objects/hash"
 
 ##
 # Main JSON-RPC Objects module.

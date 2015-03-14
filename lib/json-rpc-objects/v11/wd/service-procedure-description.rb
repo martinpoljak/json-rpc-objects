@@ -2,8 +2,6 @@
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
 require "addressable/uri"
-require "hash-utils/array"
-require "hash-utils/object"
 require "json-rpc-objects/v11/wd/procedure-parameter-description"
 require "json-rpc-objects/generic"
 

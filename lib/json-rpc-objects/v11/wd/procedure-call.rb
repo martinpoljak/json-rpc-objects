@@ -1,12 +1,9 @@
 # encoding: utf-8
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
-require "hash-utils/array"
-require "hash-utils/hash"
-require "hash-utils/object"
-require "hash-utils/string"
 require "json-rpc-objects/v10/request"
 require "json-rpc-objects/v11/wd/extensions"
+require "json-rpc-objects/hash"
 
 ##
 # Main JSON-RPC Objects module.
@@ -183,7 +180,7 @@ module JsonRpcObjects
                 #
                 
                 def __check_params
-                    if not @params.nil? and not @params.array?
+                    if not @params.nil? and not @params.kind_of?(Array)
                         raise Exception::new("Params must be Array.")
                     end
                 end

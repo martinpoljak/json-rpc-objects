@@ -2,7 +2,6 @@
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
 require "json-rpc-objects/generic/request"
-require "hash-utils/object"
 
 ##
 # Main JSON-RPC Objects module.
@@ -134,7 +133,7 @@ module JsonRpcObjects
             #
             
             def __check_method
-                if not (@method.symbol? or @method.string?) 
+                if not (@method.kind_of?(Symbol) or @method.kind_of?(String)) 
                     raise Exception::new("Service name must be Symbol or convertable to Symbol.")
                 end
             end
@@ -154,7 +153,7 @@ module JsonRpcObjects
             #
             
             def __normalize_method
-                if @method.string?
+                if @method.kind_of?(String)
                     @method = @method.to_sym
                 end
             end

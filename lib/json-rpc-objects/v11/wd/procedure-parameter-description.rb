@@ -3,7 +3,6 @@
 
 require "json-rpc-objects/v11/generic-types"
 require "json-rpc-objects/generic"
-require "hash-utils/object"
 
 ##
 # Main JSON-RPC Objects module.

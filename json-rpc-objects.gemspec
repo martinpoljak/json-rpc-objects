@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
     "lib/json-rpc-objects/serializer.rb",
     "lib/json-rpc-objects/serializer/marshal.rb",
     "lib/json-rpc-objects/serializer/none.rb",
+    "lib/json-rpc-objects/hash.rb",
     "lib/json-rpc-objects/v10/error.rb",
     "lib/json-rpc-objects/v10/request.rb",
     "lib/json-rpc-objects/v10/response.rb",
@@ -80,14 +81,12 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<hash-utils>, [">= 0.18.0"])
       s.add_runtime_dependency(%q<addressable>, [">= 2.2.2"])
       s.add_runtime_dependency(%q<abstract>, [">= 1.0.0"])
       s.add_runtime_dependency(%q<json-rpc-objects-json>, [">= 0.1.1"])
       s.add_development_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_development_dependency(%q<jeweler>, [">= 1.5.2"])
     else
-      s.add_dependency(%q<hash-utils>, [">= 0.18.0"])
       s.add_dependency(%q<addressable>, [">= 2.2.2"])
       s.add_dependency(%q<abstract>, [">= 1.0.0"])
       s.add_dependency(%q<json-rpc-objects-json>, [">= 0.1.1"])
@@ -95,7 +94,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, [">= 1.5.2"])
     end
   else
-    s.add_dependency(%q<hash-utils>, [">= 0.18.0"])
     s.add_dependency(%q<addressable>, [">= 2.2.2"])
     s.add_dependency(%q<abstract>, [">= 1.0.0"])
     s.add_dependency(%q<json-rpc-objects-json>, [">= 0.1.1"])

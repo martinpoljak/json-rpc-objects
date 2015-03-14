@@ -4,8 +4,6 @@
 require "addressable/uri"
 require "json-rpc-objects/v11/wd/service-procedure-description"
 require "json-rpc-objects/generic"
-require "hash-utils/array"
-require "hash-utils/object"
 
 ##
 # Main JSON-RPC Objects module.

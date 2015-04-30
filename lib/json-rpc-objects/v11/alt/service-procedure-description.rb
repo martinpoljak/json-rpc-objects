@@ -47,8 +47,8 @@ module JsonRpcObjects
                 
                 def check!
                     super()
-                    
-                    if @params.array? and (not @params.all? { |v| v.type != JsonRpcObjects::V11::GenericTypes::Nil })
+
+                    if @params.kind_of?(Array) and (not @params.all? { |v| v.type != JsonRpcObjects::V11::GenericTypes::Nil })
                         raise Exception::new("Nil return type isn't allowed for parameters.")
                     end
                 end

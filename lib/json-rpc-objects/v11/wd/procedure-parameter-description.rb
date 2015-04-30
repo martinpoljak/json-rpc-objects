@@ -98,12 +98,12 @@ module JsonRpcObjects
                 
                 def check!
                     self.normalize!
-                    
-                    if not @name.symbol?
+
+                    if not @name.kind_of?(Symbol)
                         raise Exception::new("Parameter name must be Symbol or convertable to Symbol.")
                     end
-                    
-                    if (not @type.nil?) and (not @type.kind_of_any? [GenericTypes::Any, GenericTypes::Nil, GenericTypes::Boolean, Integer, String, Array, Object])
+
+                    if (not @type.nil?) and (not [GenericTypes::Any, GenericTypes::Nil, GenericTypes::Boolean, Integer, String, Array, Object].any? {|c| @type.kind_of?(c)})
                         raise Exception::new("Type if defined can be only Any, Nil, Boolean, Integer, String, Array or Object.")
                     end
                 end
@@ -147,8 +147,9 @@ module JsonRpcObjects
                         @name = @name.to_sym
                     end
 
-                    if @type.kind_of_any? [String, Symbol]
+                    if [String, Symbol].any? {|c| @type.kind_of?(c) }
                         @type = __normalize_type
+                    }
                     end
                 end
                 

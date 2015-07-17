@@ -64,8 +64,8 @@ module JsonRpcObjects
                 
                 def check!
                     super()
-                    
-                    if not @keyword_params.nil? and not @keyword_params.hash?
+
+                    if not @keyword_params.nil? and not @keyword_params.kind_of?(Hash)
                         raise Exception::new("Keyword params must be Hash.")
                     end
                 end
@@ -143,8 +143,8 @@ module JsonRpcObjects
                 
                     # If named arguments used, assigns keys as symbols
                     #   but keeps numeric arguments as integers
-                    
-                    if @params.hash?
+
+                    if @params.kind_of?(Hash)
                         @params = @params.dup
                         @keyword_params = @params.remove! { |k, v| not k.numeric? }
                         @params = @params.sort_by { |i| i.first.to_i }.map { |i| i.second }

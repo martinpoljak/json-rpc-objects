@@ -110,17 +110,17 @@ module JsonRpcObjects
                 
                 def check!
                     self.normalize!
-                    
-                    if not @name.symbol?
+
+                    if not @name.kind_of?(Symbol)
                         raise Exception::new("Procedure name must be Symbol or convertable to Symbol.")
                     end
 
-                    if not @params.nil? 
-                        if (not @params.array?) or (not @params.all? { |v| v.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS })
+                    if not @params.nil?
+                        if (not @params.kind_of?(Array)) or (not @params.all? { |v| v.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS })
                             raise Exception::new("If params is defined, must be an Array of " << self.class::PARAMETER_DESCRIPTION_CLASS.name << " objects.")
                         end
-                        
-                        if @params.array?
+
+                        if @params.kind_of?(Array)
                             @params.each { |param| param.check! }
                         end
                     end
@@ -205,12 +205,12 @@ module JsonRpcObjects
                     @idempotent = data[:idempotent]
                     @params = data[:params]
                     @return = data[:return]
-                    
-                    if @params.array?
+
+                    if @params.kind_of?(Array)
                         @params = @params.map { |v| self.class::PARAMETER_DESCRIPTION_CLASS::new(v) }
                     end
-                    
-                    if @return.hash?
+
+                    if @return.kind_of?(Hash)
                         @return = self.class::PARAMETER_DESCRIPTION_CLASS::new(@return)
                     end
                 end

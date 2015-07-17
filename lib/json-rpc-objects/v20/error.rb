@@ -19,62 +19,63 @@ module JsonRpcObjects
         ##
         # Error description object class for Response.
         #
-        
+
         class Error < JsonRpcObjects::V11::Alt::Error
-        
+
             ##
             # Holds link to its version module.
             #
-            
+
             VERSION = JsonRpcObjects::V20
 
             ##
             # Indicates data member name.
             #
-            
+
             DATA_MEMBER_NAME = :data
-            
+
             ##
             # Checks correctness of the data.
             #
-            
+
             def check!
                 self.normalize!
+                # our RPC client returns ApplicationErrors and we want to handle them
+                # this shouldn't be Exception.new but defined error class
+                # if ((-32768..-32000).include?(@code)) and not ((@code == -32700) or
+                #      ((-32603..-32600).include?(@code)) or ((-32099..-32000).include?(code)))
 
-                if ((-32768..-32000).include?(@code)) and not ((@code == -32700) or
-                     ((-32603..-32600).include?(@code)) or ((-32099..-32000).include?(code)))
-
-                    raise Exception::new("Code is invalid because of reserved space.")
-                end
+                #     raise Exception::new("Code is invalid because of reserved space.")
+                # end
             end
 
             ##
             # Renders data to output hash.
             # @return [Hash] with data of error
             #
-            
+
             def output
                 result = super()
-                
+
                 if result.include? "error"
                     result["data"] = result["error"]
                     result.delete("error")
                 end
-            
+
                 return result
             end
-            
-            
+
+
             protected
-            
+
             ##
             # Assigns error data.
             #
-            
+
             def __assign_data(data)
                 @data = data[:data]
                 data.delete(:data)
-                
+
                 if @data.nil?
                     super(data)
                 end

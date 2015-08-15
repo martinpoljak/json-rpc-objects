@@ -1,5 +1,5 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
 require "json-rpc-objects/generic/object"
 

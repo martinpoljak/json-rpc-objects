@@ -1,8 +1,8 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
 require "json-rpc-objects/v11/wd/request"
-require "json-rpc-objects/hash"
+require "json-rpc-objects/utils"
 
 ##
 # Main JSON-RPC Objects module.
@@ -60,9 +60,9 @@ module JsonRpcObjects
                     #   property.
                     if data.include? :kwparams
                        @keyword_params = data[:kwparams]
-                       @keyword_params.keys_to_sym!
+                       JsonRpcObjects::Utils::Hash.keys_to_sym! @keyword_params
                     end
-                end
+                end 
                 
                 ##
                 # Assigns the parameters settings.

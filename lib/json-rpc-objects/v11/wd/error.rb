@@ -1,6 +1,7 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
+require "json-rpc-objects/utils"
 require "json-rpc-objects/generic"
 require "json-rpc-objects/v10/error"
 require "json-rpc-objects/v11/wd/extensions"
@@ -101,8 +102,8 @@ module JsonRpcObjects
                 def check!
                     self.normalize!
 
-                    if not @code.in? 100..999
-                        raise Exception::new("Code must be between 100 and 999 including them.")
+                    if not (100..999).include? @code
+                        raise JsonRpcObjects::Exceptions::InvalidCode::new("Code must be between 100 and 999 including them.")
                     end
                 end
 
@@ -123,7 +124,7 @@ module JsonRpcObjects
                         data["error"] = @data
                     end
                     
-                    data.merge! @extensions.map_keys { |k| k.to_s }
+                    data.merge! JsonRpcObjects::Utils::Hash.map_keys(@extensions) { |k| k.to_s }
                     return data
                 end
                                 

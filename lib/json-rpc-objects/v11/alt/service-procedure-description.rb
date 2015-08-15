@@ -1,5 +1,5 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
 require "json-rpc-objects/v11/alt/procedure-parameter-description"
 require "json-rpc-objects/v11/wd/service-procedure-description"
@@ -48,7 +48,7 @@ module JsonRpcObjects
                 def check!
                     super()
                     
-                    if @params.array? and (not @params.all? { |v| v.type != JsonRpcObjects::V11::GenericTypes::Nil })
+                    if @params.kind_of? Array and (not @params.all? { |v| v.type != JsonRpcObjects::V11::GenericTypes::Nil })
                         raise Exception::new("Nil return type isn't allowed for parameters.")
                     end
                 end

@@ -1,5 +1,5 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
 ##
 # Main JSON-RPC Objects module.
@@ -51,7 +51,7 @@ module JsonRpcObjects
         #
         
         def self.get(mod)
-            if not mod.in? @@cache
+            if not @@cache.include? mod
                 @@cache[mod] = self::new(mod)
             end
             
@@ -90,7 +90,7 @@ module JsonRpcObjects
                 @@files[file_path] = true
             end
             
-            return Module.get_module(module_name)
+            return __get_module(module_name)
         end
         
         
@@ -102,6 +102,21 @@ module JsonRpcObjects
         
         def initialize(mod)
             @module = mod
+        end
+        
+        
+        private
+        
+        def __get_module(name)
+            names = name.split("::")
+            mod = ::Module
+            
+            while not names.empty?
+                name = names.shift
+                mod = mod.const_get(name)
+            end
+            
+            return mod
         end
         
     end

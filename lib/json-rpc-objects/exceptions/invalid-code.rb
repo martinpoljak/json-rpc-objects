@@ -9,14 +9,13 @@ module JsonRpcObjects
 
     ##
     # Module for exceptions.
-    # @since 0.4.0
+    # @since 0.4.4
     #
     
     module Exceptions
     
         ##
         # Invalid code exception..
-        # @since 0.4.0
         #
         
         class InvalidCode < Exception

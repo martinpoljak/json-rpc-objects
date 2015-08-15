@@ -1,6 +1,7 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
+require "json-rpc-objects/utils"
 require "json-rpc-objects/v10/response"
 require "json-rpc-objects/v11/wd/error"
 require "json-rpc-objects/v11/wd/extensions"
@@ -90,7 +91,7 @@ module JsonRpcObjects
                         data["id"] = @id
                     end
                 
-                    data.merge! @extensions.map_keys { |k| k.to_s }
+                    data.merge! Utils::Hash.map_keys(@extensions) { |k| k.to_s }
                     return data
                 end
 
@@ -130,7 +131,7 @@ module JsonRpcObjects
                 #
                 
                 def __create_error
-                    if @error.kind_of?(Hash)
+                    if @error.kind_of? Hash
                         @error = self.class::ERROR_CLASS::new(@error)
                     end
                 end

@@ -1,8 +1,9 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
 require "json-rpc-objects/v11/generic-types"
 require "json-rpc-objects/generic"
+require "json-rpc-objects/utils"
 
 ##
 # Main JSON-RPC Objects module.
@@ -39,7 +40,7 @@ module JsonRpcObjects
                 # Maps type to object (class).
                 #
                 
-                TYPE_TO_OBJECT = Hash::define({
+                TYPE_TO_OBJECT = Utils::Hash::define({
                     :num => Integer,
                     :str => String,
                     :arr => Array,
@@ -53,7 +54,7 @@ module JsonRpcObjects
                 # Maps object (class) to type.
                 #
                 
-                OBJECT_TO_TYPE = Hash::define({
+                OBJECT_TO_TYPE = Utils::Hash::define({
                     Integer => :num,
                     String => :str,
                     Array => :arr,
@@ -99,11 +100,11 @@ module JsonRpcObjects
                 def check!
                     self.normalize!
                     
-                    if not @name.symbol?
+                    if not @name.kind_of? Symbol
                         raise Exception::new("Parameter name must be Symbol or convertable to Symbol.")
                     end
                     
-                    if (not @type.nil?) and (not @type.kind_of_any? [GenericTypes::Any, GenericTypes::Nil, GenericTypes::Boolean, Integer, String, Array, Object])
+                    if (not @type.nil?) and (not Utils::Object.kind_of_any?(@type, [GenericTypes::Any, GenericTypes::Nil, GenericTypes::Boolean, Integer, String, Array, Object]))
                         raise Exception::new("Type if defined can be only Any, Nil, Boolean, Integer, String, Array or Object.")
                     end
                 end
@@ -143,11 +144,11 @@ module JsonRpcObjects
                 #
                 
                 def normalize!
-                    if @name.string?
+                    if @name.kind_of? String
                         @name = @name.to_sym
                     end
 
-                    if @type.kind_of_any? [String, Symbol]
+                    if Utils::Object.kind_of_any?(@type, [String, Symbol])
                         @type = __normalize_type
                     end
                 end

@@ -1,8 +1,8 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
 require "json-rpc-objects/v11/alt/request"
-require "json-rpc-objects/hash"
+require "json-rpc-objects/utils"
 
 ##
 # Main JSON-RPC Objects module.
@@ -106,7 +106,7 @@ module JsonRpcObjects
             
             def __get_params(data)
                 if @params.kind_of?(Hash)
-                    @keyword_params = @params.keys_to_sym
+                    @keyword_params = Utils::Hash.keys_to_sym(@params)
                     @params = nil
                 end
             end
@@ -119,7 +119,7 @@ module JsonRpcObjects
                 if not @params.nil? and not @params.empty?
                     data[:params] = @params
                 elsif not @keyword_params.nil? and not @keyword_params.empty?
-                    data[:params] = @keyword_params.map_keys { |k| k.to_s } 
+                    data[:params] = Utils::Hash.map_keys(@keyword_params) { |k| k.to_s } 
                 end
             end
             

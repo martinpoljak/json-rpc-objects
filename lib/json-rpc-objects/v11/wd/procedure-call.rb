@@ -1,9 +1,9 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
+require "json-rpc-objects/utils"
 require "json-rpc-objects/v10/request"
 require "json-rpc-objects/v11/wd/extensions"
-require "json-rpc-objects/hash"
 
 ##
 # Main JSON-RPC Objects module.
@@ -29,7 +29,6 @@ module JsonRpcObjects
             #
             
             class ProcedureCall < JsonRpcObjects::V10::Request
-            
                 include Extensions
 
                 ##
@@ -65,7 +64,7 @@ module JsonRpcObjects
                 def check!
                     super()
                     
-                    if not @keyword_params.nil? and not @keyword_params.hash?
+                    if not @keyword_params.nil? and not @keyword_params.kind_of? Hash
                         raise Exception::new("Keyword params must be Hash.")
                     end
                 end
@@ -96,7 +95,7 @@ module JsonRpcObjects
                     end
                     
                     data.merge! @extensions                
-                    return data.map_keys! { |k| k.to_s }
+                    return JsonRpcObjects::Utils::Hash.map_keys!(data) { |k| k.to_s }
                 end
                 
                 
@@ -144,15 +143,18 @@ module JsonRpcObjects
                     # If named arguments used, assigns keys as symbols
                     #   but keeps numeric arguments as integers
                     
-                    if @params.hash?
+                    if @params.kind_of? Hash
                         @params = @params.dup
-                        @keyword_params = @params.remove! { |k, v| not k.numeric? }
-                        @params = @params.sort_by { |i| i.first.to_i }.map { |i| i.second }
+                        @keyword_params = JsonRpcObjects::Utils::Hash.remove!(@params) do |k, v|
+                            not JsonRpcObjects::Utils::String.numeric? k
+                        end
+                        
+                        @params = @params.sort_by { |i| i[0].to_i }.map { |i| i[1] }
                     else
                         @keyword_params = { }
                     end
                     
-                    @keyword_params.keys_to_sym!
+                    JsonRpcObjects::Utils::Hash.keys_to_sym! @keyword_params
                     
                 end
                 
@@ -172,7 +174,7 @@ module JsonRpcObjects
                         params.merge! @keyword_params
                     end
                 
-                    data[:params] = params.map_keys! { |k| k.to_s }
+                    data[:params] = Utils::Hash.map_keys!(params) { |k| k.to_s }
                 end
                             
                 ##
@@ -180,7 +182,7 @@ module JsonRpcObjects
                 #
                 
                 def __check_params
-                    if not @params.nil? and not @params.kind_of?(Array)
+                    if not @params.nil? and not @params.kind_of? Array
                         raise Exception::new("Params must be Array.")
                     end
                 end
@@ -205,4 +207,3 @@ module JsonRpcObjects
         end
     end
 end
-

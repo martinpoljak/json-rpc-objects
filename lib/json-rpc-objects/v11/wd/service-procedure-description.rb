@@ -1,5 +1,5 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
 require "addressable/uri"
 require "json-rpc-objects/v11/wd/procedure-parameter-description"
@@ -111,16 +111,16 @@ module JsonRpcObjects
                 def check!
                     self.normalize!
                     
-                    if not @name.symbol?
+                    if not @name.kind_of? Symbol
                         raise Exception::new("Procedure name must be Symbol or convertable to Symbol.")
                     end
 
                     if not @params.nil? 
-                        if (not @params.array?) or (not @params.all? { |v| v.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS })
+                        if (not @params.kind_of? Array) or (not @params.all? { |v| v.kind_of? self.class::PARAMETER_DESCRIPTION_CLASS })
                             raise Exception::new("If params is defined, must be an Array of " << self.class::PARAMETER_DESCRIPTION_CLASS.name << " objects.")
                         end
                         
-                        if @params.array?
+                        if @params.kind_of? Array
                             @params.each { |param| param.check! }
                         end
                     end
@@ -133,7 +133,7 @@ module JsonRpcObjects
                         @return.check!
                     end
 
-                    if (not @idempotent.nil?) and (not @idempotent.boolean?)
+                    if (not @idempotent.nil?) and (not Utils::Object.boolean? @idempotent)
                         raise Exception::new("If idempotent is defined, must be boolean.")
                     end
                 end
@@ -206,11 +206,11 @@ module JsonRpcObjects
                     @params = data[:params]
                     @return = data[:return]
                     
-                    if @params.array?
+                    if @params.kind_of? Array
                         @params = @params.map { |v| self.class::PARAMETER_DESCRIPTION_CLASS::new(v) }
                     end
                     
-                    if @return.hash?
+                    if @return.kind_of? Hash
                         @return = self.class::PARAMETER_DESCRIPTION_CLASS::new(@return)
                     end
                 end
@@ -220,7 +220,7 @@ module JsonRpcObjects
                 #
                 
                 def normalize!
-                    if @name.string?
+                    if @name.kind_of? String
                         @name = @name.to_sym
                     end
                     

@@ -1,11 +1,10 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
 require "abstract"
 require "json-rpc-objects/serializer"
 require "json-rpc-objects/version"
-require "json-rpc-objects/hash"
-
+require "json-rpc-objects/utils"
 ##
 # Main JSON-RPC Objects module.
 #
@@ -102,6 +101,7 @@ module JsonRpcObjects
             def initialize(data, serializer = JsonRpcObjects::default_serializer)
                 @serializer = serializer
                 self.data = data
+                p self
                 self.check!
             end
 
@@ -141,7 +141,7 @@ module JsonRpcObjects
             
             def __convert_data(data, mode = nil)
                 if mode != :converted
-                    data.keys_to_sym
+                    JsonRpcObjects::Utils::Hash.keys_to_sym(data)
                 else
                     data
                 end
@@ -157,4 +157,3 @@ module JsonRpcObjects
         end
     end
 end
-

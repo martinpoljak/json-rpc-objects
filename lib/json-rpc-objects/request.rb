@@ -1,5 +1,5 @@
 # encoding: utf-8
-# (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
+# (c) 2011-2015 Martin Poljak (martin@poljak.cz)
 
 require "json-rpc-objects/v20/request"
 require "json-rpc-objects/serializer"
@@ -50,8 +50,8 @@ module JsonRpcObjects
         
         def self.parse(string, default_v11 = :wd, serializer = JsonRpcObjects::default_serializer)
             data = serializer.deserialize(string)
-            
-            if not data.kind_of?(Hash)
+            p data
+            if not data.kind_of? Hash
                 raise Exception::new("Data in JSON string aren't object.")
             end
             

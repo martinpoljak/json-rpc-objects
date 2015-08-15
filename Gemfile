@@ -4,6 +4,7 @@ source "http://rubygems.org"
    gem "addressable", ">= 2.2.2"
    gem "abstract", ">= 1.0.0"
    gem "json-rpc-objects-json", ">= 0.1.1"
+   gem "ruby-version", ">= 0.4.0"
    gem "rspec"
    gem 'rspec-its'
 

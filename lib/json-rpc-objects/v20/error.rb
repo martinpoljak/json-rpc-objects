@@ -2,6 +2,7 @@
 # (c) 2011 Martin Kozák (martinkozak@martinkozak.net)
 
 require "json-rpc-objects/v11/alt/error"
+require "json-rpc-objects/exceptions/invalid-code"
 
 ##
 # Main JSON-RPC Objects module.
@@ -44,7 +45,7 @@ module JsonRpcObjects
                 if ((-32768..-32000).include?(@code)) and not ((@code == -32700) or
                      ((-32603..-32600).include?(@code)) or ((-32099..-32000).include?(code)))
 
-                    raise Exception::new("Code is invalid because of reserved space.")
+                    raise JsonRpcObjects::Exceptions::InvalidCode::new("Code is invalid because of reserved space.")
                 end
             end
 

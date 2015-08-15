@@ -19,7 +19,7 @@ puts res.serialize
 require "../request"
 req = JsonRpcObjects::V20::Request::create(:alfa, [:beta], :"version" => :"1.0")
 puts req.serialize
-req = JsonRpcObjects::V20::Request::create(:alfa, {:alfa => :beta}, :id => :"12345", :"$whatever" => false)
+req = JsonRpcObjects::V20::Request::create(:alfa, {:alfa => :beta}, :id => :"12345", :$whatever => false)
 puts req.serialize
 
 require "../../request"

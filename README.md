@@ -48,19 +48,23 @@ the versions (typically server).
 Concrete version use example (creates call to `subtract` method with 
 ID "a2b3"):
 
-    require "json-rpc-objects/v10/request"
-    require "json-rpc-objects/v11/alt/request"
-    require "json-rpc-objects/v20/request"
-    
-    JsonRpcObjects::V10::Request::create(:subtract, ["1", "2"], :id => "a2b3")
-    JsonRpcObjects::V11::Alt::Request::create(:subtract, ["1", "2"], :id => "a2b3")
-    JsonRpcObjects::V20::Request::create(:subtract, ["1", "2"], :id => "a2b3")
-    
+```ruby
+require "json-rpc-objects/v10/request"
+require "json-rpc-objects/v11/alt/request"
+require "json-rpc-objects/v20/request"
+
+JsonRpcObjects::V10::Request::create(:subtract, ["1", "2"], :id => "a2b3")
+JsonRpcObjects::V11::Alt::Request::create(:subtract, ["1", "2"], :id => "a2b3")
+JsonRpcObjects::V20::Request::create(:subtract, ["1", "2"], :id => "a2b3")
+```
+
 Or incoming data processing request:
 
-    require "json-rpc-objects/request"
-    JsonRpcObjects::Request::parse(string)
-    
+```ruby
+require "json-rpc-objects/request"
+JsonRpcObjects::Request::parse(string)
+```
+
 …which will simply return request object of appropriate class according 
 to its version. Be warn, to distinguish between 1.1 Alt and 1.1 WD is
 impossible in most of cases. It isn't problem for simple use, but it 
@@ -73,12 +77,14 @@ In some cases, for example in case implementing of JSON-RPC server, you
 need make response to request by the same protocol version. It can be 
 achieved by simple way:
 
-    require "json-rpc-objects/request"
-    
-    request = JsonRpcObjects::Request::parse(string)
-    ... <data processing>
-    response = request.class::version.response::create(<some args>)
-    
+```ruby
+require "json-rpc-objects/request"
+
+request = JsonRpcObjects::Request::parse(string)
+# ... <data processing>
+response = request.class::version.response::create(<some args>)
+```
+
 This code analyzes protocol version of the request and creates response
 of the same protocol version. It utilizes call handler, so you can call
 for example `request.class::version.service_procedure_description::create(<arguments>)`
@@ -108,40 +114,33 @@ widespread compatibility,
 You can set the default serializer for whole library session (both class
 and instance of the class are supported):
 
-    require "json-rpc-objects/serializer/marshal"
-    
-    JsonRpcObjects::default_serializer(JsonRpcObjects::Serializer::Marshal)
-    
-    # it's setting default serializer for all new instances, without
-    # arguments it returns the default serializer
+```ruby
+require "json-rpc-objects/serializer/marshal"
+
+JsonRpcObjects::default_serializer(JsonRpcObjects::Serializer::Marshal)
+
+# it's setting default serializer for all new instances, without
+# arguments it returns the default serializer
+```
     
 Or by individual object assigning (only instances are supported):
 
-    require "json-rpc-objects/serializer/marshal"
-    
-    serializer = JsonRpcObjects::Serializer::Marshal::new
-    JsonRpcObjects::V10::Request::parse(data, serializer)
-    
+```ruby
+require "json-rpc-objects/serializer/marshal"
+
+serializer = JsonRpcObjects::Serializer::Marshal::new
+JsonRpcObjects::V10::Request::parse(data, serializer)
+```
+
 …and the same for constructor. The `#serializer` property is also 
 accessible, both readable and writable on all objects. By the same way, 
 serializer is received by the generic parsers `JsonRpcObjects::Request` 
 and so too. 
 
-Contributing
-------------
-
-1. Fork it.
-2. Create a branch (`git checkout -b 20101220-my-change`).
-3. Commit your changes (`git commit -am "Added something"`).
-4. Push to the branch (`git push origin 20101220-my-change`).
-5. Create an [Issue][6] with a link to your branch.
-6. Enjoy a refreshing Diet Coke and wait.
-
-
 Copyright
 ---------
 
-Copyright &copy; 2011 [Martin Kozák][7]. See `LICENSE.txt` for
+Copyright &copy; 2011-2015 [Martin Poljak][7]. See `LICENSE.txt` for
 further details.
 
 [1]: http://en.wikipedia.org/wiki/JSON-RPC
@@ -150,7 +149,7 @@ further details.
 [4]: http://groups.google.com/group/json-rpc/web/json-rpc-1-1-alt
 [5]: http://groups.google.com/group/json-rpc/web/json-rpc-2-0
 [6]: http://github.com/martinkozak/json-rpc-objects/issues
-[7]: http://www.martinkozak.net/
+[7]: http://www.martinpoljak.net/
 
 [9]: http://www.yaml.org/
 [10]: http://ruby-doc.org/core/classes/Marshal.html

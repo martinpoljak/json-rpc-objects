@@ -1,4 +1,9 @@
 
+0.4.4 (2015-03-14)
+* 'hash-utils' gem dependency removed
+* JsonRpcObjects::V11::Error and JsonRpcObjects::V20::Error now throws 
+  JsonRpcObjects::Exceptions::InvalidCode in case of invalid error code
+
 0.4.3 (2013-05-06)
 * none (passthru) serializer
 * method name should allow strings to be given, not symbols only

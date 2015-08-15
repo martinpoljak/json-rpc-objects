@@ -19,8 +19,8 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/martinkozak/json-rpc-objects"
   gem.license = "MIT"
   gem.summary = 'Implementation of JSON-RPC objects with respect to specifications compliance and API backward compatibility. Implements all versions of the protocol and support for ability to communicate by the same protocol version which other side uses by a transparent way.'
-  gem.email = "martinkozak@martinkozak.net"
-  gem.authors = ["Martin Kozák"]
+  gem.email = "martin@poljak.cz"
+  gem.authors = ["Martin Poljak"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   #  gem.add_runtime_dependency 'jabber4r', '> 0.1'

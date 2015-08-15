@@ -140,7 +140,7 @@ and so too.
 Copyright
 ---------
 
-Copyright &copy; 2011-2015 [Martin Poljak][7]. See `LICENSE.txt` for
+Copyright &copy; 2011 &ndash; 2015 [Martin Poljak][7]. See `LICENSE.txt` for
 further details.
 
 [1]: http://en.wikipedia.org/wiki/JSON-RPC

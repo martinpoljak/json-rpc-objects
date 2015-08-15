@@ -34,12 +34,15 @@ Gem::Specification.new do |s|
     "lib/json-rpc-objects/generic/object.rb",
     "lib/json-rpc-objects/generic/request.rb",
     "lib/json-rpc-objects/generic/response.rb",
-    "lib/json-rpc-objects/hash.rb",
     "lib/json-rpc-objects/request.rb",
     "lib/json-rpc-objects/response.rb",
     "lib/json-rpc-objects/serializer.rb",
     "lib/json-rpc-objects/serializer/marshal.rb",
     "lib/json-rpc-objects/serializer/none.rb",
+    "lib/json-rpc-objects/utils.rb",
+    "lib/json-rpc-objects/utils/hash.rb",
+    "lib/json-rpc-objects/utils/object.rb",
+    "lib/json-rpc-objects/utils/string.rb",
     "lib/json-rpc-objects/v10/error.rb",
     "lib/json-rpc-objects/v10/request.rb",
     "lib/json-rpc-objects/v10/response.rb",
@@ -88,6 +91,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<addressable>, [">= 2.2.2"])
       s.add_runtime_dependency(%q<abstract>, [">= 1.0.0"])
       s.add_runtime_dependency(%q<json-rpc-objects-json>, [">= 0.1.1"])
+      s.add_runtime_dependency(%q<ruby-version>, [">= 0.4.0"])
       s.add_runtime_dependency(%q<rspec>, [">= 0"])
       s.add_runtime_dependency(%q<rspec-its>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 1.0.0"])
@@ -96,6 +100,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<addressable>, [">= 2.2.2"])
       s.add_dependency(%q<abstract>, [">= 1.0.0"])
       s.add_dependency(%q<json-rpc-objects-json>, [">= 0.1.1"])
+      s.add_dependency(%q<ruby-version>, [">= 0.4.0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<rspec-its>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 1.0.0"])
@@ -105,6 +110,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<addressable>, [">= 2.2.2"])
     s.add_dependency(%q<abstract>, [">= 1.0.0"])
     s.add_dependency(%q<json-rpc-objects-json>, [">= 0.1.1"])
+    s.add_dependency(%q<ruby-version>, [">= 0.4.0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<rspec-its>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 1.0.0"])

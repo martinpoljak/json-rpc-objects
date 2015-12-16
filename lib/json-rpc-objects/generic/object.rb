@@ -101,7 +101,6 @@ module JsonRpcObjects
             def initialize(data, serializer = JsonRpcObjects::default_serializer)
                 @serializer = serializer
                 self.data = data
-                p self
                 self.check!
             end
 

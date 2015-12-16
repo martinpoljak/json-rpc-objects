@@ -1,5 +1,8 @@
 
-0.4.4 (2015-03-14)
+0.4.6 (2015-12-16)
+* removed debugging output removed
+
+0.4.5 (2015-08-15)
 * 'hash-utils' gem dependency removed
 * JsonRpcObjects::V11::Error and JsonRpcObjects::V20::Error now throws 
   JsonRpcObjects::Exceptions::InvalidCode in case of invalid error code
